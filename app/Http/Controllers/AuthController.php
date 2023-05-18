@@ -9,22 +9,22 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register()
-    {
-        return view('register');
-    }
+    // public function register()
+    // {
+    //     return view('register');
+    // }
 
-    public function registerPost(Request $request)
-    {
-        $user = new User();
+    // public function registerPost(Request $request)
+    // {
+    //     $user = new User();
 
-        $user->name= $request->name;
-        $user->email= $request->email;
-        $user->password= Hash::make($request->password);
+    //     $user->name= $request->name;
+    //     $user->email= $request->email;
+    //     $user->password= Hash::make($request->password);
 
-        $user->save();
-        return back()->with('success', 'Register Successfully');
-    }
+    //     $user->save();
+    //     return back()->with('success', 'Register Successfully');
+    // }
 
     public function login()
     {
@@ -39,7 +39,7 @@ class AuthController extends Controller
        if(Auth::attempt($credetials)){
             return redirect('/dashboard')->with('success', 'login success');
        }
-       return back()->with('error', 'Error email or Password');
+       return back()->with('error', 'Akun tidak ditemukan');
     }
     public function logout()
     {
