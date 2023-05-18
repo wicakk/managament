@@ -43,6 +43,7 @@ class UserController extends Controller
         if($users = DB::table('users')->where('email', $email)->first()){
             return Redirect::back()->with('error', 'Email Sudah digunakan!');
         }
+        // dd($password);
         $data = [
             'name' => $name,
             'email' => $email,
@@ -104,7 +105,7 @@ class UserController extends Controller
         $data = [
             'role' => $role
         ];
-        DB::table('profile')->where(['user_id' => $user_id])->update($data);
+        DB::table('profile')->where(['id' => $user_id])->update($data);
         return redirect('users')->with('success', 'User Updated!'); 
     }
 
@@ -113,7 +114,12 @@ class UserController extends Controller
      */
     public function destroy(string $id):RedirectResponse
     {
-        Profile::destroy($id);
-        return redirect('users')->with('success', 'User deleted!');
+        $user = DB::table('users')->where('id',$id)->delete();
+        $user = DB::table('profile')->where('user_id',$id)->delete();
+        return redirect('users')->with('success', 'User Deleted!');
+
+
+        // Profile::destroy($id);
+        // return redirect('users')->with('success', 'User deleted!');
     }
 }
