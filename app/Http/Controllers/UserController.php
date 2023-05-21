@@ -97,7 +97,7 @@ class UserController extends Controller
             $data = [
                 'name' => $name,
                 'email' => $email,
-                'password' => $password,
+                'password' => Hash::make($password),
             ];
         }
         DB::table('users')->where(['id' => $user_id])->update($data);

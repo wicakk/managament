@@ -27,6 +27,10 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginPost'])->name('login');
 
 Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/projects/detail/{id}', [ProjectController::class, 'detail'])->name('detail');
+    Route::post('/project_detail/store', [ProjectController::class, 'simpan_detail'])->name('simpan_detail');
+    Route::post('/project_detail/update', [ProjectController::class, 'update_detail'])->name('update_detail');
     Route::resource("/users", UserController::class);
     Route::resource("/projects", ProjectController::class);
     Route::get('/dashboard', [HomeController::class, 'index']);

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('waktu_mulai');
             $table->string('waktu_selesai');
             $table->string('penanggung_jawab');
+            $table->string('created_by');
             $table->timestamps();
         });
     }

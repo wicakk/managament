@@ -205,7 +205,9 @@
                                     <label for="exampleInputText2" class="h5">Role*</label>
                                     <select name="role" class="selectpicker form-control" data-style="py-0">
                                         <option value="admin">Admin</option>
-                                        <option value="petugas">Petugas</option>
+                                        <option value="QA">Quality Assurance</option>
+                                        <option value="client">Client</option>
+                                        <option value="developer">Team Developer</option>
                                     </select>
                                 </div>
                             </div>
