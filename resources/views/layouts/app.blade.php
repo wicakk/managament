@@ -7,7 +7,7 @@
     <title>Webkit | Responsive Bootstrap 4 Admin Dashboard Template</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico')}}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.jpeg')}}" />
     <link rel="stylesheet" href="{{ asset('assets/css/backend-plugin.min.css')}}" />
     <link rel="stylesheet" href="{{ asset('assets/css/backend.css?v=1.0.0')}}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css')}}" />
@@ -32,7 +32,7 @@
         <div class="iq-sidebar sidebar-default">
             <div class="iq-sidebar-logo d-flex align-items-center">
                 <a href="/index.html" class="header-logo">
-                    <img src="{{ asset('assets/images/logo.svg') }}" alt="logo" />
+                    <img src="{{ asset('assets/images/logo.jpeg') }}" alt="logo" />
                     <h3 class="logo-title light-logo">Webkit</h3>
                 </a>
                 <div class="iq-menu-bt-sidebar ml-0">
