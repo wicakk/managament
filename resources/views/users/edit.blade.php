@@ -23,7 +23,7 @@
                     <div class="form-group mb-3">
                         <label for="exampleInputText2" class="h5">Role*</label>
                         <select name="type" name="role" class="selectpicker form-control" data-style="py-0">
-                            <option value="admin" @if($users->role == "admin") selected @endif>Admin</option>
+                            <option value="PM" @if($users->role == "PM") selected @endif>Project Manager</option>
                             <option value="QA" @if($users->role == "QA") selected @endif>Quality Assurance</option>
                             <option value="client" @if($users->role == "client") selected @endif>Client</option>
                             <option value="developer" @if($users->role == "developer") selected @endif>Team Developer</option>

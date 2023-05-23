@@ -20,9 +20,6 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @php
-                        $no = 0;
-                    @endphp
                     @foreach($data as $item)
                     <div class="col-lg-12">
                         <div class="card card-widget task-card">
@@ -30,7 +27,7 @@
                                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span></h5>
+                                            <h5 class="mb-2">{{ $item->uat_test_case }}</h5>
                                             <div class="media align-items-center">
                                                 <div class="btn bg-body mr-3">Dibuat Oleh : 
                                                     @php
@@ -39,9 +36,9 @@
                                                         
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Kerjaakan : 
+                                                <div class="btn bg-body">Di Testing Oleh : 
                                                     @php
-                                                    $dibuat = DB::table('users')->where('id',$item->assigned_to)->first();
+                                                    $dibuat = DB::table('users')->where('id',$item->tested_by)->first();
                                                     echo $dibuat->name;
                                                     
                                                     @endphp
@@ -50,12 +47,12 @@
                                         </div>
                                     </div>
                                     <div class="media align-items-center mt-md-0 mt-3">
-                                        <a class="btn bg-secondary-light" data-toggle="collapse" href="#collapseEdit{{ $no }}" role="button" aria-expanded="false" aria-controls="collapseEdit1">DETAIL</a>
+                                        <a class="btn bg-secondary-light" data-toggle="collapse" href="#collapseEdit1" role="button" aria-expanded="false" aria-controls="collapseEdit1">DETAIL</a>
                                     </div>
                                 </div>  
                             </div>
                         </div>                                                                                                        
-                        <div class="collapse" id="collapseEdit{{ $no }}">                                            
+                        <div class="collapse" id="collapseEdit1">                                            
                             <div class="card card-list task-card">
                                 <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
                                     <div class="header-title">
@@ -67,25 +64,49 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <h5 class="mb-2">Category</h5>
-                                                    <p class="mb-0">{{ $item->category }}</p>
                                                     <h5 class="mb-2">Description</h5>
-                                                    <p class="mb-0">{{ $item->description }}</p>
+                                                    <p class="mb-0">{{ $item->uat_test_desc }}</p>
+                                                    <hr>
+                                                    <h5 class="mb-2">Details</h5>
+                                                    <p class="mb-0">{{ $item->uat_test_detail }}</p>
                                                 </div>
                                                 <div class="col-lg-6">                                      
                                                     <h5 class="mb-2">Checklist</h5>
                                                     <p>
-                                                        {!! nl2br($item->checklist) !!}    
+                                                        {!! nl2br($item->steps_for_uat_test) !!}    
                                                     </p>                   
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form action="{{ url('project_detail/update') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="project_detail_id" value="{{ $item->id }}">
+                                                <div class="form-group mb-3 position-relative">
+                                                    <label for="">Actual Result</label>
+                                                    <select name="actual_result" id="" class="form-control">
+                                                        <option @if($item->actual_result == "Pass") selected @endif value="Pass">Pass</option>
+                                                        <option @if($item->actual_result == "Fail") selected @endif value="Fail">Fail</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mb-3 position-relative">
+                                                    <label for="">Result</label>
+                                                    <input type="text" name="result" class="form-control" value="{{ $item->result }}">
+                                                </div>
+                                                <div class="form-group mb-3 position-relative">
+                                                    <label for="">Comments</label>
+                                                    <textarea name="comments" id="comments" cols="10" rows="3" class="form-control">{{ $item->comments }}</textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary w-100" >Kirim Hasil Testing</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>      
                     </div>
-                    @php $no++ @endphp
                     @endforeach
                     {{-- <div class="col-lg-12">
                         <div class="card card-widget task-card">

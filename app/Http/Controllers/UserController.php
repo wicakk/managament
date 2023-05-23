@@ -105,7 +105,7 @@ class UserController extends Controller
         $data = [
             'role' => $role
         ];
-        DB::table('profile')->where(['id' => $user_id])->update($data);
+        DB::table('profile')->where(['user_id' => $user_id])->update($data);
         return redirect('users')->with('success', 'User Updated!'); 
     }
 
