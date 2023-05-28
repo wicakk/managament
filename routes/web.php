@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +30,13 @@ Route::post('/login', [AuthController::class, 'loginPost'])->name('login');
 Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/projects/detail/{id}', [ProjectController::class, 'detail'])->name('detail');
+    Route::get('/projects/timeline/{id}', [ProjectController::class, 'timeline'])->name('timeline');
     Route::post('/project_detail/store', [ProjectController::class, 'simpan_detail'])->name('simpan_detail');
-    Route::post('/project_detail/update', [ProjectController::class, 'update_detail'])->name('update_detail');
+    Route::get('/project_detail/edit_detail/{id}', [ProjectController::class, 'edit_detail'])->name('edit_detail');
+    Route::post('/project_detail/update_detail', [ProjectController::class, 'update_detail'])->name('update_detail');
+    Route::post('/project/planning_store', [ProjectController::class, 'planning_store'])->name('planning_store');
+    Route::get('/project_timeline/status/{jenis}/{id}', [ProjectController::class, 'status_timeline'])->name('status_timeline');
+    Route::resource("/project_test", ProjectTestController::class);
     Route::resource("/users", UserController::class);
     Route::resource("/projects", ProjectController::class);
     Route::get('/dashboard', [HomeController::class, 'index']);

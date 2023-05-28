@@ -47,7 +47,15 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card card-block card-stretch card-height">
                         <div class="card-body">
-                            <h5 class="mb-1">{{ $item->nama_project }}</h5>
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h5 class="mb-1">{{ $item->nama_project }}</h5>
+                                <a href="{{ url('projects/timeline/'. $item->id) }}" class="btn bg-warning-light">
+                                    <svg class="svg-icon" id="p-dash016" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    Timeline
+                                </a>
+                            </div>
                             <p class="mb-3">{{ $item->waktu_mulai }}</p>
                             <div class="d-flex align-items-center justify-content-between pt-3 border-top">
                                 <div class="iq-media-group">

@@ -245,6 +245,7 @@
         //     theme: 'bootstrap4'
         // });
     </script>
+    @stack('scripts')
 </body>
 
 </html>
