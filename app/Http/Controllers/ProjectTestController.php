@@ -34,7 +34,8 @@ class ProjectTestController extends Controller
                 'steps_for_uat_test' => $request->steps_for_uat_test,
                 'expected_result' => $request->expected_result,
                 'project_detail_id' => $request->project_detail_id,
-                'tested_by' => Auth::user()->id,
+                'created_by' => Auth::user()->id,
+                'created_at' => now(),
             ];
             DB::table('project_test')->where('id',$request->project_detail_id)->update($data);
         }else{
@@ -44,7 +45,8 @@ class ProjectTestController extends Controller
                 'steps_for_uat_test' => $request->steps_for_uat_test,
                 'expected_result' => $request->expected_result,
                 'project_detail_id' => $request->project_detail_id,
-                'tested_by' => Auth::user()->id,
+                'created_by' => Auth::user()->id,
+                'created_at' => now(),
             ];
             DB::table('project_test')->insert($data);
         }
@@ -146,5 +148,29 @@ class ProjectTestController extends Controller
         $projects = Project::find($id);
         $users = User::all();
         return view('projects.timeline',compact('projects','users'));
+    }
+
+    public function accept_test(Request $request)
+    {
+        // dd($request);
+        $project_id = $request->project_id;
+        foreach($request->project_test as $item){
+            $id = $item;
+            // $data = DB::select("SELECT max(uat_test_case) as nourut FROM project_test WHERE ");
+            $project_test = DB::table('project_test')->select('project_test.*','project_detail.id as pid')->leftJoin('project_detail','project_detail.id','project_test.project_detail_id')->where('project_detail.project_id',$project_id)->max('uat_test_case');
+            // dd($project_test);
+            $urutan = (int) substr($project_test, 4, 3);
+            // bilangan yang diambil ini ditambah 1 untuk menentukan nomor urut berikutnya
+            $urutan++;
+            $huruf = "CMS-";
+            $notis = $huruf . sprintf("%03s", $urutan);
+            // dump($notis);
+            $data = [
+                'uat_test_case' => $notis,
+            ];
+            DB::table('project_test')->where('id',$id)->update($data);
+        }
+        // $data = '';
+        return redirect()->back()->with('success', 'Tested Addedd!');
     }
 }

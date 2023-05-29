@@ -154,10 +154,15 @@ class ProjectController extends Controller
         $projects = Project::find($id);
         $users = User::all();
 
-        $plan = DB::table('project_timeline')->where('project_id',$id)->whereNull('status')->orWhere('status','1')->get();
-        $status_plan = DB::table('project_timeline')->where('project_id',$id)->where('status','1')->first();
-        // dump($plan);
-        return view('projects.timeline',compact('projects','users','id','plan','status_plan'));
+        $plan = DB::table('project_timeline')->where('jenis_timeline','planning')->where('project_id',$id)->whereIn('status',[0,1])->get();
+        $status_plan = DB::table('project_timeline')->where('jenis_timeline','planning')->where('project_id',$id)->where('status','1')->first();
+
+        $design = DB::table('project_timeline')->where('jenis_timeline','design')->where('project_id',$id)->whereIn('status',[0,1])->get();
+        $status_design = DB::table('project_timeline')->where('jenis_timeline','design')->where('project_id',$id)->where('status','1')->first();
+
+        $project_test = DB::table('project_test')->select('project_test.*','project_detail.id as pid')->leftJoin('project_detail','project_detail.id','project_test.project_detail_id')->where('project_detail.project_id',$id)->get();
+        dump($project_test);
+        return view('projects.timeline',compact('projects','users','id','plan','status_plan','design','status_design','project_test'));
     }
     public function planning_store(Request $request): RedirectResponse
     {
@@ -188,19 +193,48 @@ class ProjectController extends Controller
             'project_id' => $request->project_id,
             'jenis_timeline' => 'planning',
             'file_upload' => $file_name,
+            'status' => '0',
             'created_by' => Auth::user()->id,
             'created_at' => now(),
         ];
         DB::table('project_timeline')->insert($data);
         return redirect()->back()->with('success', 'Tested Addedd!');
-        // dd($data);
-        // $data = [
-        //     'actual_result' => $request->actual_result,
-        //     'result' => $request->result,
-        //     'comments' => $request->comments,
-        //     'project_detail_id' => $request->project_detail_id,
-        //     'tested_by' => Auth::user()->id,
-        // ];
-        // DB::table('project_detail')->where('id',$request->project_detail_id)->update($data);
     }
+    public function design_store(Request $request): RedirectResponse
+    {
+        // dd($request);
+        $error = "";
+        $file_name= '';
+        if($request->hasFile('file')){
+            $semua_file = "";
+            // foreach($request->file as $file){
+                // dd($file->getClientMimeType());
+            $file= $request->file;
+                if(in_array($file->getClientMimeType(),['image/jpg','image/jpeg','image/png','image/svg','application/zip','application/xls','application/xlsx','application/docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/pdf'])){
+                    $file_name = round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
+                    // $name = Auth::user()->pegawai_id;
+                    $file->move(public_path('document_timeline/'), $file_name);
+                    // array_push($nama_file_surat, $file_name);
+                }else{
+                    $error .= $file->getClientOriginalName()."File anda tidak dapat kami simpan cek kembali extensi dan besar filenya"."<br>";
+                }
+            // }
+            // dd($nama_file_surat);
+            if($error !== ""){
+                return Redirect::back()->with(['error' => $error]);
+            }
+        }
+        $data = [
+            'desc_timeline' => $request->desc_timeline,
+            'project_id' => $request->project_id,
+            'jenis_timeline' => 'design',
+            'file_upload' => $file_name,
+            'status' => '0',
+            'created_by' => Auth::user()->id,
+            'created_at' => now(),
+        ];
+        DB::table('project_timeline')->insert($data);
+        return redirect()->back()->with('success', 'Tested Addedd!');
+    }
+
 }

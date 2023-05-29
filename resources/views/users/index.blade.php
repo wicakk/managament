@@ -123,16 +123,9 @@
                                         placeholder="Email" />
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="form-group mb-3">
                                     <label for="exampleInputText2" class="h5">Password*</label>
-                                    <input type="text" name="password" class="form-control" id="exampleInputText01"
-                                        placeholder="Pasword" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group mb-3">
-                                    <label for="exampleInputText2" class="h5">Confirm Password*</label>
                                     <input type="password" name="password" class="form-control" id="exampleInputText01"
                                         placeholder="Pasword" />
                                 </div>

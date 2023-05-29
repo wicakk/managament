@@ -60,12 +60,45 @@
                                     <h6 class="float-left mb-1">Design Analysis 
                                         @if(isset($status_plan))
                                             <a href="#" data-target="#design"
-                                            data-toggle="modal"><span class="badge badge-warning">Upload</span></a>
+                                            data-toggle="modal"><span class="badge badge-success">
+                                                @if(empty($design[0]))
+                                                    Upload
+                                                @else
+                                                {{-- kesini --}}
+                                                    @foreach($design as $item)
+                                                        @if($item->status == 1)
+                                                            Accept
+                                                        @elseif($item->status == 2)
+                                                            Ditolak
+                                                        @else
+                                                            On Progress
+                                                        @endif
+                                                    @endforeach
+                                                @endif    
+                                            </span></a>
                                         @endif
                                     </h6>
-                                    <small class="float-right mt-1">23 November 2019</small>
+                                    <small class="float-right mt-1">
+                                        @if(isset($status_plan)) 
+                                           Dibuat pada : {{ $status_plan->created_at }} Diterima pada : {{ $status_plan->updated_at }}                                       
+                                        @endif
+                                    </small>
                                     <div class="d-inline-block w-100">
-                                        <p>Bonbon macaroon jelly beans gummi bears jelly lollipop apple</p>
+                                        <p>
+                                            @if(isset($status_design)) 
+                                            Dibuat Oleh : 
+                                            @php
+                                                $dibuat = DB::table('users')->where('id',$status_design->created_by)->first();
+                                                echo $dibuat->name;
+                                            @endphp
+                                            &nbsp;&nbsp;
+                                            Diterima Oleh :
+                                            @php
+                                                $dibuat = DB::table('users')->where('id',$status_design->updated_by)->first();
+                                                echo $dibuat->name;
+                                            @endphp
+                                        @endif
+                                        </p>
                                     </div>
                                 </li>
                                 <li>
@@ -180,42 +213,80 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header d-block text-center pb-3 border-bttom">
-                    <h3 class="modal-title" id="exampleModalCenterTitle02">
+                    <h3 class="modal-title" id="designShow">
                         Design Analysis
                     </h3>
                 </div>
-                <form action="{{ url('project/design') }}" method="post">
-                    {!! csrf_field() !!}
-                    <input type="hidden" name="project_id" value="{{ $id }}">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="input-group mb-4">
-                                    <div class="input-group-prepend">
-                                       <span class="input-group-text">File*</span>
+                @if(empty($design[0]))
+                    <form action="{{ url('project/design_store') }}" method="post" enctype="multipart/form-data">
+                        {!! csrf_field() !!}
+                        <input type="hidden" name="project_id" value="{{ $id }}">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text">File*</span>
+                                        </div>
+                                        <div class="custom-file">
+                                        <input type="file" name="file" class="custom-file-input" id="inputGroupFile01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                        </div>
                                     </div>
-                                    <div class="custom-file">
-                                       <input type="file" name="file_planning" class="custom-file-input" id="inputGroupFile01">
-                                       <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                    <div class="form-group mb-3">
+                                        <label for="exampleInputText01" class="h5">Catatan*</label>
+                                        <textarea name="desc_timeline" id="catatan_planing" cols="30" rows="4" class="form-control"></textarea>
                                     </div>
-                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="exampleInputText01" class="h5">Catatan*</label>
-                                    <textarea name="catatan_planing" id="catatan_planing" cols="30" rows="4" class="form-control"></textarea>
                                 </div>
-                            </div>
-                            
-                            <div class="col-lg-12">
-                                <div class="d-flex flex-wrap align-items-ceter justify-content-center mt-2">
-                                    <input class="btn btn-success" type="submit" value="Save">
-                                    <div class="btn btn-primary" data-dismiss="modal">
-                                        Cancel
+                                
+                                <div class="col-lg-12">
+                                    <div class="d-flex flex-wrap align-items-ceter justify-content-center mt-2">
+                                        <input class="btn btn-success" type="submit" value="Save">
+                                        <div class="btn btn-primary" data-dismiss="modal">
+                                            Cancel
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </form>
+                @else
+                {{-- kesini --}}
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table mb-0 table-borderless tbl-server-info">
+                                <thead>
+                                    <tr class="ligth">
+                                       <th scope="col">Deskripsi</th>
+                                       <th scope="col">File</th>
+                                       <th scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($design as $item)
+                                        
+                                        <tr>
+                                            <th>{{ $item->desc_timeline }}</th>
+                                            <td><a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a></td>
+                                            <td>
+                                                @if($item->status == 1)
+                                                    <a href="#" class="btn btn-success">Diterima</a>
+                                                @elseif($item->status == 2)
+                                                    <a href="#" class="btn btn-danger">Ditolak</a>
+                                                @else
+                                                    <a onclick="return confirm('Apakah anda yakin ingin di terima?')" href="{{ url('project_timeline/status/terima/'.$item->id) }}" class="btn btn-primary">Accept</a>
+                                                    <a onclick="return confirm('Apakah anda yakin ingin di Tolak?')" href="{{ url('project_timeline/status/tolak/'.$item->id) }}" class="btn btn-danger">Reject</a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </form>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -224,28 +295,41 @@
             <div class="modal-content">
                 <div class="modal-header d-block text-center pb-3 border-bttom">
                     <h3 class="modal-title" id="exampleModalCenterTitle02">
-                        Planning & Organizing
+                        Implementasi & Testing
                     </h3>
                 </div>
-                <form action="{{ url('projects') }}" method="post">
+                <form action="{{ url('project_test/accept_test') }}" method="post">
                     {!! csrf_field() !!}
                     <input type="hidden" name="project_id" value="{{ $id }}">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="input-group mb-4">
-                                    <div class="input-group-prepend">
-                                       <span class="input-group-text">File*</span>
-                                    </div>
-                                    <div class="custom-file">
-                                       <input type="file" name="file_planning" class="custom-file-input" id="inputGroupFile01">
-                                       <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                    </div>
-                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="exampleInputText01" class="h5">Catatan*</label>
-                                    <textarea name="catatan_planing" id="catatan_planing" cols="30" rows="4" class="form-control"></textarea>
-                                </div>
+                                <table class="table mb-0 table-borderless tbl-server-info">
+                                    <thead>
+                                        <tr class="ligth">
+                                            <th scope="col">#</th>
+                                           <th scope="col">UAT Test Desc</th>
+                                           <th scope="col">UAT Test Detail</th>
+                                           <th scope="col">Steps For UAT Test</th>
+                                           <th scope="col">Expected Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($project_test as $item)
+                                            
+                                            <tr>
+                                                <td>
+                                                    
+                                                    <input type="checkbox" @if(isset($item->uat_test_case)) checked disabled @endif name="project_test[]" value="{{ $item->id }}">
+                                                </td>
+                                                <td>{{ $item->uat_test_desc }}</td>
+                                                <td>{{ $item->uat_test_detail }}</td>
+                                                <td>{{ $item->steps_for_uat_test }}</td>
+                                                <td>{{ $item->expected_result }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                             
                             <div class="col-lg-12">
