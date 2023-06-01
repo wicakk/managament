@@ -36,7 +36,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/project_detail/update_detail', [ProjectController::class, 'update_detail'])->name('update_detail');
     Route::post('/project/planning_store', [ProjectController::class, 'planning_store'])->name('planning_store');
     Route::post('/project/design_store', [ProjectController::class, 'design_store'])->name('design_store');
-    Route::get('/project_timeline/status/{jenis}/{id}', [ProjectController::class, 'status_timeline'])->name('status_timeline');
+    Route::get('/project/implementasi_store', [ProjectController::class, 'implementasi_store'])->name('implementasi_store');
+    Route::post('/project/evolution_store', [ProjectController::class, 'evolution_store'])->name('evolution_store');
+    Route::get('/project_timeline/status/{id}/{jenis}', [ProjectController::class, 'status_timeline'])->name('status_timeline');
+    Route::post('/project_timeline/update_status', [ProjectController::class, 'status_timeline_store'])->name('status_timeline_store');
     Route::post('/project_test/accept_test', [ProjectTestController::class, 'accept_test'])->name('accept_test');
     Route::resource("/project_test", ProjectTestController::class);
     Route::resource("/users", UserController::class);

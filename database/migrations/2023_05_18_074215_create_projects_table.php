@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('waktu_mulai');
             $table->string('waktu_selesai');
             $table->string('penanggung_jawab');
+            $table->string('deadline_plan')->nullable();
+            $table->string('deadline_design')->nullable();
+            $table->string('deadline_implementasi')->nullable();
+            $table->string('deadline_evolution')->nullable();
             // $table->string('file_plan')->nullable();
             // $table->string('desc_plan')->nullable();
             // $table->string('file_design')->nullable();

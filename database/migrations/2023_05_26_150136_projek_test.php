@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('uat_test_detail')->nullable();
             $table->text('steps_for_uat_test')->nullable();
             $table->text('expected_result')->nullable();
+            $table->string('actual_result_qa')->nullable();
+            $table->string('result_qa')->nullable();
+            $table->text('comments_qa')->nullable();
             $table->string('actual_result')->nullable();
             $table->string('result')->nullable();
             $table->text('comments')->nullable();

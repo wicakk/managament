@@ -56,7 +56,16 @@
                                     Timeline
                                 </a>
                             </div>
-                            <p class="mb-3">{{ $item->waktu_mulai }}</p>
+                            <p class="mb-3 badge badge-secondary">
+                                {{-- {{ dump(Carbon::create($item->waktu_selesai) < Carbon::now()) }} --}} 
+                                @if(Carbon::create($item->waktu_selesai) < Carbon::now())
+                                    Sudah Selesai
+                                @elseif(Carbon::create($item->waktu_mulai) > Carbon::now())
+                                    Belum Mulai
+                                @elseif(Carbon::create($item->waktu_mulai) <= Carbon::now())
+                                Deadline {{ Carbon::parse(Carbon::now())->diffInDays($item->waktu_selesai) }} Hari Lagi
+                                @endif
+                            </p>
                             <div class="d-flex align-items-center justify-content-between pt-3 border-top">
                                 <div class="iq-media-group">
                                     <span href="#" class="iq-media">
@@ -112,64 +121,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="col-lg-4 col-md-6">
-                    <div class="card card-block card-stretch card-height">
-                        <div class="card-body">
-                            <h5 class="mb-1">{{ $item->nama_project }}</h5>
-                            <p class="mb-3">{{ $item->waktu_mulai }}</p>
-                            <div class="d-flex align-items-center justify-content-between pt-3 border-top">
-                                <div class="iq-media-group">
-                                    @php
-                                        $hasil = '';
-                                        if(isset($item->penanggung_jawab)){
-                                            $user_id = explode('|',$item->penanggung_jawab);
-                                            $jumSub = count($user_id);
-                                            for ($i=0; $i<=$jumSub-1; $i++)
-                                            {
-                                                $data1 = DB::table('users')->where('id',$user_id[$i])->first();
-                                                if(isset($data1)){
-                                                    $hasil .= $data1->name. ', ';
-
-                                                }
-                                                // dump( );
-                                            }
-                                        }
-                                    @endphp
-                                    <span>Kolaborator: {{ $hasil }}</span>
-                                </div>
-                                <div>
-                                    <a href="{{ url('projects/detail/'. $item->id) }}" class="btn bg-success-light">Detail</a>
-                                    <form method="POST" action="{{ url('/projects' . '/' . $item->id) }}"
-                                        accept-charset="UTF-8" style="display:inline">
-                                        {{ method_field('DELETE') }}
-                                        {{ csrf_field() }}
-                                        <button class="btn btn-white text-primary link-shadow bg-danger " title="Delete Student"
-                                            type="submit" onclick="return confirm(&quot;Confirm delete?&quot;)">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-                                                <path
-                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-                                            </svg>
-                                        </button>
-                                    </form>
-                                    <a href="{{ url('/projects/' . $item->id . '/edit') }}" title="Edit Student"
-                                        type="submit"
-                                        class="btn btn-white text-primary link-shadow bg-warning text-white">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                            <path
-                                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                            <path fill-rule="evenodd"
-                                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                        </svg>
-                                    </a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             @endforeach
         </div>
     </div>
@@ -212,6 +163,34 @@
                                 placeholder="Waktu Selesai" />
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="exampleInputText2" class="h5">Deadline Planning*</label>
+                                <input type="date" name="deadline_plan" class="form-control" id="exampleInputText01"
+                                placeholder="Deadline Planning" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="exampleInputText2" class="h5">Deadline Design*</label>
+                                <input type="date" name="deadline_design" class="form-control" id="exampleInputText01"
+                                placeholder="Deadline Design" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="exampleInputText2" class="h5">Deadline Implementasi & Testing*</label>
+                                <input type="date" name="deadline_implementasi" class="form-control" id="exampleInputText01"
+                                placeholder="Deadline Implementasi & Testing" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="exampleInputText2" class="h5">Deadline Evolution*</label>
+                                <input type="date" name="deadline_evolution" class="form-control" id="exampleInputText01"
+                                placeholder="Deadline Evolution" />
+                            </div>
+                        </div>
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label for="exampleInputText01" class="h5">Penanggung Jawab*</label>
@@ -222,6 +201,7 @@
                                 </select>
                             </div>
                         </div>
+
                         
                         <div class="col-lg-12">
                             <div class="d-flex flex-wrap align-items-ceter justify-content-center mt-2">

@@ -98,6 +98,21 @@
                                                     <label for="">Expected Result</label>
                                                     <textarea name="expected_result" id="expected_result" cols="10" rows="3" class="form-control">{{ $item->expected_result }}</textarea>
                                                 </div>
+                                                <div class="form-group mb-3 position-relative">
+                                                    <label for="">Actual Result</label>
+                                                    <select name="actual_result_qa" id="actual_result" class="form-control">
+                                                        <option value="Pass">Pass</option>
+                                                        <option value="Fail">Fail</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mb-3 position-relative">
+                                                    <label for="">Result</label>
+                                                    <textarea name="result_qa" id="result_qa" cols="10" rows="3" class="form-control">{{ $item->result_qa }}</textarea>
+                                                </div>
+                                                <div class="form-group mb-3 position-relative">
+                                                    <label for="">Catatan</label>
+                                                    <textarea name="comments_qa" id="comments_qa" cols="10" rows="3" class="form-control">{{ $item->comments_qa }}</textarea>
+                                                </div>
                                                 <button type="submit" class="btn btn-primary w-100" >Kirim Hasil Testing</button>
                                             </form>
                                         </div>

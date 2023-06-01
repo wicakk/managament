@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Carbon;
+// use Carbon\Carbon;
 
 class ProjectController extends Controller
 {
@@ -21,6 +23,7 @@ class ProjectController extends Controller
         $projects = DB::table('projects')->select('projects.*','users.name')
         ->leftJoin('users', 'users.id', '=', 'projects.created_by')->get();
         $users = User::all();
+        // dd();
         // dd($projects);
         return view ('projects.index',compact('projects','users'));
     }
@@ -38,6 +41,10 @@ class ProjectController extends Controller
             'waktu_mulai' => $request->waktu_mulai,
             'waktu_selesai' => $request->waktu_selesai,
             'penanggung_jawab' => $penanggung_jawab,
+            'deadline_plan' => $request->deadline_plan,
+            'deadline_design' => $request->deadline_design,
+            'deadline_implementasi' => $request->deadline_implementasi,
+            'deadline_evolution' => $request->deadline_evolution,
             'created_by' => Auth::user()->id,
         ];
         Project::create($data);
@@ -86,7 +93,7 @@ class ProjectController extends Controller
     {
         // $data = DB::table('projects')->select('projects.*','project_detail.*')
         // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
-        $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result')
+        $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa')
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
         $users = User::all();
         return view('projects.detail',compact('data','id','users'));
@@ -129,18 +136,27 @@ class ProjectController extends Controller
         DB::table('project_detail')->where('id',$request->project_detail_id)->update($data);
         return redirect()->back()->with('success', 'Tested Addedd!');
     }
-    public function status_timeline($jenis, $id)
+    public function status_timeline($id,$jenis)
     {
+        return view('projects.status_timeline',compact('jenis','id'));
+    }
+    public function status_timeline_store(Request $request)
+    {
+        // dd($request);
+        $jenis = $request->status_jenis;
+        $id = $request->status_id;
         $data = '';
         if($jenis == 'terima'){
             $data = [
                 'status' => '1',
+                'desc_update' => $request->desc_update,
                 'updated_by' => Auth::user()->id,
                 'updated_at' => now(),
             ];
         }else{
             $data = [
                 'status' => '2',
+                'desc_update' => $request->desc_update,
                 'updated_by' => Auth::user()->id,
                 'updated_at' => now(),
             ];
@@ -156,13 +172,22 @@ class ProjectController extends Controller
 
         $plan = DB::table('project_timeline')->where('jenis_timeline','planning')->where('project_id',$id)->whereIn('status',[0,1])->get();
         $status_plan = DB::table('project_timeline')->where('jenis_timeline','planning')->where('project_id',$id)->where('status','1')->first();
+        $all_plan = DB::table('project_timeline')->where('jenis_timeline','planning')->where('project_id',$id)->get();
 
         $design = DB::table('project_timeline')->where('jenis_timeline','design')->where('project_id',$id)->whereIn('status',[0,1])->get();
         $status_design = DB::table('project_timeline')->where('jenis_timeline','design')->where('project_id',$id)->where('status','1')->first();
+        $all_design = DB::table('project_timeline')->where('jenis_timeline','design')->where('project_id',$id)->get();
 
         $project_test = DB::table('project_test')->select('project_test.*','project_detail.id as pid')->leftJoin('project_detail','project_detail.id','project_test.project_detail_id')->where('project_detail.project_id',$id)->get();
-        dump($project_test);
-        return view('projects.timeline',compact('projects','users','id','plan','status_plan','design','status_design','project_test'));
+
+        $implementasi = DB::table('project_timeline')->where('jenis_timeline','implementasi')->where('project_id',$id)->whereIn('status',[0,1])->get();
+        $status_implementasi = DB::table('project_timeline')->where('jenis_timeline','implementasi')->where('project_id',$id)->where('status','1')->first();
+
+        $evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->whereIn('status',[0,1])->get();
+        $status_evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->where('status','1')->first();
+        $all_evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->get();
+        // dump($project_test);
+        return view('projects.timeline',compact('projects','users','id','plan','status_plan','all_plan','design','status_design','all_design','implementasi','status_implementasi','evolution','status_evolution','all_evolution','project_test'));
     }
     public function planning_store(Request $request): RedirectResponse
     {
@@ -236,5 +261,20 @@ class ProjectController extends Controller
         DB::table('project_timeline')->insert($data);
         return redirect()->back()->with('success', 'Tested Addedd!');
     }
-
+    public function implementasi_store($project_id): RedirectResponse
+    {
+        // dd($request);
+    
+        $data = [
+            'desc_timeline' => 'Berhasil di testing',
+            'project_id' => $project_id,
+            'jenis_timeline' => 'implementasi',
+            'file_upload' => '-',
+            'status' => '0',
+            'created_by' => Auth::user()->id,
+            'created_at' => now(),
+        ];
+        DB::table('project_timeline')->insert($data);
+        return redirect()->back()->with('success', 'Tested Addedd!');
+    }
 }
