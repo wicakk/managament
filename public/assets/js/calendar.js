@@ -2,16 +2,16 @@
 (function (jQuery) {
     function changeView(value) {
         switch (value) {
-            case 'day':
-                window.cal.changeView('day', true);
+            case 'month':
+                window.cal.changeView('month', true);
                 break;
             case 'week':
                 window.cal.changeView('week', true);
                 break;
-            case 'month':
-                window.cal.changeView('month', true);
+            case 'day':
+                window.cal.changeView('day', true);
                 break;
-        }
+                }
     }
 
     function randerRangeText() {
@@ -84,15 +84,15 @@
         ])  
     }
 
-    window.cal = new tui.Calendar('#calendar', {
-        defaultView: 'day',
-        taskView: true,
-        template: {
-            monthDayname: function(dayname) {
-                return '<span class="calendar-week-dayname-name">' + dayname.label + '</span>';
-            }
-        }
-    });
+    // window.cal = new tui.Calendar('#calendar', {
+    //     defaultView: 'month',
+    //     taskView: true,
+    //     template: {
+    //         monthDayname: function(dayname) {
+    //             return '<span class="calendar-week-dayname-name">' + 'Kalender' + '</span>';
+    //         }
+    //     }
+    // });
     window.addEventListener('resize', function() {
         window.cal.render();
     });

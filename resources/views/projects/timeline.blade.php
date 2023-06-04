@@ -1,12 +1,20 @@
 @extends('layouts.app')
+
+
+@push('styles')
+<!-- fullcalendar css  -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.css' rel='stylesheet' />
+@endpush
+
 @section('content')
+
     <div class="container-fluid timeline-page">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-block card-stretch card-height">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Small Dots Timeline</h4>
+                            <h4 class="card-title">Timeline</h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -15,11 +23,11 @@
                                 <li>
                                     <div class="timeline-dots timeline-dot1 border-primary text-primary"></div>
                                     <h6 class="float-left mb-1">Planing & Organizing 
-                                        
+                                        @if(Carbon::create($projects->deadline_plan) >= Carbon::tomorrow())
                                         <a href="#" data-target="#planning"
                                         data-toggle="modal"><span class="badge badge-success">
                                             @if(empty($plan[0]))
-                                                Upload
+                                                Upload 
                                             @else
                                             {{-- kesini --}}
                                                 @foreach($plan as $item)
@@ -33,6 +41,10 @@
                                                 @endforeach
                                             @endif
                                         </span></a>
+                                        @endif
+                                        <span class="badge badge-danger ">
+                                            {{ $projects->deadline_plan }}
+                                        </span>
                                     </h6>
                                     <small class="float-right mt-1">
                                         @if(isset($status_plan)) 
@@ -77,6 +89,10 @@
                                                 @endif    
                                             </span></a>
                                         @endif
+
+                                        <span class="badge badge-danger ">
+                                            {{ $projects->deadline_design }}
+                                        </span>
                                     </h6>
                                     <small class="float-right mt-1">
                                         @if(isset($status_design)) 
@@ -106,7 +122,7 @@
                                     <h6 class="float-left mb-1">Implementasi & Testing 
                                         @if(isset($status_design))
                                         <a href="#" data-target="#implementasi"
-                                        data-toggle="modal"><span class="badge badge-primary">
+                                        data-toggle="modal"><span class="badge badge-success">
                                             @if(empty($implementasi[0]))
                                                 Testing
                                             @else
@@ -123,6 +139,9 @@
                                             @endif 
                                         </span>
                                         @endif
+                                        <span class="badge badge-danger ">
+                                            {{ $projects->deadline_implementasi }}
+                                        </span>
                                     </a></h6>
                                     <small class="float-right mt-1">
                                         @if(isset($status_implementasi)) 
@@ -140,8 +159,8 @@
                                                 &nbsp;&nbsp;
                                                 Diterima Oleh :
                                                 @php
-                                                    $dibuat = DB::table('users')->where('id',$status_implementasi->updated_by)->first();
-                                                    echo $dibuat->name;
+                                                    // $dibuat = DB::table('users')->where('id',$status_implementasi->updated_by)->first();
+                                                    // echo $dibuat->name;
                                                 @endphp
                                             @endif
                                         </p>
@@ -152,7 +171,7 @@
                                     <h6 class="float-left mb-1">Evolution 
                                         @if(isset($status_implementasi))
                                         <a href="#" data-target="#evolution"
-                                        data-toggle="modal"><span class="badge badge-danger">
+                                        data-toggle="modal"><span class="badge badge-success">
                                             @if(empty($evolution[0]))
                                                 Upload
                                             @else
@@ -166,9 +185,13 @@
                                                         On Progress
                                                     @endif
                                                 @endforeach
-                                            @endif     
+                                            @endif
+
                                         </span></a>
                                         @endif
+                                        <span class="badge badge-danger ">
+                                            {{ $projects->deadline_evolution }}
+                                        </span>
                                     </h6>
                                     <small class="float-right mt-1">
                                         @if(isset($status_evolution)) 
@@ -190,13 +213,18 @@
                                                         On Progress
                                                     @endif
                                                 @endforeach
-                                            @endif   
+                                            @endif  
                                         </p>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="card card-body">
+                    <div id="calendar"></div>
                 </div>
             </div>
         </div>
@@ -422,7 +450,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <a class="btn btn-primary" href="{{ url('project/implementasi_store') }}">APPROVE</a>
+                                <a class="btn btn-primary" href="{{ url('project/implementasi_store/'.$id) }}">APPROVE</a>
                             </div>
                         </div>
                     </div>
@@ -571,4 +599,34 @@
     }
 </script>
 
+{{-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> --}}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: [
+                {
+                    title: 'coba',
+                    start:'2023-06-04',
+                    end:'2023-06-05',
+                },
+                {
+                    title: 'tes',
+                    start:'2023-06-04',
+                    end:'2023-06-05',
+                },
+            ],
+            selectOverlap: function (event) {
+                return event.rendering === 'background';
+            }
+        });
+
+        calendar.render();
+    });
+</script>
 @endpush

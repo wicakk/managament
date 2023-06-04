@@ -22,11 +22,15 @@ return new class extends Migration
             $table->string('actual_result_qa')->nullable();
             $table->string('result_qa')->nullable();
             $table->text('comments_qa')->nullable();
+            $table->text('file_test_qa')->nullable();
+            $table->text('link_test')->nullable();
             $table->string('actual_result')->nullable();
             $table->string('result')->nullable();
             $table->text('comments')->nullable();
             $table->string('created_by')->nullable();
             $table->string('tested_by')->nullable();
+            $table->string('url_test')->nullable();
+            $table->string('file_test')->nullable();
             $table->timestamps();
         });
     }

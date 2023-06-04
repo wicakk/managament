@@ -19,6 +19,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    @stack('styles')
 </head>
 
 <body class="  ">
@@ -237,6 +238,13 @@
     <script src="{{ asset('assets/vendor/moment.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('assets/vendor/select2/js/select2.full.min.js') }}"></script>
+
+
+    <script src="{{ asset('assets/vendor/tui-calendar/tui-code-snippet/dist/tui-code-snippet.js') }}"></script>
+    <script src="{{ asset('assets/vendor/tui-calendar/tui-time-picker/dist/tui-time-picker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/tui-calendar/tui-date-picker/dist/tui-date-picker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/tui-calendar/tui-calendar/dist/tui-calendar.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/calendar.js') }}"></script> --}}
 
     <script>
         $('.select2').select2();

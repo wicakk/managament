@@ -48,6 +48,7 @@ class ProjectController extends Controller
             'created_by' => Auth::user()->id,
         ];
         Project::create($data);
+        // dd($data);
         return redirect('projects')->with('success', 'Project Addedd!');
     }
  
@@ -93,7 +94,7 @@ class ProjectController extends Controller
     {
         // $data = DB::table('projects')->select('projects.*','project_detail.*')
         // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
-        $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa')
+        $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test')
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
         $users = User::all();
         return view('projects.detail',compact('data','id','users'));
@@ -101,6 +102,7 @@ class ProjectController extends Controller
 
     public function simpan_detail(Request $request): RedirectResponse
     {
+        
         // dd($request);
         $data = [
             'task_name' => $request->task_name,
@@ -270,6 +272,42 @@ class ProjectController extends Controller
             'project_id' => $project_id,
             'jenis_timeline' => 'implementasi',
             'file_upload' => '-',
+            'status' => '1',
+            'created_by' => Auth::user()->id,
+            'created_at' => now(),
+        ];
+        DB::table('project_timeline')->insert($data);
+        return redirect()->back()->with('success', 'Tested Addedd!');
+    }
+    public function evolution_store(Request $request): RedirectResponse
+    {
+        // dd($request);
+        $error = "";
+        $file_name= '';
+        if($request->hasFile('file')){
+            $semua_file = "";
+            // foreach($request->file as $file){
+                // dd($file->getClientMimeType());
+            $file= $request->file;
+                if(in_array($file->getClientMimeType(),['image/jpg','image/jpeg','image/png','image/svg','application/zip','application/xls','application/xlsx','application/docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/pdf'])){
+                    $file_name = round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
+                    // $name = Auth::user()->pegawai_id;
+                    $file->move(public_path('document_timeline/'), $file_name);
+                    // array_push($nama_file_surat, $file_name);
+                }else{
+                    $error .= $file->getClientOriginalName()."File anda tidak dapat kami simpan cek kembali extensi dan besar filenya"."<br>";
+                }
+            // }
+            // dd($nama_file_surat);
+            if($error !== ""){
+                return Redirect::back()->with(['error' => $error]);
+            }
+        }
+        $data = [
+            'desc_timeline' => $request->desc_timeline,
+            'project_id' => $request->project_id,
+            'jenis_timeline' => 'evolution',
+            'file_upload' => $file_name,
             'status' => '0',
             'created_by' => Auth::user()->id,
             'created_at' => now(),

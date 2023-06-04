@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class ProjectTestController extends Controller
 {
@@ -26,7 +27,28 @@ class ProjectTestController extends Controller
  
     public function store(Request $request): RedirectResponse
     {
-        // dd($request->project_test_id);
+        $error = '';
+        $file_name = '';
+        if($request->hasFile('file')){
+            $semua_file = "";
+            // foreach($request->file as $file){
+                // dd($file->getClientMimeType());
+            $file= $request->file;
+                if(in_array($file->getClientMimeType(),['image/jpg','image/jpeg','image/png','image/svg','application/zip','application/xls','application/xlsx','application/docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/pdf'])){
+                    $file_name = round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
+                    // $name = Auth::user()->pegawai_id;
+                    $file->move(public_path('document_testing/'), $file_name);
+                    // array_push($nama_file_surat, $file_name);
+                }else{
+                    $error .= $file->getClientOriginalName()."File anda tidak dapat kami simpan cek kembali extensi dan besar filenya"."<br>";
+                }
+            // }
+            // dd($nama_file_surat);
+            if($error !== ""){
+                return Redirect::back()->with(['error' => $error]);
+            }
+        }
+        // dd($file_name);
         if(isset($request->project_test_id)){
             $data = [
                 'uat_test_desc' => $request->uat_test_desc,
@@ -38,6 +60,8 @@ class ProjectTestController extends Controller
                 'result_qa' => $request->result_qa,
                 'comments_qa' => $request->comments_qa,
                 'created_by' => Auth::user()->id,
+                'url_test' => $request->url_test,
+                'file_test' => $file_name,
                 'created_at' => now(),
             ];
             DB::table('project_test')->where('id',$request->project_detail_id)->update($data);
@@ -51,6 +75,8 @@ class ProjectTestController extends Controller
                 'actual_result_qa' => $request->actual_result_qa,
                 'result_qa' => $request->result_qa,
                 'comments_qa' => $request->comments_qa,
+                'url_test' => $request->url_test,
+                'file_test' => $file_name,
                 'created_by' => Auth::user()->id,
                 'created_at' => now(),
             ];
