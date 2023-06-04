@@ -611,14 +611,32 @@
             initialView: 'dayGridMonth',
             events: [
                 {
-                    title: 'coba',
-                    start:'2023-06-04',
-                    end:'2023-06-05',
+                    title: 'Deadline Planning',
+                    start:'{{ $projects->deadline_plan }}',
+                    end:'{{ $projects->deadline_plan }}',
+                    backgroundColor: '#931F1D'
                 },
                 {
-                    title: 'tes',
-                    start:'2023-06-04',
-                    end:'2023-06-05',
+                    title: 'Deadline Design',
+                    start:'{{ $projects->deadline_design }}',
+                    end:'{{ $projects->deadline_design }}',
+                    backgroundColor: '#931F1D'
+                },{
+                    title: 'Deadline Testing',
+                    start:'{{ $projects->deadline_implementasi }}',
+                    end:'{{ $projects->deadline_implementasi }}',
+                    backgroundColor: '#931F1D'
+                },
+                {
+                    title: 'Deadline Evolution',
+                    start:'{{ $projects->deadline_evolution }}',
+                    end:'{{ $projects->deadline_evolution }}',
+                    backgroundColor: '#931F1D'
+                },
+                {
+                    title: '{{ $projects->nama_project }}',
+                    start:'{{ $projects->waktu_mulai }}',
+                    end:'{{ $projects->waktu_selesai }}',
                 },
             ],
             selectOverlap: function (event) {
