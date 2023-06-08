@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-
-
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -51,9 +49,9 @@
                                     </div>
                                     <div class="media align-items-center mt-md-0 mt-3">
                                         <a class="btn bg-secondary-light" data-toggle="collapse" href="#collapseEdit{{ $no }}" role="button" aria-expanded="false" aria-controls="collapseEdit1">DETAIL</a> &nbsp;
-                                        {{-- @if(Carbon::create($item->due_dates) >= Carbon::now())
+                                        @if(Carbon::create($item->due_dates) >= Carbon::now())
                                         <a class="btn bg-primary-light" onclick="return edit_detail('{{ $item->id }}')" aria-expanded="false" >EDIT</a>
-                                        @endif --}}
+                                        @endif
                                     </div>
                                 </div>  
                             </div>
@@ -76,17 +74,7 @@
                                                     <p class="mb-0">{{ $item->description }}</p>
                                                 </div>
                                                 <div class="col-lg-6">                                      
-                                                    <h5 class="mb-2">Checklist</h5>
-                                                    <p>
-                                                        @php
-                                                            $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();
-                                                        @endphp
-                                                        <ol>
-                                                            @foreach($checklist as $check) 
-                                                                <li>{{ $check->isi }} @if($check->status == 1) <span class="badge badge-primary">Selesai</span>  @endif</li>
-                                                            @endforeach
-                                                        </ol>
-                                                    </p>                   
+                                                                 
                                                 </div>
                                             </div>
                                         </div>
@@ -94,52 +82,26 @@
                                     <div class="card">
                                         <div class="card-body">
                                             @if(Carbon::create($item->due_dates) >= Carbon::now())
-                                            <form action="{{ url('project_test') }}" method="post" enctype="multipart/form-data">
+                                            <form action="{{ url('project_detail_checklist') }}" method="post" enctype="multipart/form-data">
                                             @endif
                                                 @csrf
                                                 <input type="hidden" required name="project_detail_id" value="{{ $item->id }}">
-                                                <input type="hidden" required name="project_test_id" value="{{ $item->project_test_id }}">
-                                                <input type="hidden" required name="uat_test_desc" value="{{ $item->category }}">
-                                                <input type="hidden" required name="uat_test_detail" value="{{ $item->checklist }}">
-                                                <div class="form-group mb-3 position-relative">
-                                                    <label for="">Steps For UAT Test</label>
-                                                    <textarea required name="steps_for_uat_test" required id="steps_for_uat_test" cols="10" rows="3" class="form-control">{{ $item->steps_for_uat_test }}</textarea>
-                                                </div>
-                                                <div class="form-group mb-3 position-relative">
-                                                    <label for="">Expected Result</label>
-                                                    <textarea required name="expected_result" required id="expected_result" cols="10" rows="3" class="form-control">{{ $item->expected_result }}</textarea>
-                                                </div>
-                                                <div class="form-group mb-3 position-relative">
-                                                    <label for="">Actual Result</label>
-                                                    <select required name="actual_result_qa" required id="actual_result" class="form-control">
-                                                        <option value="Pass">Pass</option>
-                                                        <option value="Fail">Fail</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group mb-3 position-relative">
-                                                    <label for="">Result</label>
-                                                    <textarea required name="result_qa" required id="result_qa" cols="10" rows="3" class="form-control">{{ $item->result_qa }}</textarea>
-                                                </div>
-                                                <div class="form-group mb-3 position-relative">
-                                                    <label for="">Catatan</label>
-                                                    <textarea required name="comments_qa" required  id="comments_qa" cols="10" rows="3" class="form-control">{{ $item->comments_qa }}</textarea>
-                                                </div>
-                                                <div class="form-group mb-3 position-relative">
-                                                    <label for="">Url Testing</label>
-                                                    <input type="text" required required name="url_test" class="form-control" id="url_test" value="{{ $item->url_test }}">
-                                                </div>
-                                                <img src="{{ url('document_testing/'.$item->file_test_qa) }}" alt="Hasil Test" class="img-fluid" width="200">
-                                                <div class="input-group mb-4">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text">Upload Hasil Testing*</span>
+                                                <h5 class="mb-2">Checklist</h5>
+                                                <div class="row">
+                                                    @php
+                                                        $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();
+                                                    @endphp
+                                                    @foreach($checklist as $check)
+                                                    <div class="col-lg-6">
+                                                        <div class="custom-control custom-checkbox custom-control-inline mr-0">
+                                                            <input type="checkbox" value="{{ $check->id }}" name="project_checklist[]" class="custom-control-input" id="customCheck{{ $check->id }}" @if($check->status == 1) checked @endif>
+                                                            <label class="custom-control-label mb-1" for="customCheck{{ $check->id }}">{{ $check->isi }}</label>
+                                                        </div>
                                                     </div>
-                                                    <div class="custom-file">
-                                                    <input type="file" required required name="file" class="custom-file-input" id="inputGroupFile01">
-                                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                                    </div>
-                                                </div>
+                                                    @endforeach
+                                                </div>  <br>
                                                 @if(Carbon::create($item->due_dates) >= Carbon::now())
-                                                <button type="submit" class="btn btn-primary w-100" >Kirim Hasil Testing</button>
+                                                <button type="submit" class="btn btn-primary w-100" >Update Progress</button>
                                                 @endif
                                             </form>
                                         </div>
@@ -156,7 +118,7 @@
     </div>
 </div>
 
-{{-- <div class="modal fade bd-example-modal-lg" role="dialog" aria-modal="true" id="new-task-modal">
+<div class="modal fade bd-example-modal-lg" role="dialog" aria-modal="true" id="new-task-modal">
     <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header d-block text-center pb-3 border-bttom">
@@ -287,7 +249,7 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 
 
 

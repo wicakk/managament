@@ -23,7 +23,7 @@
                                 <li>
                                     <div class="timeline-dots timeline-dot1 border-primary text-primary"></div>
                                     <h6 class="float-left mb-1">Planing & Organizing 
-                                        @if(Carbon::create($projects->deadline_plan) >= Carbon::tomorrow())
+                                        @if(Carbon::create($projects->deadline_plan) >= Carbon::today() || isset($plan[0]))
                                         <a href="#" data-target="#planning"
                                         data-toggle="modal"><span class="badge badge-success">
                                             @if(empty($plan[0]))
@@ -417,11 +417,7 @@
                                         <tr class="ligth">
                                             <th scope="col">#</th>
                                            <th scope="col">UAT Test Desc</th>
-                                           <th scope="col">UAT Test Detail</th>
-                                           <th scope="col">Steps For UAT Test</th>
-                                           <th scope="col">Expected Result</th>
-                                           <th scope="col">Result</th>
-                                           <th scope="col">#</th>
+                                           <th scope="col">Di UAT oleh</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -432,9 +428,16 @@
                                                     <input type="checkbox" @if(isset($item->uat_test_case)) checked disabled @endif required name="project_test[]" value="{{ $item->id }}">
                                                 </td>
                                                 <td>{{ $item->uat_test_desc }}</td>
-                                                <td>{{ $item->uat_test_detail }}</td>
-                                                <td>{{ $item->steps_for_uat_test }}</td>
-                                                <td>{{ $item->expected_result }}</td>
+                                                <td>
+                                                    @php
+                                                        if($item->tested_by !== null){
+                                                            $dibuat = DB::table('users')->where('id',$item->tested_by)->first();
+                                                            echo $dibuat->name;
+                                                        }else{
+                                                            echo "Belum di UAT";
+                                                        }
+                                                    @endphp
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

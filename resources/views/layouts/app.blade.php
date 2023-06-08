@@ -80,7 +80,7 @@
                             </a>
                         </li>
                         <li class="">
-                            <a href="/page-task.html" class="svg-icon">
+                            <a href="{{ url('project_test_uat/uat_test') }}" class="svg-icon">
                                 <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">

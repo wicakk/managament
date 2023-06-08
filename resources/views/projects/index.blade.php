@@ -89,7 +89,8 @@
                                     </span>
                                 </div>
                                 <span>
-                                    <a href="{{ url('projects/detail/'. $item->id) }}" class="btn bg-success-light">Detail</a>
+                                    <a href="{{ url('projects/task/'. $item->id) }}" class="btn bg-primary-light">Task</a>
+                                    <a href="{{ url('projects/detail/'. $item->id) }}" class="btn bg-success-light">Testing</a>
                                     <form method="POST" action="{{ url('/projects' . '/' . $item->id) }}"
                                         accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}

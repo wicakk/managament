@@ -31,6 +31,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/projects/detail/{id}', [ProjectController::class, 'detail'])->name('detail');
     Route::get('/projects/timeline/{id}', [ProjectController::class, 'timeline'])->name('timeline');
+    Route::get('/projects/task/{id}', [ProjectController::class, 'task'])->name('task');
+    Route::post('/project_detail/store', [ProjectController::class, 'simpan_detail'])->name('simpan_detail');
+    Route::get('/project_detail/edit_detail/{id}', [ProjectController::class, 'edit_detail'])->name('edit_detail');
+    Route::post('/project_detail/update_detail', [ProjectController::class, 'update_detail'])->name('update_detail');
     Route::post('/project_detail/store', [ProjectController::class, 'simpan_detail'])->name('simpan_detail');
     Route::get('/project_detail/edit_detail/{id}', [ProjectController::class, 'edit_detail'])->name('edit_detail');
     Route::post('/project_detail/update_detail', [ProjectController::class, 'update_detail'])->name('update_detail');
@@ -41,6 +45,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/project_timeline/status/{id}/{jenis}', [ProjectController::class, 'status_timeline'])->name('status_timeline');
     Route::post('/project_timeline/update_status', [ProjectController::class, 'status_timeline_store'])->name('status_timeline_store');
     Route::post('/project_test/accept_test', [ProjectTestController::class, 'accept_test'])->name('accept_test');
+    Route::get('/project_test_uat/uat_test', [ProjectTestController::class, 'uat_test'])->name('uat_test');
+    Route::post('/project_test_uat/store_uat', [ProjectTestController::class, 'store_uat'])->name('store_uat');
+    Route::post('/project_detail_checklist', [ProjectController::class, 'update_checklist'])->name('update_checklist');
     Route::resource("/project_test", ProjectTestController::class);
     Route::resource("/users", UserController::class);
     Route::resource("/projects", ProjectController::class);

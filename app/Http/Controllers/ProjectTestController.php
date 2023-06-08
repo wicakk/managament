@@ -61,7 +61,7 @@ class ProjectTestController extends Controller
                 'comments_qa' => $request->comments_qa,
                 'created_by' => Auth::user()->id,
                 'url_test' => $request->url_test,
-                'file_test' => $file_name,
+                'file_test_qa' => $file_name,
                 'created_at' => now(),
             ];
             DB::table('project_test')->where('id',$request->project_detail_id)->update($data);
@@ -76,7 +76,7 @@ class ProjectTestController extends Controller
                 'result_qa' => $request->result_qa,
                 'comments_qa' => $request->comments_qa,
                 'url_test' => $request->url_test,
-                'file_test' => $file_name,
+                'file_test_qa' => $file_name,
                 'created_by' => Auth::user()->id,
                 'created_at' => now(),
             ];
@@ -206,6 +206,53 @@ class ProjectTestController extends Controller
 
         }
         // $data = '';
+        return redirect()->back()->with('success', 'Tested Addedd!');
+    }
+
+    public function uat_test()
+    {
+        $id = Auth::user()->id;
+        $data = DB::table('projects')
+        ->leftJoin('project_detail', 'projects.id', '=', 'project_detail.project_id'
+        )->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.result','project_test.actual_result','project_test.file_test','project_test.comments')
+        ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')
+        ->where('projects.penanggung_jawab','LIKE','%'.$id.'%')->whereNotNull('project_test.uat_test_case')->get();
+        $users = User::all();
+        // dd($data);
+        return view ('projects.uat',compact('data','users'));
+    }
+    public function store_uat(Request $request)
+    {
+        $id = Auth::user()->id;
+        $file_name = '';
+        $error = '';
+        if($request->hasFile('file')){
+            $semua_file = "";
+            // foreach($request->file as $file){
+                // dd($file->getClientMimeType());
+            $file= $request->file;
+                if(in_array($file->getClientMimeType(),['image/jpg','image/jpeg','image/png','image/svg','application/zip','application/xls','application/xlsx','application/docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/pdf'])){
+                    $file_name = round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
+                    // $name = Auth::user()->pegawai_id;
+                    $file->move(public_path('document_testing/'), $file_name);
+                    // array_push($nama_file_surat, $file_name);
+                }else{
+                    $error .= $file->getClientOriginalName()."File anda tidak dapat kami simpan cek kembali extensi dan besar filenya"."<br>";
+                }
+            // }
+            // dd($nama_file_surat);
+            if($error !== ""){
+                return Redirect::back()->with(['error' => $error]);
+            }
+        }
+        $data = [
+            'actual_result' => $request->actual_result,
+            'result' => $request->result,
+            'comments' => $request->comments,
+            'file_test' => $file_name,
+            'tested_by' => Auth::user()->id,
+        ];
+        DB::table('project_test')->where('id',$request->project_test_id)->update($data);
         return redirect()->back()->with('success', 'Tested Addedd!');
     }
 }

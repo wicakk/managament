@@ -94,15 +94,23 @@ class ProjectController extends Controller
     {
         // $data = DB::table('projects')->select('projects.*','project_detail.*')
         // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
-        $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test')
+        $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa')
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
         $users = User::all();
         return view('projects.detail',compact('data','id','users'));
     }
+    public function task(string $id)
+    {
+        // $data = DB::table('projects')->select('projects.*','project_detail.*')
+        // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
+        $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa')
+        ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
+        $users = User::all();
+        return view('projects.task',compact('data','id','users'));
+    }
 
     public function simpan_detail(Request $request): RedirectResponse
     {
-        
         // dd($request);
         $data = [
             'task_name' => $request->task_name,
@@ -114,7 +122,16 @@ class ProjectController extends Controller
             'project_id' => $request->project_id,
             'created_by' => Auth::user()->id,
         ];
-        DB::table('project_detail')->insert($data);
+        $id = DB::table('project_detail')->insertGetId($data);
+
+        $checklist = explode('|',$request->checklist);
+        foreach($checklist as $item){
+            $data1 = [
+                'project_detail_id' => $id,
+                'isi' => $item
+            ];
+            DB::table('project_detail_checklist')->insert($data1);
+        }
         return redirect()->back()->with('success', 'Task Addedd!');
     }
     public function edit_detail(string $id): View
@@ -136,8 +153,44 @@ class ProjectController extends Controller
             'updated_at' => now(),
         ];
         DB::table('project_detail')->where('id',$request->project_detail_id)->update($data);
+        $checklist = explode('|',$request->checklist);
+        DB::table('project_detail_checklist')->where('project_detail_id', $request->project_detail_id)->delete();
+        foreach($checklist as $item){
+            $data1 = [
+                'project_detail_id' => $request->project_detail_id,
+                'isi' => $item
+            ];
+            DB::table('project_detail_checklist')->insert($data1);
+        }
         return redirect()->back()->with('success', 'Tested Addedd!');
     }
+    public function update_checklist(Request $request)
+    {
+        // dump($request);
+        $data = [
+            'status' => null
+        ];
+        DB::table('project_detail_checklist')->where('project_detail_id',$request->project_detail_id)->update($data);
+        foreach($request->project_checklist as $item){
+            $data1 = [
+                'status' => 1
+            ];
+            DB::table('project_detail_checklist')->where('id',$item)->update($data1);
+        }
+
+        // DB::table('project_detail')->where('id',$request->project_detail_id)->update($data);
+        // $checklist = explode('|',$request->checklist);
+        // DB::table('project_detail_checklist')->where('project_detail_id', $request->project_detail_id)->delete();
+        // foreach($checklist as $item){
+        //     $data1 = [
+        //         'project_detail_id' => $request->project_detail_id,
+        //         'isi' => $item
+        //     ];
+        //     DB::table('project_detail_checklist')->insert($data1);
+        // }
+        return redirect()->back()->with('success', 'Tested Addedd!');
+    }
+
     public function status_timeline($id,$jenis)
     {
         return view('projects.status_timeline',compact('jenis','id'));
