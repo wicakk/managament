@@ -32,19 +32,19 @@ class ProjectController extends Controller
     {
         // $input = $request->all();
         // dd($input);
-        $penanggung_jawab = '|';
-        foreach($request->pj as $item){
-            $penanggung_jawab .= $item.'|';
-        }
+        // $penanggung_jawab = '|';
+        // foreach($request->pj as $item){
+        //     $penanggung_jawab .= $item.'|';
+        // }
         $data = [
             'nama_project' => $request->nama_project,
-            'waktu_mulai' => $request->waktu_mulai,
-            'waktu_selesai' => $request->waktu_selesai,
-            'penanggung_jawab' => $penanggung_jawab,
-            'deadline_plan' => $request->deadline_plan,
-            'deadline_design' => $request->deadline_design,
-            'deadline_implementasi' => $request->deadline_implementasi,
-            'deadline_evolution' => $request->deadline_evolution,
+            // 'waktu_mulai' => $request->waktu_mulai,
+            // 'waktu_selesai' => $request->waktu_selesai,
+            // 'penanggung_jawab' => $penanggung_jawab,
+            // 'deadline_plan' => $request->deadline_plan,
+            // 'deadline_design' => $request->deadline_design,
+            // 'deadline_implementasi' => $request->deadline_implementasi,
+            // 'deadline_evolution' => $request->deadline_evolution,
             'created_by' => Auth::user()->id,
         ];
         Project::create($data);
@@ -74,9 +74,9 @@ class ProjectController extends Controller
         }
         $data = [
             'nama_project' => $request->nama_project,
-            'waktu_mulai' => $request->waktu_mulai,
-            'waktu_selesai' => $request->waktu_selesai,
-            'penanggung_jawab' => $penanggung_jawab,
+            // 'waktu_mulai' => $request->waktu_mulai,
+            // 'waktu_selesai' => $request->waktu_selesai,
+            // 'penanggung_jawab' => $penanggung_jawab,
             'created_by' => Auth::user()->id,
         ];
         $Project->update($data);
@@ -222,31 +222,121 @@ class ProjectController extends Controller
 
     public function timeline(string $id): View
     {
-        $projects = Project::find($id);
+        $project = Project::find($id);
         $users = User::all();
-
-        $plan = DB::table('project_timeline')->where('jenis_timeline','planning')->where('project_id',$id)->whereIn('status',[0,1])->get();
-        $status_plan = DB::table('project_timeline')->where('jenis_timeline','planning')->where('project_id',$id)->where('status','1')->first();
+        
+        $task = DB::table('project_detail')->where('project_id',$id)->get();
+        $plan = DB::table('project_timeline')->where('jenis_timeline','planning')->where('project_id',$id)->first();
+        $status_plan = DB::table('project_timeline')->where('jenis_timeline','planning')->where('project_id',$id)->first();
         $all_plan = DB::table('project_timeline')->where('jenis_timeline','planning')->where('project_id',$id)->get();
 
-        $design = DB::table('project_timeline')->where('jenis_timeline','design')->where('project_id',$id)->whereIn('status',[0,1])->get();
-        $status_design = DB::table('project_timeline')->where('jenis_timeline','design')->where('project_id',$id)->where('status','1')->first();
-        $all_design = DB::table('project_timeline')->where('jenis_timeline','design')->where('project_id',$id)->get();
+        // $design = DB::table('project_timeline')->where('jenis_timeline','design')->where('project_id',$id)->get();
+        // $status_design = DB::table('project_timeline')->where('jenis_timeline','design')->where('project_id',$id)->where('status','1')->first();
+        // $all_design = DB::table('project_timeline')->where('jenis_timeline','design')->where('project_id',$id)->get();
 
         $project_test = DB::table('project_test')->select('project_test.*','project_detail.id as pid')->leftJoin('project_detail','project_detail.id','project_test.project_detail_id')->where('project_detail.project_id',$id)->get();
 
-        $implementasi = DB::table('project_timeline')->where('jenis_timeline','implementasi')->where('project_id',$id)->whereIn('status',[0,1])->get();
-        $status_implementasi = DB::table('project_timeline')->where('jenis_timeline','implementasi')->where('project_id',$id)->where('status','1')->first();
+        // $implementasi = DB::table('project_timeline')->where('jenis_timeline','implementasi')->where('project_id',$id)->get();
+        // $status_implementasi = DB::table('project_timeline')->where('jenis_timeline','implementasi')->where('project_id',$id)->where('status','1')->first();
 
-        $evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->whereIn('status',[0,1])->get();
-        $status_evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->where('status','1')->first();
-        $all_evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->get();
+        // $evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->get();
+        // $status_evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->where('status','1')->first();
+        // $all_evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->get();
         // dump($project_test);
-        return view('projects.timeline',compact('projects','users','id','plan','status_plan','all_plan','design','status_design','all_design','implementasi','status_implementasi','evolution','status_evolution','all_evolution','project_test'));
+        return view('projects.timeline',compact('project','users','id','plan','status_plan','all_plan','project_test','task'));
     }
     public function planning_store(Request $request): RedirectResponse
     {
         // dd($request);
+        $task = '';
+        $scope = '';
+        if(isset($request->task)){
+            $task = $request->task;
+        }
+        if(isset($request->scope)){
+            $scope = $request->scope;
+        }
+
+
+        if(empty($request->plan_id)){
+            $data = [
+                'project_id' => $request->project_id,
+                'scope' => $scope,
+                'task' => $task,
+                'jenis_timeline' => 'planning',
+                'created_by' => Auth::user()->id,
+                'created_at' => now(),
+            ];
+            DB::table('project_timeline')->insert($data);
+
+            $data1 = [
+                'waktu_mulai' => $request->waktu_mulai,
+                'waktu_selesai' => $request->waktu_selesai,
+                'updated_at' => now(),
+            ];
+            DB::table('projects')->where('id',$request->project_id)->update($data1);
+        }else{
+            $data = [
+                'project_id' => $request->project_id,
+                'scope' => $scope,
+                'task' => $task,
+                'jenis_timeline' => 'planning',
+            ];
+            DB::table('project_timeline')->where('id',$request->plan_id)->update($data);
+
+            $data1 = [
+                'waktu_mulai' => $request->waktu_mulai,
+                'waktu_selesai' => $request->waktu_selesai,
+                'updated_at' => now(),
+            ];
+            DB::table('projects')->where('id',$request->project_id)->update($data1);
+        }
+        // $error = "";
+        // $file_name= '';
+        // if($request->hasFile('file')){
+        //     $semua_file = "";
+        //     // foreach($request->file as $file){
+        //         // dd($file->getClientMimeType());
+        //     $file= $request->file;
+        //         if(in_array($file->getClientMimeType(),['image/jpg','image/jpeg','image/png','image/svg','application/zip','application/xls','application/xlsx','application/docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/pdf'])){
+        //             $file_name = round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
+        //             // $name = Auth::user()->pegawai_id;
+        //             $file->move(public_path('document_timeline/'), $file_name);
+        //             // array_push($nama_file_surat, $file_name);
+        //         }else{
+        //             $error .= $file->getClientOriginalName()."File anda tidak dapat kami simpan cek kembali extensi dan besar filenya"."<br>";
+        //         }
+        //     // }
+        //     // dd($nama_file_surat);
+        //     if($error !== ""){
+        //         return Redirect::back()->with(['error' => $error]);
+        //     }
+        // }
+        // $data = [
+        //     'desc_timeline' => $request->desc_timeline,
+        //     'project_id' => $request->project_id,
+        //     'jenis_timeline' => 'planning',
+        //     'file_upload' => $file_name,
+        //     'status' => '0',
+        //     'created_by' => Auth::user()->id,
+        //     'created_at' => now(),
+        // ];
+        // DB::table('project_timeline')->insert($data);
+        return redirect()->back()->with('success', 'Data berhasil di simpan!');
+    }
+    public function alokasi_resource(Request $request): RedirectResponse
+    {
+        $penanggung_jawab = '|';
+        foreach($request->pj as $item){
+            $penanggung_jawab .= $item.'|';
+        }
+        $data1 = [
+            'penanggung_jawab' => $penanggung_jawab,
+        ];
+        DB::table('projects')->where('id',$request->project_id)->update($data1);
+        return redirect()->back()->with('success', 'Berhasil Mengalokasikan Resource!');
+    }
+    public function plan_doc(Request $request){
         $error = "";
         $file_name= '';
         if($request->hasFile('file')){
@@ -268,17 +358,24 @@ class ProjectController extends Controller
                 return Redirect::back()->with(['error' => $error]);
             }
         }
-        $data = [
-            'desc_timeline' => $request->desc_timeline,
-            'project_id' => $request->project_id,
-            'jenis_timeline' => 'planning',
-            'file_upload' => $file_name,
-            'status' => '0',
-            'created_by' => Auth::user()->id,
-            'created_at' => now(),
-        ];
-        DB::table('project_timeline')->insert($data);
-        return redirect()->back()->with('success', 'Tested Addedd!');
+        $data = '';
+        if($file_name == ''){
+            $data = [
+                'desc_timeline' => $request->desc_timeline,
+                'project_id' => $request->project_id,
+                'jenis_timeline' => 'planning',
+            ];
+        }else{
+            $data = [
+                'desc_timeline' => $request->desc_timeline,
+                'project_id' => $request->project_id,
+                'jenis_timeline' => 'planning',
+                'file_upload' => $file_name,
+            ];
+        }
+        DB::table('project_timeline')->where('id',$request->plan_id)->update($data);
+        return redirect()->back()->with('success', 'Data Berhasil di upload!');
+
     }
     public function design_store(Request $request): RedirectResponse
     {

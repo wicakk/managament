@@ -19,7 +19,7 @@
             <input type="text" name="nama_project" class="form-control bg-white" value="{{$projects->nama_project}}">
             <a href="#" class="task-edit task-simple-edit text-body"><i class="ri-edit-box-line"></i></a>
         </div>
-        <div class="form-group mb-3 row">
+        {{-- <div class="form-group mb-3 row">
             <div class="col-lg-6">
                 <div class="form-group mb-0">
                     <label for="exampleInputText3" class="h5">Waktu Mulai*</label>
@@ -47,8 +47,8 @@
                     @endif
                 @endforeach
             </select>
-            {{-- <a href="#" class="task-edit task-simple-edit text-body"><i class="ri-edit-box-line"></i></a> --}}
-        </div>
+            <a href="#" class="task-edit task-simple-edit text-body"><i class="ri-edit-box-line"></i></a> 
+        </div> --}}
         <div class="col-lg-12">
             <input class="btn btn-primary w-100" name="submit" type="submit" value="Update">
         </div>

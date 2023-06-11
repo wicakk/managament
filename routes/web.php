@@ -38,6 +38,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/project_detail/store', [ProjectController::class, 'simpan_detail'])->name('simpan_detail');
     Route::get('/project_detail/edit_detail/{id}', [ProjectController::class, 'edit_detail'])->name('edit_detail');
     Route::post('/project_detail/update_detail', [ProjectController::class, 'update_detail'])->name('update_detail');
+    Route::post('/project/alokasi_resource', [ProjectController::class, 'alokasi_resource'])->name('alokasi_resource');
+    Route::post('/project/plan_doc', [ProjectController::class, 'plan_doc'])->name('plan_doc');
     Route::post('/project/planning_store', [ProjectController::class, 'planning_store'])->name('planning_store');
     Route::post('/project/design_store', [ProjectController::class, 'design_store'])->name('design_store');
     Route::get('/project/implementasi_store/{id}', [ProjectController::class, 'implementasi_store'])->name('implementasi_store');

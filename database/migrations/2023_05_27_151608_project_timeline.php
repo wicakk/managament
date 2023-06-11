@@ -18,8 +18,11 @@ return new class extends Migration
             $table->string('jenis_timeline');
             $table->string('file_upload')->nullable();
             $table->string('desc_timeline')->nullable();
-            $table->string('status')->nullable();
-            $table->string('desc_update')->nullable();
+            $table->string('scope')->nullable();
+            $table->string('task')->nullable();
+
+            // $table->string('status')->nullable();
+            // $table->string('desc_update')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();
         });
