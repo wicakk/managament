@@ -33,23 +33,19 @@
                                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span> &nbsp; <span class="badge badge-success"> Nama Projek : {{ $item->nama_project }}</span></h5>
+                                            <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span></h5>
                                             <div class="media align-items-center">
                                                 <div class="btn bg-body mr-3">Dibuat Oleh : 
                                                     @php
                                                         $dibuat = DB::table('users')->where('id',$item->created_by)->first();
-                                                        if(isset($dibuat->name)){
-                                                            echo $dibuat->name;
-                                                        }
+                                                        echo $dibuat->name;
                                                         
                                                     @endphp
                                                 </div>
                                                 <div class="btn bg-body">Di Kerjaakan : 
                                                     @php
-                                                    $dikerjakan = DB::table('users')->where('id',$item->assigned_to)->first();
-                                                    if(isset($dikerjakan->name)){
-                                                        echo $dikerjakan->name;
-                                                    }
+                                                    $dibuat = DB::table('users')->where('id',$item->assigned_to)->first();
+                                                    echo $dibuat->name;
                                                     
                                                     @endphp
                                                 </div>
@@ -90,6 +86,10 @@
                                     </div>
                                     <div class="card">
                                         <div class="card-body">
+                                            @if(Carbon::create($item->due_dates) >= Carbon::now())
+                                            <form action="{{ url('project_detail_checklist') }}" method="post" enctype="multipart/form-data">
+                                            @endif
+                                                @csrf
                                                 <input type="hidden" required name="project_detail_id" value="{{ $item->id }}">
                                                 <h5 class="mb-2">Checklist</h5>
                                                 <div class="row">
@@ -104,7 +104,11 @@
                                                         </div>
                                                     </div>
                                                     @endforeach
-                                                </div>
+                                                </div>  <br>
+                                                @if(Carbon::create($item->due_dates) >= Carbon::now())
+                                                <button type="submit" class="btn btn-primary w-100" >Update Progress</button>
+                                                @endif
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

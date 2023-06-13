@@ -32,14 +32,36 @@
                                                 <div class="btn bg-body mr-3">Dibuat Oleh : 
                                                     @php
                                                         $dibuat = DB::table('users')->where('id',$item->created_by)->first();
-                                                        echo $dibuat->name;
+                                                        if(isset($dibuat->name)){
+                                                            echo $dibuat->name;
+                                                        }
                                                         
                                                     @endphp
                                                 </div>
                                                 <div class="btn bg-body">Di Kerjaakan : 
                                                     @php
-                                                    $dibuat = DB::table('users')->where('id',$item->assigned_to)->first();
-                                                    echo $dibuat->name;
+                                                    $dikerjakan = DB::table('users')->where('id',$item->assigned_to)->first();
+                                                    if(isset($dikerjakan->name)){
+                                                        echo $dikerjakan->name;
+                                                    }
+                                                    
+                                                    @endphp
+                                                </div>
+                                                <div class="btn bg-body">Di QA oleh : 
+                                                    @php
+                                                    $diqa = DB::table('users')->where('id',$item->qa_by)->first();
+                                                    if(isset($diqa->name)){
+                                                        echo $diqa->name;
+                                                    }
+                                                    
+                                                    @endphp
+                                                </div>
+                                                <div class="btn bg-body">Di Testing Oleh: 
+                                                    @php
+                                                    $ditesting = DB::table('users')->where('id',$item->tested_by)->first();
+                                                    if(isset($ditesting->name)){
+                                                        echo $ditesting->name;
+                                                    }
                                                     
                                                     @endphp
                                                 </div>
@@ -56,7 +78,7 @@
                             <div class="card card-list task-card">
                                 <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
                                     <div class="header-title">
-                                        <h2>Detail</h2>
+                                        <h5>Detail Progress</h5>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -84,9 +106,28 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card">
+                                    <div class="card mb-3">
                                         <div class="card-body">
-                                           
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <h5 class="mb-2">Checklist</h5>
+                                                    <p>
+                                                        {!! nl2br($item->checklist) !!}    
+                                                    </p> 
+                                                    <h5 class="mb-2">Description</h5>
+                                                    <p class="mb-0">{{ $item->description }}</p>
+                                                </div>
+                                                <div class="col-lg-6">                                      
+                                                    <h5 class="mb-2">Steps For UAT Test</h5>
+                                                    <p>
+                                                        {!! nl2br($item->steps_for_uat_test) !!}    
+                                                    </p> 
+                                                    <h5 class="mb-2">Expected Result</h5>
+                                                    <p>
+                                                        {!! nl2br($item->expected_result) !!}    
+                                                    </p>              
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
