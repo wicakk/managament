@@ -211,12 +211,13 @@ class ProjectTestController extends Controller
 
     public function uat_test()
     {
-        $id = Auth::user()->id;
+        $id = '|'.Auth::user()->id.'|';
         $data = DB::table('projects')
-        ->leftJoin('project_detail', 'projects.id', '=', 'project_detail.project_id'
-        )->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.result','project_test.actual_result','project_test.file_test','project_test.comments')
+        ->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.result','project_test.actual_result','project_test.file_test','project_test.comments')
+        ->leftJoin('project_detail', 'projects.id', '=', 'project_detail.project_id')
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')
-        ->where('projects.penanggung_jawab','LIKE','%'.$id.'%')->whereNotNull('project_test.uat_test_case')->get();
+        ->where('projects.penanggung_jawab','LIKE','%'.$id.'%')
+        ->whereNotNull('project_test.uat_test_case')->get();
         $users = User::all();
         // dd($data);
         return view ('projects.uat',compact('data','users'));

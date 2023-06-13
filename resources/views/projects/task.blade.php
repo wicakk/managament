@@ -8,7 +8,12 @@
                 <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
                     <h5>Task Project</h5>
                     <div class="d-flex flex-wrap align-items-center">
+                        @php
+                            $role = ['pm',''];
+                        @endphp
+                        @if(in_array(Session::get('role'),$role) )
                         <a href="#" class="btn btn-primary" data-target="#new-task-modal" data-toggle="modal">New Task</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -28,7 +33,7 @@
                                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span></h5>
+                                            <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span> &nbsp; <span class="badge badge-success"> Nama Projek : {{ $item->nama_project }}</span></h5>
                                             <div class="media align-items-center">
                                                 <div class="btn bg-body mr-3">Dibuat Oleh : 
                                                     @php
@@ -49,7 +54,7 @@
                                     </div>
                                     <div class="media align-items-center mt-md-0 mt-3">
                                         <a class="btn bg-secondary-light" data-toggle="collapse" href="#collapseEdit{{ $no }}" role="button" aria-expanded="false" aria-controls="collapseEdit1">DETAIL</a> &nbsp;
-                                        @if(Carbon::create($item->due_dates) >= Carbon::now())
+                                        @if(Carbon::create($item->due_dates) >= Carbon::now() && in_array(Session::get('role'),$role) )
                                         <a class="btn bg-primary-light" onclick="return edit_detail('{{ $item->id }}')" aria-expanded="false" >EDIT</a>
                                         @endif
                                     </div>
@@ -168,6 +173,7 @@
                             <div class="form-group mb-3">
                                 <label for="exampleInputText005" class="h5">Checklist</label>
                                 <textarea class="form-control" required name="checklist" id="exampleInputText040" rows="2"></textarea>
+                                <em>Berikan pemisah tanda berikut ( | ) untuk membuat list checklist</em>
                             </div>
                         </div>
                         <div class="col-lg-12">

@@ -21,17 +21,23 @@
                     </div>
                 </div>
             </div> --}}
+            @php
+                $role = ['pm','','client'];
+            @endphp
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
+                            @if(in_array(Session::get('role'),$role) )
                             <div class="col-lg-12">
                                 <div class="card card-widget task-card">
                                     <div class="card-body">
                                         <div class="d-flex flex-wrap align-items-center justify-content-between">
                                             <div class="d-flex align-items-center">
                                                 <div>
-                                                    <h5 class="mb-2">Planning & Organizing <span class="badge badge-warning"> Batas Akhir : 2 januari 2023</span></h5>
+                                                    <h5 class="mb-2">Planning & Organizing 
+                                                        {{-- <span class="badge badge-warning"> Batas Akhir : 2 januari 2023</span> --}}
+                                                    </h5>
                                                     <div class="media align-items-center">
                                                     </div>
                                                 </div>
@@ -132,16 +138,170 @@
                                                             {{-- <a href="#" class="task-edit task-simple-edit text-body"><i class="ri-edit-box-line"></i></a> --}}
                                                         </div>
                                                         
-                                                        <button type="submit" class="btn btn-primary w-100" >Update Progress</button>
+                                                        <button type="submit" class="btn btn-primary w-100" >Update Resource</button>
                                                         
                                                     </form>
                                                     <hr>
+                                                    
                                                     <form action="{{ url('project/plan_doc') }}" method="post" enctype="multipart/form-data">
                                                     
                                                         @csrf
                                                         <input type="hidden" required name="project_id" value="{{ $id }}">
                                                         <input type="hidden" value="@isset($status_plan->id) {{ $status_plan->id }} @endif" name="plan_id">
                                                         <h5 class="mb-2">Dokumen Planning & Organizing</h5>
+                                                        <div class="input-group mb-4">
+                                                            <div class="input-group-prepend">
+                                                            <span class="input-group-text">File*</span>
+                                                            </div>
+                                                            <div class="custom-file">
+                                                            <input type="file" name="file" class="custom-file-input" id="inputGroupFile01">
+                                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group mb-3">
+                                                            <label for="exampleInputText01" class="h5">Catatan*</label>
+                                                            <textarea required name="desc_timeline" @isset($status_plan->id) {{ $status_plan->desc_timeline }} @endisset id="catatan_planing" cols="30" rows="4" class="form-control"></textarea>
+                                                        </div>
+                                                        
+                                                        <button type="submit" class="btn btn-primary w-100" >Update dokumen</button>
+                                                        
+                                                    </form>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <h5 class="mt-2 mb-2">Riwayat Dokumen Planning & Organizing</h5>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <table class="table mb-0 table-borderless tbl-server-info">
+                                                                <thead>
+                                                                    <tr class="ligth">
+                                                                        <th scope="col">Deskripsi</th>
+                                                                        <th scope="col">File</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach($evolution as $item)
+                                                                        
+                                                                        <tr>
+                                                                            <th>{{ $item->desc_timeline }}</th>
+                                                                            <td><a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a></td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>      
+                            </div>
+                            @endif
+                            <div class="col-lg-12">
+                                <div class="card card-widget task-card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <div>
+                                                    <h5 class="mb-2">Mengelola Progres</h5>
+                                                    <div class="media align-items-center">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="media align-items-center mt-md-0 mt-3">
+                                                @if(Session::get('role') == 'QA')
+                                                <a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/detail/'.$id) }}" >DETAIL</a>
+                                                @else
+                                                <a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/task/'.$id) }}" >DETAIL</a>
+                                                @endif
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>   
+                            </div>
+                            @if(in_array(Session::get('role'),$role) )
+                            <div class="col-lg-12">
+                                <div class="card card-widget task-card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <div>
+                                                    <h5 class="mb-2">Monitoring Projek</h5>
+                                                    <div class="media align-items-center">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="media align-items-center mt-md-0 mt-3">
+                                                @if(Session::get('role') == 'PM')
+                                                    <a class="btn bg-secondary-light" href="#" data-target="#implementasi"
+                                                    data-toggle="modal">DETAIL</a>
+                                                @else
+                                                    <a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/monitoring/'.$id) }}" >DETAIL</a>
+                                                @endif
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>   
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="card card-widget task-card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <div>
+                                                    <h5 class="mb-2">Dokumentasi Projek </h5>
+                                                    <div class="media align-items-center">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="media align-items-center mt-md-0 mt-3">
+                                                <a class="btn bg-secondary-light" data-toggle="collapse" href="#collapseEdit3" role="button" aria-expanded="false" aria-controls="collapseEdit1">DETAIL</a>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>                                                                                                        
+                                <div class="collapse" id="collapseEdit3">                                            
+                                    <div class="card card-list task-card">
+                                        <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
+                                            <div class="header-title">
+                                                <h2>Detail</h2>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <table class="table mb-0 table-borderless tbl-server-info">
+                                                                <thead>
+                                                                    <tr class="ligth">
+                                                                       <th scope="col">Deskripsi</th>
+                                                                       <th scope="col">File</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach($evolution as $item)
+                                                                        
+                                                                        <tr>
+                                                                            <th>{{ $item->desc_timeline }}</th>
+                                                                            <td><a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a></td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <form action="{{ url('project/evolution_store') }}" method="post" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <input type="hidden" required name="project_id" value="{{ $id }}">
+                                                        <input type="hidden" value="@isset($status_plan->id) {{ $status_plan->id }} @endif" name="plan_id">
+                                                        <h5 class="mb-2">Dokumentasi Projek</h5>
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
                                                             <span class="input-group-text">File*</span>
@@ -166,24 +326,7 @@
                                     </div>
                                 </div>      
                             </div>
-                            <div class="col-lg-12">
-                                <div class="card card-widget task-card">
-                                    <div class="card-body">
-                                        <div class="d-flex flex-wrap align-items-center justify-content-between">
-                                            <div class="d-flex align-items-center">
-                                                <div>
-                                                    <h5 class="mb-2">Mengelola Progres</h5>
-                                                    <div class="media align-items-center">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="media align-items-center mt-md-0 mt-3">
-                                                <a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/task/'.$id) }}" >DETAIL</a>
-                                            </div>
-                                        </div>  
-                                    </div>
-                                </div>   
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -219,6 +362,67 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" role="dialog" aria-modal="true" id="implementasi">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center pb-3 border-bttom">
+                    <h3 class="modal-title" id="exampleModalCenterTitle02">
+                        Implementasi & Testing
+                    </h3>
+                </div>
+                <form action="{{ url('project_test/accept_test') }}" method="post">
+                    {!! csrf_field() !!}
+                    <input type="hidden" required name="project_id" value="{{ $id }}">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <table class="table mb-0 table-borderless tbl-server-info">
+                                    <thead>
+                                        <tr class="ligth">
+                                            <th scope="col">#</th>
+                                           <th scope="col">UAT Test Desc</th>
+                                           <th scope="col">Di UAT oleh</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($project_test as $item)
+                                            
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" @if(isset($item->uat_test_case)) checked disabled @endif required name="project_test[]" value="{{ $item->id }}">
+                                                </td>
+                                                <td>{{ $item->uat_test_desc }}</td>
+                                                <td>
+                                                    @php
+                                                        if($item->tested_by !== null){
+                                                            $dibuat = DB::table('users')->where('id',$item->tested_by)->first();
+                                                            echo $dibuat->name;
+                                                        }else{
+                                                            echo "Belum di UAT";
+                                                        }
+                                                    @endphp
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="col-lg-12">
+                                <div class="d-flex flex-wrap align-items-ceter justify-content-center mt-2">
+                                    <input class="btn btn-success" type="submit" value="Save">
+                                    <div class="btn btn-primary" data-dismiss="modal">
+                                        Cancel
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

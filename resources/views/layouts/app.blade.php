@@ -54,6 +54,7 @@
                                 <span class="ml-4">Dashboards</span>
                             </a>
                         </li>
+                        @if(Session::get('role') == '')
                         <li class="">
                             <a href="{{ url('users') }}" class="svg-icon">
                                 <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
@@ -65,6 +66,7 @@
                                 <span class="ml-4">Users</span>
                             </a>
                         </li>
+                        @endif
                         <li class="">
                             <a href="{{ url('projects') }}" class="svg-icon">
                                 <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +82,7 @@
                             </a>
                         </li>
                         <li class="">
-                            <a href="{{ url('project_test_uat/uat_test') }}" class="svg-icon">
+                            <a href="{{ url('project_test/task') }}" class="svg-icon">
                                 <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
@@ -92,7 +94,7 @@
                             </a>
                         </li>
                         <li class="">
-                            <a href="/page-desk.html" class="svg-icon">
+                            <a href="{{ url('project_test_uat/uat_test') }}" class="svg-icon">
                                 <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">

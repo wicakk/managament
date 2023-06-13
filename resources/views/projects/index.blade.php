@@ -22,8 +22,13 @@
                                 </div>
                             </div>
                             <div class="pl-3 border-left btn-new">
+                                @php
+                                    $role = ['pm',''];
+                                @endphp
+                                @if(in_array(Session::get('role'),$role) )
                                 <a href="#" class="btn btn-primary" data-target="#new-project-modal"
                                     data-toggle="modal">Add Project</a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -88,9 +93,10 @@
                                         <span>Kolaborator: {{ $hasil }}</span>
                                     </span>
                                 </div>
+                                @if(in_array(Session::get('role'),$role))
                                 <span>
-                                    <a href="{{ url('projects/task/'. $item->id) }}" class="btn bg-primary-light">Task</a>
-                                    <a href="{{ url('projects/detail/'. $item->id) }}" class="btn bg-success-light">Testing</a>
+                                    {{-- <a href="{{ url('projects/task/'. $item->id) }}" class="btn bg-primary-light">Task</a>
+                                    <a href="{{ url('projects/detail/'. $item->id) }}" class="btn bg-success-light">Testing</a> --}}
                                     <form method="POST" action="{{ url('/projects' . '/' . $item->id) }}"
                                         accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
@@ -118,6 +124,7 @@
                                         </svg>
                                     </a>
                                 </span>
+                                @endif
                             </div>
                         </div>
                     </div>

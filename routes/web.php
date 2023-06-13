@@ -31,7 +31,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/projects/detail/{id}', [ProjectController::class, 'detail'])->name('detail');
     Route::get('/projects/timeline/{id}', [ProjectController::class, 'timeline'])->name('timeline');
-    Route::get('/projects/task/{id}', [ProjectController::class, 'task'])->name('task');
+    Route::get('/projects/monitoring/{id}', [ProjectController::class, 'monitoring'])->name('monitoring');
+    Route::get('/project_test/task/', [ProjectController::class, 'task'])->name('task');
+    Route::get('/projects/task/{id}', [ProjectController::class, 'task_detail'])->name('task_detail');
     Route::post('/project_detail/store', [ProjectController::class, 'simpan_detail'])->name('simpan_detail');
     Route::get('/project_detail/edit_detail/{id}', [ProjectController::class, 'edit_detail'])->name('edit_detail');
     Route::post('/project_detail/update_detail', [ProjectController::class, 'update_detail'])->name('update_detail');

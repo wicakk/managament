@@ -5,7 +5,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -37,8 +37,16 @@ class AuthController extends Controller
         'password' => $request->password,
        ];
        if(Auth::attempt($credetials)){
+            $data = DB::table('profile')->where('user_id', Auth::user()->id)->first();
+            $role = '';
+            if(isset($data->role)){
+                $role = $data->role;
+            }
+            $request->session()->put('role',$role);
+
             return redirect('/dashboard')->with('success', 'login success');
        }
+       
        return back()->with('error', 'Akun tidak ditemukan');
     }
     public function logout()

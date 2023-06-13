@@ -99,7 +99,18 @@ class ProjectController extends Controller
         $users = User::all();
         return view('projects.detail',compact('data','id','users'));
     }
-    public function task(string $id)
+    public function task()
+    {
+        $id = Auth::user()->id;
+        $data = DB::table('projects')
+        ->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.result','project_test.actual_result','project_test.file_test','project_test.comments','projects.nama_project')
+        ->leftJoin('project_detail', 'projects.id', '=', 'project_detail.project_id')
+        ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')
+        ->where('project_detail.assigned_to',$id)->get();
+        $users = User::all();
+        return view('projects.task',compact('data','id','users'));
+    }
+    public function task_detail(string $id)
     {
         // $data = DB::table('projects')->select('projects.*','project_detail.*')
         // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
@@ -107,6 +118,15 @@ class ProjectController extends Controller
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
         $users = User::all();
         return view('projects.task',compact('data','id','users'));
+    }
+    public function monitoring(string $id)
+    {
+        // $data = DB::table('projects')->select('projects.*','project_detail.*')
+        // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
+        $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa')
+        ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
+        $users = User::all();
+        return view('projects.monitoring',compact('data','id','users'));
     }
 
     public function simpan_detail(Request $request): RedirectResponse
@@ -239,11 +259,11 @@ class ProjectController extends Controller
         // $implementasi = DB::table('project_timeline')->where('jenis_timeline','implementasi')->where('project_id',$id)->get();
         // $status_implementasi = DB::table('project_timeline')->where('jenis_timeline','implementasi')->where('project_id',$id)->where('status','1')->first();
 
-        // $evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->get();
+        $evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->get();
         // $status_evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->where('status','1')->first();
         // $all_evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->get();
         // dump($project_test);
-        return view('projects.timeline',compact('project','users','id','plan','status_plan','all_plan','project_test','task'));
+        return view('projects.timeline',compact('project','users','id','plan','status_plan','all_plan','project_test','task','evolution'));
     }
     public function planning_store(Request $request): RedirectResponse
     {
@@ -458,7 +478,6 @@ class ProjectController extends Controller
             'project_id' => $request->project_id,
             'jenis_timeline' => 'evolution',
             'file_upload' => $file_name,
-            'status' => '0',
             'created_by' => Auth::user()->id,
             'created_at' => now(),
         ];
