@@ -8,6 +8,10 @@
 
 @section('content')
 
+    @php
+        $status_projek = '';
+    @endphp
+
     <div class="container-fluid timeline-page">
         <div class="row">
             {{-- <div class="col-lg-12">
@@ -165,6 +169,9 @@
                                                                                 <a href="{{ url('projects_timeline/hapus_document/'.$item->id) }}" class="btn btn-danger">Hapus </a>
                                                                                 @else
                                                                                 <a  class="btn btn-success">Sudah Di Approve </a>
+                                                                                @php 
+                                                                                    $status_projek = 'ok';
+                                                                                @endphp
                                                                                 @endif
                                                                             </td>
                                                                         </tr>
@@ -222,10 +229,13 @@
                                                 </div>
                                             </div>
                                             <div class="media align-items-center mt-md-0 mt-3">
+
+                                                @if($status_projek == 'ok')
                                                 @if(Session::get('role') == 'QA')
                                                 <a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/detail/'.$id) }}" >DETAIL</a>
                                                 @else
                                                 <a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/task/'.$id) }}" >DETAIL</a>
+                                                @endif
                                                 @endif
                                             </div>
                                         </div>  
@@ -245,11 +255,13 @@
                                                 </div>
                                             </div>
                                             <div class="media align-items-center mt-md-0 mt-3">
-                                                @if(Session::get('role') == 'PM')
-                                                    <a class="btn bg-primary-light" href="#" data-target="#implementasi"
-                                                    data-toggle="modal">UAT</a>
+                                                @if($status_projek == 'ok')
+                                                    @if(Session::get('role') == 'PM')
+                                                        <a class="btn bg-primary-light" href="#" data-target="#implementasi"
+                                                        data-toggle="modal">UAT</a>
+                                                    @endif
+                                                    &nbsp;<a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/monitoring/'.$id) }}" >DETAIL</a>
                                                 @endif
-                                                &nbsp;<a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/monitoring/'.$id) }}" >DETAIL</a>
                                             </div>
                                         </div>  
                                     </div>
@@ -267,7 +279,9 @@
                                                 </div>
                                             </div>
                                             <div class="media align-items-center mt-md-0 mt-3">
+                                                @if($status_projek == 'ok')
                                                 <a class="btn bg-secondary-light" data-toggle="collapse" href="#collapseEdit3" role="button" aria-expanded="false" aria-controls="collapseEdit1">DETAIL</a>
+                                                @endif
                                             </div>
                                         </div>  
                                     </div>
