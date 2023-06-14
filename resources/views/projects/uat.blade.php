@@ -64,9 +64,19 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <h5 class="mb-2">Checklist</h5>
+                                                    <h5 class="mb-2">UAT Test Detail</h5>
                                                     <p>
-                                                        {!! nl2br($item->checklist) !!}    
+                                                        @php
+                                                            $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();
+                                                        @endphp
+                                                        @foreach($checklist as $check)
+                                                        <div class="col-lg-6">
+                                                            <div class="custom-control custom-checkbox custom-control-inline mr-0">
+                                                                <input type="checkbox" value="{{ $check->id }}" name="project_checklist[]" class="custom-control-input" id="customCheck{{ $check->id }}" @if($check->status == 1) checked @endif>
+                                                                <label class="custom-control-label mb-1" for="customCheck{{ $check->id }}">{{ $check->isi }}</label>
+                                                            </div>
+                                                        </div>
+                                                        @endforeach   
                                                     </p> 
                                                     <h5 class="mb-2">Description</h5>
                                                     <p class="mb-0">{{ $item->description }}</p>

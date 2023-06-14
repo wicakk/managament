@@ -9,7 +9,7 @@
                     <h5>Task Project</h5>
                     <div class="d-flex flex-wrap align-items-center">
                         @php
-                            $role = ['pm',''];
+                            $role = ['PM',''];
                         @endphp
                         @if(in_array(Session::get('role'),$role) )
                         <a href="#" class="btn btn-primary" data-target="#new-task-modal" data-toggle="modal">New Task</a>
