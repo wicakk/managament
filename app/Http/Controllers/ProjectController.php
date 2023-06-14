@@ -266,6 +266,20 @@ class ProjectController extends Controller
         // dump($project_test);
         return view('projects.timeline',compact('project','users','id','plan','status_plan','all_plan','project_test','task','evolution'));
     }
+    public function hapus_document(string $id): RedirectResponse
+    {
+        DB::table('project_timeline')->where('id',$id)->delete();
+        return redirect()->back()->with('success', 'Data deleted!');
+    }
+    public function update_plan(string $id): RedirectResponse
+    {
+        $data = [
+            'updated_by' => Auth::user()->id,
+            'updated_at' => now(),
+        ];
+        DB::table('project_timeline')->where('project_id',$id)->where('jenis_timeline','planning')->update($data);
+        return redirect()->back()->with('success', 'Data deleted!');
+    }
     public function planning_store(Request $request): RedirectResponse
     {
         // dd($request);
@@ -385,6 +399,7 @@ class ProjectController extends Controller
                 'desc_timeline' => $request->desc_timeline,
                 'project_id' => $request->project_id,
                 'jenis_timeline' => 'planning',
+                'created_by' => Auth::user()->id,
             ];
         }else{
             $data = [
@@ -392,9 +407,10 @@ class ProjectController extends Controller
                 'project_id' => $request->project_id,
                 'jenis_timeline' => 'planning',
                 'file_upload' => $file_name,
+                'created_by' => Auth::user()->id,
             ];
         }
-        DB::table('project_timeline')->where('id',$request->plan_id)->update($data);
+        DB::table('project_timeline')->insert($data);
         return redirect()->back()->with('success', 'Data Berhasil di upload!');
 
     }

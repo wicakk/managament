@@ -142,6 +142,37 @@
                                                         
                                                     </form>
                                                     <hr>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <h5 class="mt-2 mb-2">Riwayat Dokumen Planning & Organizing</h5>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <table class="table mb-0 table-borderless tbl-server-info">
+                                                                <thead>
+                                                                    <tr class="ligth">
+                                                                        <th scope="col">Deskripsi</th>
+                                                                        <th scope="col">File</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach($all_plan as $item)
+                                                                        
+                                                                        <tr>
+                                                                            <td>{{ $item->desc_timeline }}</td>
+                                                                            <td>
+                                                                                @if($item->updated_by == null)
+                                                                                <a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a>
+                                                                                <a href="{{ url('projects_timeline/hapus_document/'.$item->id) }}" class="btn btn-danger">Hapus </a>
+                                                                                @else
+                                                                                <a  class="btn btn-success">Sudah Di Approve </a>
+                                                                                @endif
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                     
                                                     <form action="{{ url('project/plan_doc') }}" method="post" enctype="multipart/form-data">
                                                     
@@ -167,33 +198,13 @@
                                                         
                                                     </form>
 
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <h5 class="mt-2 mb-2">Riwayat Dokumen Planning & Organizing</h5>
-                                                        </div>
-                                                        <div class="col-lg-12">
-                                                            <table class="table mb-0 table-borderless tbl-server-info">
-                                                                <thead>
-                                                                    <tr class="ligth">
-                                                                        <th scope="col">Deskripsi</th>
-                                                                        <th scope="col">File</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach($evolution as $item)
-                                                                        
-                                                                        <tr>
-                                                                            <th>{{ $item->desc_timeline }}</th>
-                                                                            <td><a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a></td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
+                                                    
                                                 </div>
-                                                
+                                                <br>
                                             </div>
+                                            @if(Session::get('role') == 'client')
+                                            <a onclick="return confirm('Apakah anda yakin ingin di approve semua dokumen planning ini?')" href="{{ url('projects_timeline/update_plan/'.$id) }}" class="btn btn-danger w-100">APPROVE PLANNING </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>      
@@ -285,7 +296,9 @@
                                                                         
                                                                         <tr>
                                                                             <th>{{ $item->desc_timeline }}</th>
-                                                                            <td><a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a></td>
+                                                                            <td><a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a>
+                                                                                <a href="{{ url('projects_timeline/hapus_document/'.$item->id) }}" class="btn btn-danger">Hapus </a>
+                                                                            </td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>

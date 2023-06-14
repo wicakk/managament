@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/projects/monitoring/{id}', [ProjectController::class, 'monitoring'])->name('monitoring');
     Route::get('/project_test/task/', [ProjectController::class, 'task'])->name('task');
     Route::get('/projects/task/{id}', [ProjectController::class, 'task_detail'])->name('task_detail');
+    Route::get('/projects_timeline/hapus_document/{id}', [ProjectController::class, 'hapus_document'])->name('hapus_document');
+    Route::get('/projects_timeline/update_plan/{id}', [ProjectController::class, 'update_plan'])->name('update_plan');
     Route::post('/project_detail/store', [ProjectController::class, 'simpan_detail'])->name('simpan_detail');
     Route::get('/project_detail/edit_detail/{id}', [ProjectController::class, 'edit_detail'])->name('edit_detail');
     Route::post('/project_detail/update_detail', [ProjectController::class, 'update_detail'])->name('update_detail');
