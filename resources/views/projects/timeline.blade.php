@@ -10,6 +10,9 @@
 
     @php
         $status_projek = '';
+    if(isset($all_plan[0]->desc_timeline)){
+        $status_projek = 'ok';
+    }
     @endphp
 
     <div class="container-fluid timeline-page">
