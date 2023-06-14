@@ -137,7 +137,7 @@
                                         <option value="PM">Project Manager</option>
                                         <option value="QA">Quality Assurance</option>
                                         <option value="client">Client</option>
-                                        <option value="developer">Team Developer</option>
+                                        <option value="developer">Programmer</option>
                                     </select>
                                 </div>
                             </div>

@@ -22,7 +22,7 @@
                 </div>
             </div> --}}
             @php
-                $role = ['pm','','client'];
+                $role = ['PM','','client'];
             @endphp
             <div class="col-lg-12">
                 <div class="card">
@@ -235,11 +235,10 @@
                                             </div>
                                             <div class="media align-items-center mt-md-0 mt-3">
                                                 @if(Session::get('role') == 'PM')
-                                                    <a class="btn bg-secondary-light" href="#" data-target="#implementasi"
-                                                    data-toggle="modal">DETAIL</a>
-                                                @else
-                                                    <a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/monitoring/'.$id) }}" >DETAIL</a>
+                                                    <a class="btn bg-primary-light" href="#" data-target="#implementasi"
+                                                    data-toggle="modal">UAT</a>
                                                 @endif
+                                                &nbsp;<a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/monitoring/'.$id) }}" >DETAIL</a>
                                             </div>
                                         </div>  
                                     </div>

@@ -23,7 +23,7 @@
                             </div>
                             <div class="pl-3 border-left btn-new">
                                 @php
-                                    $role = ['pm',''];
+                                    $role = ['PM',''];
                                 @endphp
                                 @if(in_array(Session::get('role'),$role) )
                                 <a href="#" class="btn btn-primary" data-target="#new-project-modal"
