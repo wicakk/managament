@@ -54,7 +54,7 @@
                                     <span href="#" class="iq-media">
                                         <img class="img-fluid avatar-40 rounded-circle" src="{{ asset('assets/images/user/05.jpg') }}"
                                             alt="">
-                                        <a class="btn btn-white text-primary">{{ $item->role }}</a>
+                                        <a class="btn btn-white text-primary">{{ if($item->role == 'developer') ? 'Progremmer' : $item->role; }}</a>
                                     </span>
                                 </div>
                                 <span>
