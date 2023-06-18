@@ -12,7 +12,7 @@ class AuthController extends Controller
     // public function register()
     // {
     //     return view('register');
-    // }
+    // } 
 
     // public function registerPost(Request $request)
     // {
