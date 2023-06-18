@@ -20,11 +20,16 @@ class ProjectController extends Controller
  
     public function index(): View
     {
-        $projects = DB::table('projects')->select('projects.*','users.name')
-        ->leftJoin('users', 'users.id', '=', 'projects.created_by')->get();
+        // $projects = DB::table('projects')->select('projects.*','users.name')
+        // ->leftJoin('users', 'users.id', '=', 'projects.created_by')->get();
         $users = User::all();
         // dd();
         // dd($projects);
+        $user_id = Auth::user()->id;
+        $projects = DB::table('projects')->select('projects.*','users.name')
+        ->leftJoin('users', 'users.id', '=', 'projects.created_by')
+        ->where('penanggung_jawab','LIKE','%|'.$user_id.'|%')
+        ->get();
         return view ('projects.index',compact('projects','users'));
     }
  
@@ -125,9 +130,10 @@ class ProjectController extends Controller
         // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
         $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.created_by as qa_by','project_test.tested_by as tested')
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
+        $project_test = DB::table('project_test')->select('project_test.*','project_detail.id as pid')->leftJoin('project_detail','project_detail.id','project_test.project_detail_id')->where('project_detail.project_id',$id)->get();
         // dd($data);
         $users = User::all();
-        return view('projects.monitoring',compact('data','id','users'));
+        return view('projects.monitoring',compact('data','id','users','project_test'));
     }
 
     public function simpan_detail(Request $request): RedirectResponse

@@ -44,7 +44,7 @@
                 <nav class="iq-sidebar-menu">
                     <ul id="iq-sidebar-toggle" class="iq-menu">
                         <li class="">
-                            <a href="" class="svg-icon">
+                            <a href="{{ url('/dashboard') }}" class="svg-icon">
                                 <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
@@ -54,7 +54,7 @@
                                 <span class="ml-4">Dashboards</span>
                             </a>
                         </li>
-                        @if(Session::get('role') == '')
+                        @if(Session::get('role') == '' || Session::get('role') == 'PM')
                         <li class="">
                             <a href="{{ url('users') }}" class="svg-icon">
                                 <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
@@ -67,6 +67,7 @@
                             </a>
                         </li>
                         @endif
+                        @if(Session::get('role') == '' || Session::get('role') == 'PM' || Session::get('role') == 'client' || Session::get('role') == 'QA')
                         <li class="">
                             <a href="{{ url('projects') }}" class="svg-icon">
                                 <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
@@ -81,6 +82,8 @@
                                 <span class="ml-4">Projects</span>
                             </a>
                         </li>
+                        @endif
+                        @if(Session::get('role') == 'developer')
                         <li class="">
                             <a href="{{ url('project_test/task') }}" class="svg-icon">
                                 <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
@@ -93,6 +96,8 @@
                                 <span class="ml-4">Task</span>
                             </a>
                         </li>
+                        @endif
+                        @if(Session::get('role') == 'client')
                         <li class="">
                             <a href="{{ url('project_test_uat/uat_test') }}" class="svg-icon">
                                 <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
@@ -107,18 +112,30 @@
                                 <span class="ml-4">Desk</span>
                             </a>
                         </li>
+                        @endif
                         <li class="">
-                            <a href="/page-calender.html" class="svg-icon">
-                                <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                            <a href="#menu1" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                                <svg class="svg-icon" id="p-dash10" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <polyline points="17 11 19 13 23 9"></polyline>
                                 </svg>
-                                <span class="ml-4">Calender</span>
+                                <span class="ml-4">Laporan</span>
+                                <i class="las la-angle-right iq-arrow-right arrow-active"></i>
+                                <i class="las la-angle-down iq-arrow-right arrow-hover"></i>
                             </a>
+                            <ul id="menu1" class="iq-submenu collapse" data-parent="#menu1">
+                                <li class="">
+                                    <a href="{{ url('laporan/task') }}">
+                                        <i class="las la-minus"></i><span>Task</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{{ url('laporan/test') }}">
+                                        <i class="las la-minus"></i><span>Test</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>

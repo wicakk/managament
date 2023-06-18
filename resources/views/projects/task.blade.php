@@ -9,7 +9,7 @@
                     <h5>Task Project</h5>
                     <div class="d-flex flex-wrap align-items-center">
                         @php
-                            $role = ['pm',''];
+                            $role = ['PM',''];
                         @endphp
                         @if(in_array(Session::get('role'),$role) )
                         <a href="#" class="btn btn-primary" data-target="#new-task-modal" data-toggle="modal">New Task</a>
@@ -90,12 +90,14 @@
                                     </div>
                                     <div class="card">
                                         <div class="card-body">
+                                            <form action="{{ url('project_detail_checklist') }}" method="post">
+                                                @csrf
                                                 <input type="hidden" required name="project_detail_id" value="{{ $item->id }}">
                                                 <h5 class="mb-2">Checklist</h5>
                                                 <div class="row">
                                                     @php
                                                         $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();
-                                                    @endphp
+                                                        @endphp
                                                     @foreach($checklist as $check)
                                                     <div class="col-lg-6">
                                                         <div class="custom-control custom-checkbox custom-control-inline mr-0">
@@ -104,7 +106,9 @@
                                                         </div>
                                                     </div>
                                                     @endforeach
-                                                </div>
+                                                </div><br>
+                                                <button class="btn btn-primary w-100" type="submit">Update Progress</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

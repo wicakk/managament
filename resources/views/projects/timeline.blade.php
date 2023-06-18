@@ -10,7 +10,7 @@
 
     @php
         $status_projek = '';
-    if(isset($all_plan[0]->desc_timeline)){
+    if(isset($all_plan[0]->updated_by)){
         $status_projek = 'ok';
     }
     @endphp
@@ -259,10 +259,7 @@
                                             </div>
                                             <div class="media align-items-center mt-md-0 mt-3">
                                                 @if($status_projek == 'ok')
-                                                    @if(Session::get('role') == 'PM')
-                                                        <a class="btn bg-primary-light" href="#" data-target="#implementasi"
-                                                        data-toggle="modal">UAT</a>
-                                                    @endif
+                                                    
                                                     &nbsp;<a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/monitoring/'.$id) }}" >DETAIL</a>
                                                 @endif
                                             </div>
