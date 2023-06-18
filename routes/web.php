@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectTestController;
@@ -54,6 +55,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/project_test_uat/uat_test', [ProjectTestController::class, 'uat_test'])->name('uat_test');
     Route::post('/project_test_uat/store_uat', [ProjectTestController::class, 'store_uat'])->name('store_uat');
     Route::post('/project_detail_checklist', [ProjectController::class, 'update_checklist'])->name('update_checklist');
+
+
+
+    // Laporan
+    Route::get('/laporan/task', [LaporanController::class, 'task'])->name('task');
+    Route::get('/laporan/task/detail/{id}', [LaporanController::class, 'taskdetail'])->name('taskdetail');
+
+    // resource
     Route::resource("/project_test", ProjectTestController::class);
     Route::resource("/users", UserController::class);
     Route::resource("/projects", ProjectController::class);

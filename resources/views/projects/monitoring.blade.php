@@ -9,6 +9,12 @@
             <div class="card-body">
                 <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
                     <h5>Monitoring</h5>
+                    <div class="media align-items-center mt-md-0 mt-3">
+                        @if(Session::get('role') == 'PM')
+                            <a class="btn bg-primary-light" href="#" data-target="#implementasi"
+                            data-toggle="modal">UAT</a>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -138,6 +144,67 @@
                     @endforeach
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" role="dialog" aria-modal="true" id="implementasi">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-block text-center pb-3 border-bttom">
+                <h3 class="modal-title" id="exampleModalCenterTitle02">
+                    Implementasi & Testing
+                </h3>
+            </div>
+            <form action="{{ url('project_test/accept_test') }}" method="post">
+                {!! csrf_field() !!}
+                <input type="hidden" required name="project_id" value="{{ $id }}">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table mb-0 table-borderless tbl-server-info">
+                                <thead>
+                                    <tr class="ligth">
+                                        <th scope="col">#</th>
+                                       <th scope="col">UAT Test Desc</th>
+                                       <th scope="col">Di UAT oleh</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($project_test as $item)
+                                        
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" @if(isset($item->uat_test_case)) checked disabled @endif required name="project_test[]" value="{{ $item->id }}">
+                                            </td>
+                                            <td>{{ $item->uat_test_desc }}</td>
+                                            <td>
+                                                @php
+                                                    if($item->tested_by !== null){
+                                                        $dibuat = DB::table('users')->where('id',$item->tested_by)->first();
+                                                        echo $dibuat->name;
+                                                    }else{
+                                                        echo "Belum di UAT";
+                                                    }
+                                                @endphp
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="col-lg-12">
+                            <div class="d-flex flex-wrap align-items-ceter justify-content-center mt-2">
+                                <input class="btn btn-success" type="submit" value="Save">
+                                <div class="btn btn-primary" data-dismiss="modal">
+                                    Cancel
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
