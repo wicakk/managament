@@ -27,7 +27,7 @@
                                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <h5 class="mb-2">{{ $item->task_name }} <span id="testing{{ $item->id }}" class="badge badge-warning"> Testing</span>
+                                            <h5 class="mb-2">{{ $item->task_name }} <span id="testing{{ $item->id }}" class="badge badge-warning"> Testing & Record</span>
                                             @isset($item->file_test)
                                                 <a href="{{ url('document_testing/'.$item->file_test) }}" target="_blank" class="badge badge-info">Lihat Hasil Testing</a>
 
