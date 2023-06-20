@@ -28,7 +28,7 @@ class ProjectController extends Controller
         $user_id = Auth::user()->id;
         $projects = DB::table('projects')->select('projects.*','users.name')
         ->leftJoin('users', 'users.id', '=', 'projects.created_by')
-        ->where('penanggung_jawab','LIKE','%|'.$user_id.'|%')
+        // ->where('penanggung_jawab','LIKE','%|'.$user_id.'|%')
         ->get();
         return view ('projects.index',compact('projects','users'));
     }

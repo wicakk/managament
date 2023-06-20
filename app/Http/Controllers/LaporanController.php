@@ -25,7 +25,7 @@ class LaporanController extends Controller
         $user_id = Auth::user()->id;
         $projects = DB::table('projects')->select('projects.*','users.name')
         ->leftJoin('users', 'users.id', '=', 'projects.created_by')
-        ->where('penanggung_jawab','LIKE','%|'.$user_id.'|%')
+        // ->where('penanggung_jawab','LIKE','%|'.$user_id.'|%')
         ->get();
         $users = User::all();
         // dump($projects);
@@ -48,7 +48,7 @@ class LaporanController extends Controller
         $user_id = Auth::user()->id;
         $projects = DB::table('projects')->select('projects.*','users.name')
         ->leftJoin('users', 'users.id', '=', 'projects.created_by')
-        ->where('penanggung_jawab','LIKE','%|'.$user_id.'|%')
+        // ->where('penanggung_jawab','LIKE','%|'.$user_id.'|%')
         ->get();
         $users = User::all();
         // dump($projects);
