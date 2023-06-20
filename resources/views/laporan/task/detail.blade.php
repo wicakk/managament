@@ -17,10 +17,6 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @php
-                        $no = 0;
-                    @endphp
-                    @foreach($data as $item)
                     <div class="table-responsive">
                         <table class="table table-boreder">
                             <thead>
@@ -33,6 +29,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $no = 0;
+                                @endphp
+                                @foreach($data as $item)
                                 <tr>
                                     <th>{{ $item->task_name }}</th>
                                     <td>{{ $item->due_dates }}</td>
@@ -49,11 +49,11 @@
                                         </ol>
                                     </td>
                                 </tr>
+                                @php $no++ @endphp
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                    @php $no++ @endphp
-                    @endforeach
                 </div>
             </div>
         </div>
