@@ -13,6 +13,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Session;
+
 // use Carbon\Carbon;
 
 class ProjectController extends Controller
@@ -24,12 +26,19 @@ class ProjectController extends Controller
         // ->leftJoin('users', 'users.id', '=', 'projects.created_by')->get();
         $users = User::all();
         // dd();
-        // dd($projects);
-        $user_id = Auth::user()->id;
+        // dd(Session::get('role'));
         $projects = DB::table('projects')->select('projects.*','users.name')
         ->leftJoin('users', 'users.id', '=', 'projects.created_by')
-        // ->where('penanggung_jawab','LIKE','%|'.$user_id.'|%')
         ->get();
+        if(Session::get('role') !== "" && Session::get('role') !== "PM"){
+            $user_id = '%|'.Auth::user()->id.'|%';
+            $projects = DB::table('projects')->select('projects.*','users.name')
+            ->leftJoin('users', 'users.id', '=', 'projects.created_by')
+            // ->whereIn('penanggung_jawab', $pj)
+            ->where('penanggung_jawab','LIKE',$user_id)
+            ->get();
+        }
+        // dd($user_id);
         return view ('projects.index',compact('projects','users'));
     }
  
