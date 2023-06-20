@@ -2,7 +2,7 @@
 @section('content')
 
 
-
+<video controls width="600" style="display: none"></video>
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -27,7 +27,12 @@
                                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <h5 class="mb-2">{{ $item->task_name }} <a href="#" target="_blank btn-debug"><span class="badge badge-warning"> Testing : {{ $item->url_test }}</span></a></h5>
+                                            <h5 class="mb-2">{{ $item->task_name }} <span id="testing{{ $item->id }}" class="badge badge-warning"> Testing</span>
+                                            @isset($item->file_test)
+                                                <a href="{{ url('document_testing/'.$item->file_test) }}" target="_blank" class="badge badge-info">Lihat Hasil Testing</a>
+
+                                            @endisset
+                                            </h5>
                                             <div class="media align-items-center">
                                                 <div class="btn bg-body mr-3">Dibuat Oleh : 
                                                     @php
@@ -117,7 +122,7 @@
                                                     <label for="">Comments</label>
                                                     <textarea name="comments" required id="comments" cols="10" rows="3" class="form-control">{{ $item->comments }}</textarea>
                                                 </div>
-                                                <img src="{{ url('document_testing/'.$item->file_test) }}" alt="Hasil Test" class="img-fluid" width="200">
+                                                {{-- <img src="{{ url('document_testing/'.$item->file_test) }}" alt="Hasil Test" class="img-fluid" width="200"> --}}
                                                 <div class="input-group mb-4">
                                                     <div class="input-group-prepend">
                                                     <span class="input-group-text">Upload Hasil Testing*</span>
@@ -138,6 +143,48 @@
                         </div>      
                     </div>
                     @php $no++ @endphp
+
+                    <script>
+                        let btn = document.querySelector('#testing{{ $item->id }}')
+                        btn.addEventListener('click', async function (){
+                            let stream = await navigator.mediaDevices.getDisplayMedia({
+                                video: true
+                            })
+                            const mime = MediaRecorder.isTypeSupported("video/webm; codecs=vp9") 
+                            ? "video/webm; codecs=vp9" 
+                            : "video/webm"
+                            let mediaRecorder = new MediaRecorder(stream, {
+                                mimeType: mime
+                            })
+                            // console.log('2')
+                            window.open('{{ $item->url_test }}','_blank')
+                            
+                            let chunks = []
+                            mediaRecorder.addEventListener('dataavailable', function(e) {
+                                // console.log('3')
+                                chunks.push(e.data)
+                                // console.log('4')
+                            })
+                    
+                            mediaRecorder.addEventListener('stop', function(){
+                                let blob = new Blob(chunks, {
+                                    type: chunks[0].type
+                                })
+                    
+                                let video = document.querySelector("video")
+                                video.src = URL.createObjectURL(blob)
+                    
+                                let a = document.createElement('a')
+                                a.href = URL.createObjectURL(blob)
+                                a.download = 'record_screen.webm'
+                                a.click()
+
+                                window.close();
+                            })
+                    
+                            mediaRecorder.start()
+                        })
+                </script>
                     @endforeach
                 </div>
             </div>
@@ -149,43 +196,6 @@
 
 
 @push('scripts')
-<script>
-    <script>
-        let btn = document.querySelector('button')
-        btn.addEventListener('click', async function (){
-            let stream = await navigator.mediaDevices.getDisplayMedia({
-                video: true
-            })
 
-            const mime = MediaRecorder.isTypeSupported("video/webm; codecs=vp9") 
-                    ? "video/webm; codecs=vp9" 
-                    : "video/webm"
-            let mediaRecorder = new MediaRecorder(stream, {
-                mimeType: mime
-            })
-
-            let chunks = []
-            mediaRecorder.addEventListener('dataavailable', function(e) {
-                chunks.push(e.data)
-            })
-
-            mediaRecorder.addEventListener('stop', function(){
-                let blob = new Blob(chunks, {
-                    type: chunks[0].type
-                })
-
-                let video = document.querySelector("video")
-                video.src = URL.createObjectURL(blob)
-
-                let a = document.createElement('a')
-                a.href = URL.createObjectURL(blob)
-                a.download = 'video.webm'
-                a.click()
-            })
-
-            mediaRecorder.start()
-        })
-    </script>
-</script>
 
 @endpush
