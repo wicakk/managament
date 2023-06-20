@@ -112,6 +112,7 @@
                                                 <div class="form-group mb-3 position-relative">
                                                     <label for="">Actual Result</label>
                                                     <select required name="actual_result_qa" required id="actual_result" class="form-control">
+                                                        <option value="">Silahkan Pilih</option>
                                                         <option value="Pass">Pass</option>
                                                         <option value="Fail">Fail</option>
                                                     </select>

@@ -27,7 +27,7 @@
                                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <h5 class="mb-2">{{ $item->task_name }} <a href="{{ $item->url_test }}" target="_blank"><span class="badge badge-warning"> Link : {{ $item->url_test }}</span></a></h5>
+                                            <h5 class="mb-2">{{ $item->task_name }} <a href="#" target="_blank btn-debug"><span class="badge badge-warning"> Testing : {{ $item->url_test }}</span></a></h5>
                                             <div class="media align-items-center">
                                                 <div class="btn bg-body mr-3">Dibuat Oleh : 
                                                     @php
@@ -104,6 +104,7 @@
                                                 <div class="form-group mb-3 position-relative">
                                                     <label for="">Actual Result</label>
                                                     <select name="actual_result" required id="actual_result" class="form-control">
+                                                        <option value="">Silahkan Pilih</option>
                                                         <option value="Pass">Pass</option>
                                                         <option value="Fail">Fail</option>
                                                     </select>
@@ -147,3 +148,44 @@
 @endsection
 
 
+@push('scripts')
+<script>
+    <script>
+        let btn = document.querySelector('button')
+        btn.addEventListener('click', async function (){
+            let stream = await navigator.mediaDevices.getDisplayMedia({
+                video: true
+            })
+
+            const mime = MediaRecorder.isTypeSupported("video/webm; codecs=vp9") 
+                    ? "video/webm; codecs=vp9" 
+                    : "video/webm"
+            let mediaRecorder = new MediaRecorder(stream, {
+                mimeType: mime
+            })
+
+            let chunks = []
+            mediaRecorder.addEventListener('dataavailable', function(e) {
+                chunks.push(e.data)
+            })
+
+            mediaRecorder.addEventListener('stop', function(){
+                let blob = new Blob(chunks, {
+                    type: chunks[0].type
+                })
+
+                let video = document.querySelector("video")
+                video.src = URL.createObjectURL(blob)
+
+                let a = document.createElement('a')
+                a.href = URL.createObjectURL(blob)
+                a.download = 'video.webm'
+                a.click()
+            })
+
+            mediaRecorder.start()
+        })
+    </script>
+</script>
+
+@endpush

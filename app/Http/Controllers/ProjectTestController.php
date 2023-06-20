@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class ProjectTestController extends Controller
 {
@@ -19,7 +20,18 @@ class ProjectTestController extends Controller
     public function index(): View
     {
         $projects = DB::table('projects')->select('projects.*','users.name')
-        ->leftJoin('users', 'users.id', '=', 'projects.created_by')->get();
+        ->leftJoin('users', 'users.id', '=', 'projects.created_by')
+        ->get();
+        if(Session::get('role') !== "" && Session::get('role') !== "PM"){
+            $user_id = '%|'.Auth::user()->id.'|%';
+            $projects = DB::table('projects')->select('projects.*','users.name')
+            ->leftJoin('users', 'users.id', '=', 'projects.created_by')
+            // ->whereIn('penanggung_jawab', $pj)
+            ->where('penanggung_jawab','LIKE',$user_id)
+            ->get();
+        }
+        // $projects = DB::table('projects')->select('projects.*','users.name')
+        // ->leftJoin('users', 'users.id', '=', 'projects.created_by')->get();
         $users = User::all();
         // dd($projects);
         return view ('projects.index',compact('projects','users'));
