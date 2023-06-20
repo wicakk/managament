@@ -17,10 +17,6 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @php
-                        $no = 0;
-                    @endphp
-                    @foreach($data as $item)
                     <div class="table-responsive">
                         <table class="table table-boreder">
                             <thead>
@@ -34,13 +30,20 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $no = 0;
+                                @endphp
+                                @foreach($data as $item)
                                 <tr>
                                     <th>{{ $item->task_name }}
-                                        @if($item->actual_result == 'Fail')
-                                        <span class="btn btn-danger text-white">FAIL</span>
+                                        @if($item->actual_result == 'Pass')
+                                        <span class="badge badge-success text-white">PASS</span>
                                         @else
-                                        <span class="btn btn-success">PASS</span>
+                                        <span class="badge badge-danger text-white">FAIL</span>
                                         @endif
+                                        @isset($item->file_test)
+                                            <a href="{{ url('document_testing/'.$item->file_test) }}" target="_blank" class="badge badge-info text-center">Lihat Hasil Testing</a>
+                                        @endisset
                                     </th>
                                     <td>{{ $item->due_dates }}</td>
                                     <td>{{ nl2br($item->result) }}</td>
@@ -63,13 +66,14 @@
                                                 <li>{{ $check->isi }} @if($check->status == 1) <span class="badge badge-primary">Selesai</span>  @endif</li>
                                             @endforeach
                                         </ol>
+                                        
                                     </td>
                                 </tr>
+                                @php $no++ @endphp
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                    @php $no++ @endphp
-                    @endforeach
                 </div>
             </div>
         </div>
