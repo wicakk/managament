@@ -145,7 +145,8 @@
                     @php $no++ @endphp
 
                     <script>
-                        let btn = document.querySelector('#testing{{ $item->id }}')
+                        // let idbtn = '{{ $item->id }}'
+                        var btn = document.querySelector('#testing{{ $item->id }}')
                         btn.addEventListener('click', async function (){
                             let stream = await navigator.mediaDevices.getDisplayMedia({
                                 video: true
@@ -179,7 +180,7 @@
                                 a.download = 'record_screen.webm'
                                 a.click()
 
-                                window.close();
+                                // window.close();
                             })
                     
                             mediaRecorder.start()
