@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
-                    <h5>Task Project</h5>
+                    <h5>Testing</h5>
                     <div class="d-flex flex-wrap align-items-center">
                         <a href="#" class="btn btn-primary" data-target="#new-task-modal" data-toggle="modal">New Task</a>
                     </div>

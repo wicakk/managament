@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
-                    <h5>Task Project</h5>
+                    <h5>Task</h5>
                     <div class="d-flex flex-wrap align-items-center">
                         @php
                             $role = ['PM',''];
@@ -41,10 +41,9 @@
                                                         if(isset($dibuat->name)){
                                                             echo $dibuat->name;
                                                         }
-                                                        
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Kerjaakan : 
+                                                <div class="btn bg-body">Di Kerjakan : 
                                                     @php
                                                     $dikerjakan = DB::table('users')->where('id',$item->assigned_to)->first();
                                                     if(isset($dikerjakan->name)){

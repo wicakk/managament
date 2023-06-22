@@ -44,7 +44,7 @@
                                                         
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Kerjaakan : 
+                                                <div class="btn bg-body">Di Kerjakan Oleh : 
                                                     @php
                                                     $dikerjakan = DB::table('users')->where('id',$item->assigned_to)->first();
                                                     if(isset($dikerjakan->name)){
@@ -53,20 +53,11 @@
                                                     
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di QA oleh : 
+                                                <div class="btn bg-body">Di Testing oleh : 
                                                     @php
                                                     $diqa = DB::table('users')->where('id',$item->qa_by)->first();
                                                     if(isset($diqa->name)){
                                                         echo $diqa->name;
-                                                    }
-                                                    
-                                                    @endphp
-                                                </div>
-                                                <div class="btn bg-body">Di Testing Oleh: 
-                                                    @php
-                                                    $ditesting = DB::table('users')->where('id',$item->tested_by)->first();
-                                                    if(isset($ditesting->name)){
-                                                        echo $ditesting->name;
                                                     }
                                                     
                                                     @endphp
@@ -98,6 +89,8 @@
                                                     </p> 
                                                     <h5 class="mb-2">Description</h5>
                                                     <p class="mb-0">{{ $item->description }}</p>
+                                                    <h5 class="mb-2">File Testing QA</h5>
+                                                    <p class="mb-0"><a href="{{ url('asset/document_testing/'.$item->file_test_qa) }}">Lihat Disini</a></p>
                                                 </div>
                                                 <div class="col-lg-6">                                      
                                                     <h5 class="mb-2">Steps For UAT Test</h5>

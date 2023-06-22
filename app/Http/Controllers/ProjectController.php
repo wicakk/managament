@@ -413,6 +413,7 @@ class ProjectController extends Controller
             $data = [
                 'desc_timeline' => $request->desc_timeline,
                 'project_id' => $request->project_id,
+                'scope' => $request->scope,
                 'jenis_timeline' => 'planning',
                 'created_by' => Auth::user()->id,
             ];
@@ -420,6 +421,7 @@ class ProjectController extends Controller
             $data = [
                 'desc_timeline' => $request->desc_timeline,
                 'project_id' => $request->project_id,
+                'scope' => $request->scope,
                 'jenis_timeline' => 'planning',
                 'file_upload' => $file_name,
                 'created_by' => Auth::user()->id,

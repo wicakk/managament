@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
-                    <h5>Task Project</h5>
+                    <h5>Mengelola Progress</h5>
                     <div class="d-flex flex-wrap align-items-center">
                         @php
                             $role = ['PM',''];
@@ -42,7 +42,7 @@
                                                         
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Kerjaakan : 
+                                                <div class="btn bg-body">Di Kerjakan : 
                                                     @php
                                                     $dibuat = DB::table('users')->where('id',$item->assigned_to)->first();
                                                     echo $dibuat->name;
