@@ -21,7 +21,7 @@
                         <table id="datatable" class="table data-table table-striped" >
                             <thead>
                                 <tr>
-                                    <th>Task Name</th>
+                                    <th>Description</th>
                                     <th>Due Dates</th>
                                     <th>Result</th>
                                     <th>Comments</th>
@@ -35,7 +35,7 @@
                                 @endphp
                                 @foreach($data as $item)
                                 <tr>
-                                    <th>{{ $item->task_name }}
+                                    <th>{{ $item->description }}
                                         @if($item->actual_result == 'Pass')
                                         <span class="badge badge-success text-white">PASS</span>
                                         @else
