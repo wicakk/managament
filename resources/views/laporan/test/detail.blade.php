@@ -17,8 +17,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="table-responsive">
-                        <table class="table table-boreder">
+                    <div class="container">
+                        <table id="datatable" class="table data-table table-striped" >
                             <thead>
                                 <tr>
                                     <th>Task Name</th>
