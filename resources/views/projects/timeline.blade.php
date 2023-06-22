@@ -118,7 +118,7 @@
                                                             </div>
                                                         </div>
                                                         
-                                                        <button type="submit" class="btn btn-primary w-100" >Update Progress</button>
+                                                        <button type="submit" class="btn btn-primary w-100" >Upload Progress</button>
                                                         
                                                     </form>
                                                     <hr>
@@ -157,6 +157,7 @@
                                                             <table class="table mb-0 table-borderless tbl-server-info">
                                                                 <thead>
                                                                     <tr class="ligth">
+                                                                        <th scope="col">Jenis Dokumen</th>
                                                                         <th scope="col">Deskripsi</th>
                                                                         <th scope="col">File</th>
                                                                     </tr>
@@ -165,13 +166,14 @@
                                                                     @foreach($all_plan as $item)
                                                                         
                                                                         <tr>
+                                                                            <td>{{ $item->scope }}</td>
                                                                             <td>{{ $item->desc_timeline }}</td>
                                                                             <td>
                                                                                 @if($item->updated_by == null)
                                                                                 <a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a>
                                                                                 <a href="{{ url('projects_timeline/hapus_document/'.$item->id) }}" class="btn btn-danger">Hapus </a>
                                                                                 @else
-                                                                                <a  class="btn btn-success">Sudah Di Approve </a>
+                                                                                <a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-success">Sudah Di Approve </a>
                                                                                 @php 
                                                                                     $status_projek = 'ok';
                                                                                 @endphp
@@ -200,11 +202,20 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group mb-3">
+                                                            <label for="exampleInputText01" class="h5">Jenis Dokumen*</label>
+                                                            <select name="scope" id="scope" class="form-control">
+                                                                <option value="Project Scope Statement">Project Scope Statement</option>
+                                                                <option value="Project Plan">Project Plan</option>
+                                                                <option value="Task List">Task List</option>
+                                                                <option value="Resource Allocation Plan">Resource Allocation Plan</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group mb-3">
                                                             <label for="exampleInputText01" class="h5">Catatan*</label>
                                                             <textarea required name="desc_timeline" @isset($status_plan->id) {{ $status_plan->desc_timeline }} @endisset id="catatan_planing" cols="30" rows="4" class="form-control"></textarea>
                                                         </div>
                                                         
-                                                        <button type="submit" class="btn btn-primary w-100" >Update dokumen</button>
+                                                        <button type="submit" class="btn btn-primary w-100" >Upload dokumen</button>
                                                         
                                                     </form>
 
