@@ -38,7 +38,7 @@
                                     <th>{{ $item->description }}
                                         @if($item->actual_result == 'Pass')
                                         <span class="badge badge-success text-white">PASS</span>
-                                        @else
+                                        @elseif($item->actual_result == 'Fail')
                                         <span class="badge badge-danger text-white">FAIL</span>
                                         @endif
                                         @isset($item->file_test)
