@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="container">
+                    <div class="table-responsive">
                         <table id="datatable" class="table data-table table-striped" >
                             <thead>
                                 <tr>

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('checklist')->nullable();
             $table->string('created_by')->nullable();
             $table->string('tested_by')->nullable();
+            $table->string('file_dev')->nullable();
             $table->timestamps();
         });
     }

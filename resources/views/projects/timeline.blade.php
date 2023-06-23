@@ -43,9 +43,9 @@
                                             <div class="d-flex align-items-center">
                                                 <div>
                                                     <h5 class="mb-2">Planning & Organizing 
-                                                        {{-- <span class="badge badge-warning"> Batas Akhir : 2 januari 2023</span> --}}
                                                     </h5>
                                                     <div class="media align-items-center">
+                                                        meliputi menentukan scope project, develop sebuah project plan, mengidentifikasi task, menentukan deadline, dan alokasi resources
                                                     </div>
                                                 </div>
                                             </div>
@@ -239,6 +239,7 @@
                                                 <div>
                                                     <h5 class="mb-2">Mengelola Progres</h5>
                                                     <div class="media align-items-center">
+                                                            Pembagian Tugas
                                                     </div>
                                                 </div>
                                             </div>
@@ -265,6 +266,7 @@
                                                 <div>
                                                     <h5 class="mb-2">Monitoring Projek</h5>
                                                     <div class="media align-items-center">
+                                                        kegiatan ini meliputi melacak tugas projek, deadline, resource, dan membuat penyesuaian jika diperlukan untuk memastikan bahwa proyek tetap berjalan dengan baik
                                                     </div>
                                                 </div>
                                             </div>

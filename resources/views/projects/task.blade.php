@@ -68,7 +68,11 @@
                             <div class="card card-list task-card">
                                 <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
                                     <div class="header-title">
-                                        <h2>Detail</h2>
+                                        <h2>Detail 
+                                            @isset($item->file_dev)
+                                            <a class="badge badge-primary" href="{{ url('document_timeline/'.$item->file_dev) }}" target="_blank">Lihat Bukti Progress</a>
+                                            @endisset
+                                        </h2>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -89,7 +93,8 @@
                                     </div>
                                     <div class="card">
                                         <div class="card-body">
-                                            <form action="{{ url('project_detail_checklist') }}" method="post">
+                                            {{-- <div class="custom-control custom-checkbox custom-control-inline mr-0"> --}}
+                                            <form action="{{ url('project_detail_checklist') }}" method="post" enctype="multipart/form-data">
                                                 @csrf
                                                 <input type="hidden" required name="project_detail_id" value="{{ $item->id }}">
                                                 <h5 class="mb-2">Checklist</h5>
@@ -106,6 +111,15 @@
                                                     </div>
                                                     @endforeach
                                                 </div><br>
+                                                <div class="input-group mb-4">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text">Upload Bukti*</span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile{{ $item->id }}">
+                                                    <label class="custom-file-label" for="inputGroupFile{{ $item->id }}">Choose file</label>
+                                                    </div>
+                                                </div>
                                                 <button class="btn btn-primary w-100" type="submit">Update Progress</button>
                                             </form>
                                         </div>

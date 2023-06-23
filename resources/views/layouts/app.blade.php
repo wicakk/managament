@@ -127,12 +127,12 @@
                             <ul id="menu1" class="iq-submenu collapse" data-parent="#menu1">
                                 <li class="">
                                     <a href="{{ url('laporan/task') }}">
-                                        <i class="las la-minus"></i><span>Task</span>
+                                        <i class="las la-minus"></i><span>Test</span>
                                     </a>
                                 </li>
                                 <li class="">
                                     <a href="{{ url('laporan/test') }}">
-                                        <i class="las la-minus"></i><span>Test</span>
+                                        <i class="las la-minus"></i><span>UAT</span>
                                     </a>
                                 </li>
                             </ul>

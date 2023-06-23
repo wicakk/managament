@@ -137,9 +137,10 @@ class ProjectController extends Controller
     {
         // $data = DB::table('projects')->select('projects.*','project_detail.*')
         // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
-        $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.created_by as qa_by','project_test.tested_by as tested')
+        $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.created_by as qa_by','project_test.tested_by as tested','project_detail.id as pid')
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
         $project_test = DB::table('project_test')->select('project_test.*','project_detail.id as pid')->leftJoin('project_detail','project_detail.id','project_test.project_detail_id')->where('project_detail.project_id',$id)->get();
+        
         // dd($data);
         $users = User::all();
         return view('projects.monitoring',compact('data','id','users','project_test'));
@@ -202,7 +203,7 @@ class ProjectController extends Controller
     }
     public function update_checklist(Request $request)
     {
-        // dump($request);
+        // dd($request);
         $data = [
             'status' => null
         ];
@@ -212,6 +213,37 @@ class ProjectController extends Controller
                 'status' => 1
             ];
             DB::table('project_detail_checklist')->where('id',$item)->update($data1);
+        }
+        $error = '';
+        $file_name = '';
+
+        // dd($request->hasFile('file'));
+        if($request->hasFile('file')){
+            $semua_file = "";
+            // foreach($request->file as $file){
+                // dd($file->getClientMimeType());
+            $file= $request->file;
+                if(in_array($file->getClientMimeType(),['image/jpg','image/jpeg','image/png','image/svg','application/zip','application/xls','application/xlsx','application/docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/pdf'])){
+                    $file_name = round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
+                    // $name = Auth::user()->pegawai_id;
+                    $file->move(public_path('document_timeline/'), $file_name);
+                    // array_push($nama_file_surat, $file_name);
+                }else{
+                    $error .= $file->getClientOriginalName()."File anda tidak dapat kami simpan cek kembali extensi dan besar filenya"."<br>";
+                }
+            // }
+            // dd($nama_file_surat);
+            if($error !== ""){
+                return Redirect::back()->with(['error' => $error]);
+            }
+        }
+
+        $data2 = '';
+        if($file_name !== ''){
+            $data2 = [
+                'file_dev' => $file_name,
+            ];
+            DB::table('project_detail')->where('id', $request->project_detail_id)->update($data2);
         }
 
         // DB::table('project_detail')->where('id',$request->project_detail_id)->update($data);
