@@ -33,7 +33,18 @@
                                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <h5 class="mb-2">{{ $item->task_name }} </h5>
+                                            @php
+                                                $cekstatus = DB::table('project_detail_checklist')->where('project_detail_id', $item->pid)->whereNotNull('status')->first();
+                                            @endphp
+                                            <h5 class="mb-2">{{ $item->task_name }} 
+                                                @if($item->actual_result_qa == 'Pass')
+                                                <span class="badge badge-success text-white">PASS</span>
+                                                @elseif($item->actual_result_qa == 'Fail')
+                                                <span class="badge badge-danger text-white">FAIL</span>
+                                                @elseif(isset($cekstatus))
+                                                <span class="badge badge-info text-white">On Progress</span>
+                                                @endif
+                                            </h5>
                                             <div class="media align-items-center">
                                                 <div class="btn bg-body mr-3">Dibuat Oleh : 
                                                     @php
@@ -89,8 +100,10 @@
                                                     </p> 
                                                     <h5 class="mb-2">Description</h5>
                                                     <p class="mb-0">{{ $item->description }}</p>
-                                                    <h5 class="mb-2">File Testing QA</h5>
-                                                    <p class="mb-0"><a href="{{ url('asset/document_testing/'.$item->file_test_qa) }}">Lihat Disini</a></p>
+                                                    @isset($item->file_dev)
+                                                    <h5 class="mb-2">File Progress Programmer</h5>
+                                                    <p class="mb-0"><a href="{{ url('asset/document_timeline/'.$item->file_dev) }}">Lihat Disini</a></p>
+                                                    @endisset
                                                 </div>
                                                 <div class="col-lg-6">                                      
                                                     <h5 class="mb-2">Steps For UAT Test</h5>
@@ -100,7 +113,11 @@
                                                     <h5 class="mb-2">Expected Result</h5>
                                                     <p>
                                                         {!! nl2br($item->expected_result) !!}    
-                                                    </p>              
+                                                    </p>
+                                                    @isset($item->file_test_qa)
+                                                    <h5 class="mb-2">File Testing QA</h5>
+                                                    <p class="mb-0"><a href="{{ url('asset/document_testing/'.$item->file_test_qa) }}">Lihat Disini</a></p>    
+                                                    @endisset    
                                                 </div>
                                             </div>
                                         </div>
