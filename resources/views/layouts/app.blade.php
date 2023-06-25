@@ -173,7 +173,12 @@
                                             alt="user" />
                                         <div class="caption ml-3">
                                             <h6 class="mb-0 line-height">
-                                                {{ Auth::user()->name }}
+                                                {{-- {{ Auth::user()->name }} --}}
+                                                @if(Session::get('role') == "")
+                                                {{ "PM" }}
+                                                @else
+                                                {{ Session::get('role') }}
+                                                @endif
                                                 <i class="las la-angle-down ml-2"></i>
                                             </h6>
                                         </div>
