@@ -32,18 +32,18 @@
                                         <div>
                                             <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span></h5>
                                             <div class="media align-items-center">
-                                                <div class="btn bg-body mr-3">Dibuat Oleh : 
+                                                <div class="btn bg-body mr-3">Dibuat Oleh :
                                                     @php
                                                         $dibuat = DB::table('users')->where('id',$item->created_by)->first();
                                                         echo $dibuat->name;
-                                                        
+
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Kerjaakan : 
+                                                <div class="btn bg-body">Di Kerjakan :
                                                     @php
                                                     $dibuat = DB::table('users')->where('id',$item->assigned_to)->first();
                                                     echo $dibuat->name;
-                                                    
+
                                                     @endphp
                                                 </div>
                                             </div>
@@ -55,10 +55,10 @@
                                         <a class="btn bg-primary-light" onclick="return edit_detail('{{ $item->id }}')" aria-expanded="false" >EDIT</a>
                                         @endif --}}
                                     </div>
-                                </div>  
+                                </div>
                             </div>
-                        </div>                                                                                                        
-                        <div class="collapse" id="collapseEdit{{ $no }}">                                            
+                        </div>
+                        <div class="collapse" id="collapseEdit{{ $no }}">
                             <div class="card card-list task-card">
                                 <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
                                     <div class="header-title">
@@ -75,18 +75,18 @@
                                                     <h5 class="mb-2">Description</h5>
                                                     <p class="mb-0">{{ $item->description }}</p>
                                                 </div>
-                                                <div class="col-lg-6">                                      
+                                                <div class="col-lg-6">
                                                     <h5 class="mb-2">Checklist</h5>
                                                     <p>
                                                         @php
                                                             $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();
                                                         @endphp
                                                         <ol>
-                                                            @foreach($checklist as $check) 
+                                                            @foreach($checklist as $check)
                                                                 <li>{{ $check->isi }} @if($check->status == 1) <span class="badge badge-primary">Selesai</span>  @endif</li>
                                                             @endforeach
                                                         </ol>
-                                                    </p>                   
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -147,7 +147,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>      
+                        </div>
                     </div>
                     @php $no++ @endphp
                     @endforeach
@@ -168,10 +168,10 @@
         $.ajax({
             type: 'get',
             url: "{{ url('project_detail/edit_detail') }}/"+id,
-            // data:{'id':id}, 
+            // data:{'id':id},
             beforeSend: function() {
                 var url = "{{ url('assets/dist/img/Loading_2.gif') }}";
-                
+
             },
             success: function(tampil) {
                 $('#tampildata').html(tampil);

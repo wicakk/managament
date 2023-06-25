@@ -42,7 +42,7 @@
                                         <div class="d-flex flex-wrap align-items-center justify-content-between">
                                             <div class="d-flex align-items-center">
                                                 <div>
-                                                    <h5 class="mb-2">Planning & Organizing 
+                                                    <h5 class="mb-2">Planning & Organizing
                                                     </h5>
                                                     <div class="media align-items-center">
                                                         meliputi menentukan scope project, develop sebuah project plan, mengidentifikasi task, menentukan deadline, dan alokasi resources
@@ -52,10 +52,10 @@
                                             <div class="media align-items-center mt-md-0 mt-3">
                                                 <a class="btn bg-secondary-light" data-toggle="collapse" href="#collapseEdit1" role="button" aria-expanded="false" aria-controls="collapseEdit1">DETAIL</a>
                                             </div>
-                                        </div>  
+                                        </div>
                                     </div>
-                                </div>                                                                                                        
-                                <div class="collapse" id="collapseEdit1">                                            
+                                </div>
+                                <div class="collapse" id="collapseEdit1">
                                     <div class="card card-list task-card">
                                         <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
                                             <div class="header-title">
@@ -63,28 +63,14 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <h5 class="mb-2">Category</h5>
-                                                            <p class="mb-0"></p>
-                                                            <h5 class="mb-2">Description</h5>
-                                                            <p class="mb-0"></p>
-                                                        </div>
-                                                        <div class="col-lg-6">                                      
-                                                                         
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="card">
                                                 <div class="card-body">
                                                     <form action="{{ url('project/planning_store') }}" method="post" enctype="multipart/form-data">
-                                                    
+
                                                         @csrf
                                                         <input type="hidden" required name="project_id" value="{{ $id }}">
                                                         <h5 class="mb-2">Checklist</h5>
+                                                        <p class="mb-0">*Checklist tahapan Software Requirement dan menginputkan waktu proyek</p>
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="custom-control custom-checkbox custom-control-inline mr-0">
@@ -98,7 +84,7 @@
                                                                     <label class="custom-control-label mb-1" for="customCheck2">Mengindetifikasi Task</label>
                                                                 </div>
                                                             </div>
-                                                        </div>  
+                                                        </div>
                                                         <br><hr>
                                                         <input type="hidden" value="@isset($status_plan->id) {{ $status_plan->id }} @endif" name="plan_id">
                                                         <div class="row">
@@ -117,13 +103,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <button type="submit" class="btn btn-primary w-100" >Upload Progress</button>
-                                                        
+
                                                     </form>
                                                     <hr>
                                                     <form action="{{ url('project/alokasi_resource') }}" method="post" enctype="multipart/form-data">
-                                                    
+
                                                         @csrf
                                                         <input type="hidden" required name="project_id" value="{{ $id }}">
                                                         <input type="hidden" value="@isset($status_plan->id) {{ $status_plan->id }} @endif" name="plan_id">
@@ -133,7 +119,7 @@
                                                             @php
                                                                 $penanggung_jawab = explode('|',$project->penanggung_jawab);
                                                             @endphp
-                                                            <select class="select2 form-control" id="select2" name="pj[]" data-placeholder="CC (Tidak harus dipilih)" style="width: 100%;" multiple> 
+                                                            <select class="select2 form-control" id="select2" name="pj[]" data-placeholder="CC (Tidak harus dipilih)" style="width: 100%;" multiple>
                                                                 @foreach($users as $item)
                                                                     @if(array_search(strval($item->id),$penanggung_jawab,true))
                                                                         <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
@@ -144,9 +130,9 @@
                                                             </select>
                                                             {{-- <a href="#" class="task-edit task-simple-edit text-body"><i class="ri-edit-box-line"></i></a> --}}
                                                         </div>
-                                                        
+                                                        <p class="mb-0">*Pilih orang yang ikut proyek</p>
                                                         <button type="submit" class="btn btn-primary w-100" >Update Resource</button>
-                                                        
+
                                                     </form>
                                                     <hr>
                                                     <div class="row">
@@ -164,7 +150,7 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     @foreach($all_plan as $item)
-                                                                        
+
                                                                         <tr>
                                                                             <td>{{ $item->scope }}</td>
                                                                             <td>{{ $item->desc_timeline }}</td>
@@ -174,7 +160,7 @@
                                                                                 <a href="{{ url('projects_timeline/hapus_document/'.$item->id) }}" class="btn btn-danger">Hapus </a>
                                                                                 @else
                                                                                 <a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-success">Sudah Di Approve </a>
-                                                                                @php 
+                                                                                @php
                                                                                     $status_projek = 'ok';
                                                                                 @endphp
                                                                                 @endif
@@ -185,9 +171,9 @@
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <form action="{{ url('project/plan_doc') }}" method="post" enctype="multipart/form-data">
-                                                    
+
                                                         @csrf
                                                         <input type="hidden" required name="project_id" value="{{ $id }}">
                                                         <input type="hidden" value="@isset($status_plan->id) {{ $status_plan->id }} @endif" name="plan_id">
@@ -214,12 +200,12 @@
                                                             <label for="exampleInputText01" class="h5">Catatan*</label>
                                                             <textarea required name="desc_timeline" @isset($status_plan->id) {{ $status_plan->desc_timeline }} @endisset id="catatan_planing" cols="30" rows="4" class="form-control"></textarea>
                                                         </div>
-                                                        
+
                                                         <button type="submit" class="btn btn-primary w-100" >Upload dokumen</button>
-                                                        
+
                                                     </form>
 
-                                                    
+
                                                 </div>
                                                 <br>
                                             </div>
@@ -228,7 +214,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div>      
+                                </div>
                             </div>
                             @endif
                             <div class="col-lg-12">
@@ -253,9 +239,9 @@
                                                 @endif
                                                 @endif
                                             </div>
-                                        </div>  
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                             </div>
                             @if(in_array(Session::get('role'),$role) )
                             <div class="col-lg-12">
@@ -264,21 +250,21 @@
                                         <div class="d-flex flex-wrap align-items-center justify-content-between">
                                             <div class="d-flex align-items-center">
                                                 <div>
-                                                    <h5 class="mb-2">Monitoring Projek</h5>
+                                                    <h5 class="mb-2">Monitoring Proyek</h5>
                                                     <div class="media align-items-center">
-                                                        kegiatan ini meliputi melacak tugas projek, deadline, resource, dan membuat penyesuaian jika diperlukan untuk memastikan bahwa proyek tetap berjalan dengan baik
+                                                        kegiatan ini meliputi melacak tugas proyek, deadline, resource, dan membuat penyesuaian jika diperlukan untuk memastikan bahwa proyek tetap berjalan dengan baik
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="media align-items-center mt-md-0 mt-3">
                                                 @if($status_projek == 'ok')
-                                                    
+
                                                     &nbsp;<a class="btn bg-secondary-light" target="_blank" href="{{ url('projects/monitoring/'.$id) }}" >DETAIL</a>
                                                 @endif
                                             </div>
-                                        </div>  
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="card card-widget task-card">
@@ -286,7 +272,7 @@
                                         <div class="d-flex flex-wrap align-items-center justify-content-between">
                                             <div class="d-flex align-items-center">
                                                 <div>
-                                                    <h5 class="mb-2">Dokumentasi Projek </h5>
+                                                    <h5 class="mb-2">Dokumentasi Proyek </h5>
                                                     <div class="media align-items-center">
                                                     </div>
                                                 </div>
@@ -296,10 +282,10 @@
                                                 <a class="btn bg-secondary-light" data-toggle="collapse" href="#collapseEdit3" role="button" aria-expanded="false" aria-controls="collapseEdit1">DETAIL</a>
                                                 @endif
                                             </div>
-                                        </div>  
+                                        </div>
                                     </div>
-                                </div>                                                                                                        
-                                <div class="collapse" id="collapseEdit3">                                            
+                                </div>
+                                <div class="collapse" id="collapseEdit3">
                                     <div class="card card-list task-card">
                                         <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
                                             <div class="header-title">
@@ -320,7 +306,7 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     @foreach($evolution as $item)
-                                                                        
+
                                                                         <tr>
                                                                             <th>{{ $item->desc_timeline }}</th>
                                                                             <td><a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a>
@@ -354,16 +340,16 @@
                                                             <label for="exampleInputText01" class="h5">Catatan*</label>
                                                             <textarea required name="desc_timeline" @isset($status_plan->id) {{ $status_plan->desc_timeline }} @endisset id="catatan_planing" cols="30" rows="4" class="form-control"></textarea>
                                                         </div>
-                                                        
+
                                                         <button type="submit" class="btn btn-primary w-100" >Update Progress</button>
-                                                        
+
                                                     </form>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
-                                </div>      
+                                </div>
                             </div>
                             @endif
                         </div>
@@ -429,7 +415,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach($project_test as $item)
-                                            
+
                                             <tr>
                                                 <td>
                                                     <input type="checkbox" @if(isset($item->uat_test_case)) checked disabled @endif required name="project_test[]" value="{{ $item->id }}">
@@ -450,7 +436,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <div class="col-lg-12">
                                 <div class="d-flex flex-wrap align-items-ceter justify-content-center mt-2">
                                     <input class="btn btn-success" type="submit" value="Save">
@@ -473,12 +459,12 @@
         $.ajax({
             type: 'get',
             url: "{{ url('project_detail/edit') }}/"+id,
-            // data:{'id':id}, 
+            // data:{'id':id},
             beforeSend: function() {
                 var url = "{{ url('assets/dist/img/Loading_2.gif') }}";
             },
             success: function(tampil) {
-                
+
             }
         })
     }
@@ -489,7 +475,7 @@
         // $.ajax({
         //     type: 'get',
         //     url: "{{ url('project_timeline/status') }}/"+id+"/"+jenis,
-        //     // data:{'id':id}, 
+        //     // data:{'id':id},
         //     success: function(tampil) {
         //         $('#tampildata').html(tampil);
         //     }
