@@ -96,7 +96,7 @@
                                                 <div class="col-lg-6">
                                                     <h5 class="mb-2">UAT Test Description</h5>
                                                     <p class="mb-2">{{ $item->description }}</p>
-                                                    <h5 class="mb-2">UAT Test Detail</h5>
+                                                    <h5 class="mb-2">Checklist/UAT Test Detail</h5>
                                                     <p class="mb-2">
                                                         {!! nl2br($item->checklist) !!}
                                                     </p>
@@ -126,9 +126,9 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <h5 class="mb-2">Description</h5>
+                                                    <h5 class="mb-2">UAT Test Description</h5>
                                                     <p class="mb-0">{{ $item->description }}</p>
-                                                    <h5 class="mb-2">Checklist</h5>
+                                                    <h5 class="mb-2">Checklist/UAT Test Detail</h5>
                                                     <p>
                                                         {!! nl2br($item->checklist) !!}
                                                     </p>
