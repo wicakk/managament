@@ -72,7 +72,7 @@
                                                 <div class="col-lg-6">
                                                     <h5 class="mb-2">Category</h5>
                                                     <p class="mb-0">{{ $item->category }}</p>
-                                                    <h5 class="mb-2">Description</h5>
+                                                    <h5 class="mb-2">UAT Test Description</h5>
                                                     <p class="mb-0">{{ $item->description }}</p>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -122,7 +122,7 @@
                                                     <textarea required name="result_qa" required id="result_qa" cols="10" rows="3" class="form-control">{{ $item->result_qa }}</textarea>
                                                 </div>
                                                 <div class="form-group mb-3 position-relative">
-                                                    <label for="">Catatan</label>
+                                                    <label for="">Comment</label>
                                                     <textarea required name="comments_qa" required  id="comments_qa" cols="10" rows="3" class="form-control">{{ $item->comments_qa }}</textarea>
                                                 </div>
                                                 <div class="form-group mb-3 position-relative">

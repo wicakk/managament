@@ -42,7 +42,7 @@
 
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Kerjakan :
+                                                <div class="btn bg-body">Di Kerjakan Oleh :
                                                     @php
                                                     $dibuat = DB::table('users')->where('id',$item->assigned_to)->first();
                                                     echo $dibuat->name;
@@ -92,7 +92,7 @@
                                             @endif
                                                 @csrf
                                                 <input type="hidden" required name="project_detail_id" value="{{ $item->id }}">
-                                                <h5 class="mb-2">Checklist</h5>
+                                                <h5 class="mb-2">UAT Test Detail</h5>
                                                 <div class="row">
                                                     @php
                                                         $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();
@@ -111,7 +111,7 @@
                                                 @endif
                                             </form>
                                             @else
-                                            <h5 class="mb-2">Checklist</h5>
+                                            <h5 class="mb-2">UAT Test Detail</h5>
                                             <p>
                                                 @php
                                                     $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();
