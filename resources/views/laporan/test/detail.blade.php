@@ -24,10 +24,10 @@
                                     <th>UAT Test Case</th>
                                     <th>Description</th>
                                     <th>UAT Test Detail</th>
-                                    <th>Result</th>
-                                    <th>Comments</th>
-                                    <th>Created By</th>
                                     <th>Step For UAT</th>
+                                    <th>Expected Result</th>
+                                    <th>Actual Result</th>
+                                    <th>Comments</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,16 +49,18 @@
                                     </th>
                                     <td>{{ $item->uat_test_detail }}</td>
                                     <td>{{ nl2br($item->steps_for_uat_test) }}</td>
+                                    <td>{{ nl2br($item->expected_result) }}</td>
+                                    <td>{{ nl2br($item->actual_result) }}</td>
                                     <td>{{ nl2br($item->comments) }}</td>
-                                    <td>
+                                    {{-- <td>
                                         @php
                                         $dibuat = DB::table('users')->where('id',$item->tested_by)->first();
                                         if(isset($dibuat->name)){
                                             echo $dibuat->name;
                                         }
                                         @endphp
-                                    </td>
-                                    <td>
+                                    </td> --}}
+                                    {{-- <td>
                                         @php
                                             $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();
                                         @endphp
@@ -68,7 +70,7 @@
                                             @endforeach
                                         </ol>
                                         
-                                    </td>
+                                    </td> --}}
                                 </tr>
                                 @php $no++ @endphp
                                 @endforeach
