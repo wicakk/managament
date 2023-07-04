@@ -27,7 +27,7 @@
                                     <th>Result</th>
                                     <th>Comments</th>
                                     <th>Created By</th>
-                                    <th>Checklist</th>
+                                    <th>Step For UAT</th>
                                 </tr>
                             </thead>
                             <tbody>
