@@ -21,8 +21,9 @@
                         <table id="datatable" class="table data-table table-striped" >
                             <thead>
                                 <tr>
+                                    <th>UAT Test Case</th>
                                     <th>Description</th>
-                                    <th>Due Dates</th>
+                                    <th>UAT Test Detail</th>
                                     <th>Result</th>
                                     <th>Comments</th>
                                     <th>Created By</th>
@@ -35,7 +36,8 @@
                                 @endphp
                                 @foreach($data as $item)
                                 <tr>
-                                    <th>{{ $item->description }}
+                                    <th>{{ $item->uat_test_case }} </th>
+                                    <th>{{ nl2br($item->uat_test_desc) }}
                                         @if($item->actual_result == 'Pass')
                                         <span class="badge badge-success text-white">PASS</span>
                                         @elseif($item->actual_result == 'Fail')
@@ -45,8 +47,8 @@
                                             <a href="{{ url('document_testing/'.$item->file_test) }}" target="_blank" class="badge badge-info text-center">Lihat Hasil Testing</a>
                                         @endisset
                                     </th>
-                                    <td>{{ $item->due_dates }}</td>
-                                    <td>{{ nl2br($item->result) }}</td>
+                                    <td>{{ $item->uat_test_detail }}</td>
+                                    <td>{{ nl2br($item->steps_for_uat_test) }}</td>
                                     <td>{{ nl2br($item->comments) }}</td>
                                     <td>
                                         @php
@@ -54,7 +56,6 @@
                                         if(isset($dibuat->name)){
                                             echo $dibuat->name;
                                         }
-                                        
                                         @endphp
                                     </td>
                                     <td>

@@ -58,8 +58,20 @@ class LaporanController extends Controller
     public function testdetail(string $id)
     {
         $data = DB::table('project_detail')
-        ->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result','project_test.comments','project_test.actual_result','project_test.url_test','project_test.file_test','project_test.tested_by')
+        ->select('project_detail.*'
+        ,'project_test.id as project_test_id',
+        'project_test.uat_test_case',
+        'project_test.uat_test_desc',
+        'project_test.steps_for_uat_test',
+        'project_test.expected_result',
+        'project_test.result',
+        'project_test.comments',
+        'project_test.actual_result',
+        'project_test.url_test',
+        'project_test.file_test',
+        'project_test.tested_by')
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')
+        // ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')
         ->where('project_id',$id)
         ->get();
         $users = User::all();

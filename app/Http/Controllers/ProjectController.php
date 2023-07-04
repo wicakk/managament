@@ -82,10 +82,10 @@ class ProjectController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $Project = Project::find($id);
-        $penanggung_jawab = '|';
-        foreach($request->pj as $item){
-            $penanggung_jawab .= $item.'|';
-        }
+        // $penanggung_jawab = '|';
+        // foreach($request->pj as $item){
+        //     $penanggung_jawab .= $item.'|';
+        // }
         $data = [
             'nama_project' => $request->nama_project,
             // 'waktu_mulai' => $request->waktu_mulai,
