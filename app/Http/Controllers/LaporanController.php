@@ -62,6 +62,7 @@ class LaporanController extends Controller
         ,'project_test.id as project_test_id',
         'project_test.uat_test_case',
         'project_test.uat_test_desc',
+        'project_test.uat_test_detail',
         'project_test.steps_for_uat_test',
         'project_test.expected_result',
         'project_test.result',
