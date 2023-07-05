@@ -187,7 +187,7 @@
                                             <td>
                                                 <input type="checkbox" @if(isset($item->uat_test_case)) checked disabled @endif name="project_test[]" value="{{ $item->id }}">
                                             </td>
-                                            <td>{{ $item->uat_test_desc }}</td>
+                                            <td>{{ $item->uat_test_detail }}</td>
                                             <td>
                                                 @php
                                                     if($item->tested_by !== null){
