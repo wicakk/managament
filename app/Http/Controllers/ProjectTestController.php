@@ -60,7 +60,6 @@ class ProjectTestController extends Controller
                 return Redirect::back()->with(['error' => $error]);
             }
         }
-        // dd($file_name);
         if(isset($request->project_test_id)){
             $data = [
                 'uat_test_desc' => $request->uat_test_desc,
@@ -71,12 +70,11 @@ class ProjectTestController extends Controller
                 'actual_result_qa' => $request->actual_result_qa,
                 'result_qa' => $request->result_qa,
                 'comments_qa' => $request->comments_qa,
-                'created_by' => Auth::user()->id,
                 'url_test' => $request->url_test,
                 'file_test_qa' => $file_name,
-                'created_at' => now(),
             ];
-            DB::table('project_test')->where('id',$request->project_detail_id)->update($data);
+            $hasil = DB::table('project_test')->where('id',$request->project_test_id)->update($data);
+            // dd($request->project_detail_id);
         }else{
             $data = [
                 'uat_test_desc' => $request->uat_test_desc,

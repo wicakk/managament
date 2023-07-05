@@ -93,8 +93,10 @@
                                     </div>
                                     <div class="card">
                                         <div class="card-body">
+                                            @if(Carbon::create($item->due_dates) >= Carbon::now())
                                             {{-- <div class="custom-control custom-checkbox custom-control-inline mr-0"> --}}
                                             <form action="{{ url('project_detail_checklist') }}" method="post" enctype="multipart/form-data">
+                                        
                                                 @csrf
                                                 <input type="hidden" required name="project_detail_id" value="{{ $item->id }}">
                                                 <h5 class="mb-2">Checklist</h5>
@@ -122,6 +124,7 @@
                                                 </div>
                                                 <button class="btn btn-primary w-100" type="submit">Update Progress</button>
                                             </form>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
