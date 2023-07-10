@@ -251,6 +251,16 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <h5 class="mb-2">Comment QA</h5>
+                                                        <p class="mb-0">{{ $item->comments_qa }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="card">
                                             <div class="card-body">
                                                 @if(Session::get('role') == "developer")
