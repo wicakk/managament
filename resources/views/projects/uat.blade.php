@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="card">
                                         <div class="card-body">
-                                            @if(Carbon::create($item->due_dates) >= Carbon::now() && empty($item->comments))
+                                            @if(empty($item->comments))
                                             <form action="{{ url('project_test_uat/store_uat') }}" method="post" enctype="multipart/form-data">
                                             @endif
                                                 @csrf
@@ -132,7 +132,7 @@
                                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                                     </div>
                                                 </div>
-                                                @if(Carbon::create($item->due_dates) >= Carbon::now() && empty($item->comments))
+                                                @if(empty($item->comments))
                                                 <button type="submit" class="btn btn-primary w-100" >Kirim Hasil Testing</button>
                                                 @endif
                                             </form>

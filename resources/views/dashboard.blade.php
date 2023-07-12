@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@push('styles')
+<!-- fullcalendar css  -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.css' rel='stylesheet' />
+@endpush
 @section('content')
 
 @php
@@ -317,6 +322,53 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-12">
+        <div class="card card-body">
+            <div id="calendar"></div>
+        </div>
+    </div>
     
 </div>
 @endsection
+
+
+@push('scripts')
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: [
+                @foreach($taskdet as $item)
+                {
+                    title: '{{ $item->task_name }}',
+                    start:'{{ $item->due_dates }}',
+                    end:'{{ $item->due_dates }}',
+                    backgroundColor: '#931F1D'
+                },
+                @endforeach
+            ],
+            eventClick: function(info) {
+                info.jsEvent.preventDefault(); // don't let the browser navigate
+                console.log(info.event.title)
+                alert(info.event.title);
+                // if (info.event.url) {
+                // window.open(info.event.url);
+                // alert(info.event.title);
+                // }
+            },
+            // selectOverlap: function (event) {
+            //     return event.rendering === 'background';
+            // }
+        });
+
+        calendar.render();
+    });
+</script>
+
+@endpush
