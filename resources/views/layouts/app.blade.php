@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Webkit | Responsive Bootstrap 4 Admin Dashboard Template</title>
+    <title>MANPRO</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.jpeg')}}" />
@@ -34,7 +34,7 @@
             <div class="iq-sidebar-logo d-flex align-items-center">
                 <a href="/index.html" class="header-logo">
                     <img src="{{ asset('assets/images/logo.jpeg') }}" alt="logo" />
-                    <h3 class="logo-title light-logo">Webkit</h3>
+                    <h3 class="logo-title light-logo">MANPRO</h3>
                 </a>
                 <div class="iq-menu-bt-sidebar ml-0">
                     <i class="las la-bars wrapper-menu"></i>
@@ -109,7 +109,7 @@
                                     <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                     <line x1="12" y1="22.08" x2="12" y2="12"></line>
                                 </svg>
-                                <span class="ml-4">Desk</span>
+                                <span class="ml-4">UAT</span>
                             </a>
                         </li>
                         @endif
@@ -139,7 +139,7 @@
                         </li>
                     </ul>
                 </nav>
-                
+
                 <div class="pt-5 pb-2"></div>
             </div>
         </div>
@@ -155,7 +155,7 @@
                         </a>
                     </div>
                     <div class="navbar-breadcrumb">
-                        <h5>Aplikasi Management Projek</h5>
+                        <h5>Aplikasi Management Proyek</h5>
                     </div>
                     <div class="d-flex align-items-center">
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -216,7 +216,7 @@
             </div>
         </div>
     </div>
-    
+
     <footer class="iq-footer">
         <div class="container-fluid">
             <div class="row">
@@ -237,7 +237,7 @@
                         </script>
                         ©
                     </span>
-                    <a href="#" class="">Webkit</a>.
+                    <a href="#" class="">FiveCode</a>.
                 </div>
             </div>
         </div>

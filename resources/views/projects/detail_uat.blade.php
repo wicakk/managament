@@ -29,18 +29,18 @@
                                         <div>
                                             <h5 class="mb-2">{{ $item->uat_test_case }}</h5>
                                             <div class="media align-items-center">
-                                                <div class="btn bg-body mr-3">Dibuat Oleh : 
+                                                <div class="btn bg-body mr-3">Dibuat Oleh :
                                                     @php
                                                         $dibuat = DB::table('users')->where('id',$item->created_by)->first();
                                                         echo $dibuat->name;
-                                                        
+
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Testing Oleh : 
+                                                <div class="btn bg-body">Di Testing Oleh :
                                                     @php
                                                     $dibuat = DB::table('users')->where('id',$item->tested_by)->first();
                                                     echo $dibuat->name;
-                                                    
+
                                                     @endphp
                                                 </div>
                                             </div>
@@ -49,10 +49,10 @@
                                     <div class="media align-items-center mt-md-0 mt-3">
                                         <a class="btn bg-secondary-light" data-toggle="collapse" href="#collapseEdit1" role="button" aria-expanded="false" aria-controls="collapseEdit1">DETAIL</a>
                                     </div>
-                                </div>  
+                                </div>
                             </div>
-                        </div>                                                                                                        
-                        <div class="collapse" id="collapseEdit1">                                            
+                        </div>
+                        <div class="collapse" id="collapseEdit1">
                             <div class="card card-list task-card">
                                 <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
                                     <div class="header-title">
@@ -70,11 +70,11 @@
                                                     <h5 class="mb-2">Details</h5>
                                                     <p class="mb-0">{{ $item->uat_test_detail }}</p>
                                                 </div>
-                                                <div class="col-lg-6">                                      
-                                                    <h5 class="mb-2">Checklist</h5>
+                                                <div class="col-lg-6">
+                                                    <h5 class="mb-2">UAT Test Detail</h5>
                                                     <p>
-                                                        {!! nl2br($item->steps_for_uat_test) !!}    
-                                                    </p>                   
+                                                        {!! nl2br($item->steps_for_uat_test) !!}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,7 +105,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>      
+                        </div>
                     </div>
                     @endforeach
                     {{-- <div class="col-lg-12">
@@ -131,8 +131,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                                                                                                       
-                        <div class="collapse" id="collapseEdit2">                                            
+                        </div>
+                        <div class="collapse" id="collapseEdit2">
                             <div class="card card-list task-card">
                                 <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
                                     <div class="header-title">
@@ -166,7 +166,7 @@
                                                     <div class="form-group mb-0">
                                                         <label for="exampleInputText4" class="h5">Due Dates*</label>
                                                         <input type="date" class="form-control" id="exampleInputText4" value="">
-                                                    </div>                        
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -174,11 +174,11 @@
                                     <div class="card mb-3">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-lg-6">                                                        
+                                                <div class="col-lg-6">
                                                     <h5 class="mb-2">Description</h5>
                                                     <p class="mb-0">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
                                                 </div>
-                                                <div class="col-lg-6">                                      
+                                                <div class="col-lg-6">
                                                     <h5 class="mb-2">Checklist</h5>
                                                     <div class="row">
                                                         <div class="col-lg-6">
@@ -209,7 +209,7 @@
                                                                 <label class="custom-control-label" for="customCheck9">Vector images of small size..</label>
                                                             </div>
                                                         </div>
-                                                    </div>                       
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -223,7 +223,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="card card-widget task-card">
@@ -248,8 +248,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                                                                                                       
-                        <div class="collapse" id="collapseEdit3">                                            
+                        </div>
+                        <div class="collapse" id="collapseEdit3">
                             <div class="card card-list task-card">
                                 <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
                                     <div class="header-title">
@@ -283,7 +283,7 @@
                                                     <div class="form-group mb-0">
                                                         <label for="exampleInputText5" class="h5">Due Dates*</label>
                                                         <input type="date" class="form-control" id="exampleInputText5" value="">
-                                                    </div>                        
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -291,11 +291,11 @@
                                     <div class="card mb-3">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-lg-6">                                                        
+                                                <div class="col-lg-6">
                                                     <h5 class="mb-2">Description</h5>
                                                     <p class="mb-0">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
                                                 </div>
-                                                <div class="col-lg-6">                                      
+                                                <div class="col-lg-6">
                                                     <h5 class="mb-2">Checklist</h5>
                                                     <div class="row">
                                                         <div class="col-lg-6">
@@ -326,7 +326,7 @@
                                                                 <label class="custom-control-label" for="customCheck17">Vector images of small size..</label>
                                                             </div>
                                                         </div>
-                                                    </div>                       
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -340,7 +340,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="card card-widget task-card">
@@ -365,8 +365,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                                                                                                       
-                        <div class="collapse" id="collapseEdit4">                                            
+                        </div>
+                        <div class="collapse" id="collapseEdit4">
                             <div class="card card-list task-card">
                                 <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
                                     <div class="header-title">
@@ -400,7 +400,7 @@
                                                     <div class="form-group mb-0">
                                                         <label for="exampleInputText6" class="h5">Due Dates*</label>
                                                         <input type="date" class="form-control" id="exampleInputText6" value="">
-                                                    </div>                        
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -408,11 +408,11 @@
                                     <div class="card mb-3">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-lg-6">                                                        
+                                                <div class="col-lg-6">
                                                     <h5 class="mb-2">Description</h5>
                                                     <p class="mb-0">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
                                                 </div>
-                                                <div class="col-lg-6">                                      
+                                                <div class="col-lg-6">
                                                     <h5 class="mb-2">Checklist</h5>
                                                     <div class="row">
                                                         <div class="col-lg-6">
@@ -443,7 +443,7 @@
                                                                 <label class="custom-control-label" for="customCheck25">Vector images of small size..</label>
                                                             </div>
                                                         </div>
-                                                    </div>                       
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -457,7 +457,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="card card-widget task-card mb-0">
@@ -482,8 +482,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                                                                                                                                       
-                        <div class="collapse" id="collapseEdit5">                                            
+                        </div>
+                        <div class="collapse" id="collapseEdit5">
                             <div class="card card-list task-card">
                                 <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
                                     <div class="header-title">
@@ -517,7 +517,7 @@
                                                     <div class="form-group mb-0">
                                                         <label for="exampleInputText7" class="h5">Due Dates*</label>
                                                         <input type="date" class="form-control" id="exampleInputText7" value="">
-                                                    </div>                        
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -525,11 +525,11 @@
                                     <div class="card mb-3">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-lg-6">                                                        
+                                                <div class="col-lg-6">
                                                     <h5 class="mb-2">Description</h5>
                                                     <p class="mb-0">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
                                                 </div>
-                                                <div class="col-lg-6">                                      
+                                                <div class="col-lg-6">
                                                     <h5 class="mb-2">Checklist</h5>
                                                     <div class="row">
                                                         <div class="col-lg-6">
@@ -560,7 +560,7 @@
                                                                 <label class="custom-control-label" for="customCheck33">Vector images of small size..</label>
                                                             </div>
                                                         </div>
-                                                    </div>                       
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -574,7 +574,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div> --}}
                 </div>
             </div>
@@ -614,7 +614,7 @@
                             <div class="form-group mb-3">
                                 <label for="exampleInputText05" class="h5">Due Dates*</label>
                                 <input type="date" class="form-control" id="exampleInputText05" name="due_dates" value="">
-                            </div>                        
+                            </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group mb-3">
@@ -645,7 +645,7 @@
             </div>
         </div>
     </div>
-</div>  
+</div>
 <div class="modal fade bd-example-modal-lg" role="dialog" aria-modal="true" id="new-task-modal">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">

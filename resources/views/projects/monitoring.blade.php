@@ -101,7 +101,7 @@
                                                         {!! nl2br($item->checklist) !!}
                                                     </p>
                                                     @isset($item->file_dev)
-                                                    <h5 class="mb-2">File Progress Programmer</h5>
+                                                    <h5 class="mb-2">Bukti Pekerjaan Programmer</h5>
                                                     <p class="mb-0"><a href="{{ url('asset/document_timeline/'.$item->file_dev) }}">Lihat Disini</a></p>
                                                     @endisset
                                                 </div>
@@ -115,7 +115,7 @@
                                                         {!! nl2br($item->expected_result) !!}
                                                     </p>
                                                     @isset($item->file_test_qa)
-                                                    <h5 class="mb-2">File Testing QA</h5>
+                                                    <h5 class="mb-2">Bukti Testing QA</h5>
                                                     <p class="mb-0"><a href="{{ url('asset/document_testing/'.$item->file_test_qa) }}">Lihat Disini</a></p>
                                                     @endisset
                                                 </div>

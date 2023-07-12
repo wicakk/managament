@@ -69,7 +69,8 @@
 
                                                         @csrf
                                                         <input type="hidden" required name="project_id" value="{{ $id }}">
-                                                        <h5 class="mb-2">UAT Test Detail</h5>
+                                                        <h5 class="mb-2">Progress User Requirment</h5>
+                                                        <p class="mb-0">*Checklist Progress</p>
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="custom-control custom-checkbox custom-control-inline mr-0">
@@ -86,6 +87,7 @@
                                                         </div>
                                                         <br><hr>
                                                         <input type="hidden" value="@isset($status_plan->id) {{ $status_plan->id }} @endif" name="plan_id">
+                                                        <p class="mb-0">*Input waktu mulai dan berhanti proyek</p>
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="form-group mb-3">
@@ -196,7 +198,7 @@
                                                             </select>
                                                         </div>
                                                         <div class="form-group mb-3">
-                                                            <label for="exampleInputText01" class="h5">Comment*</label>
+                                                            <label for="exampleInputText01" class="h5">Deskripsi*</label>
                                                             <textarea required name="desc_timeline" @isset($status_plan->id) {{ $status_plan->desc_timeline }} @endisset id="catatan_planing" cols="30" rows="4" class="form-control"></textarea>
                                                         </div>
 

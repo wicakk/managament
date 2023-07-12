@@ -92,7 +92,7 @@
                                             @endif
                                                 @csrf
                                                 <input type="hidden" required name="project_detail_id" value="{{ $item->id }}">
-                                                <h5 class="mb-2">UAT Test Detail</h5>
+                                                <h5 class="mb-2">UAT Test Detail/Detail</h5>
                                                 <div class="row">
                                                     @php
                                                         $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();
@@ -111,7 +111,7 @@
                                                 @endif
                                             </form>
                                             @else
-                                            <h5 class="mb-2">UAT Test Detail</h5>
+                                            <h5 class="mb-2">UAT Test Detail/Checklist</h5>
                                             <p>
                                                 @php
                                                     $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();

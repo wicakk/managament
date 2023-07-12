@@ -76,7 +76,7 @@
                                                     <p class="mb-0">{{ $item->description }}</p>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <h5 class="mb-2">Checklist</h5>
+                                                    <h5 class="mb-2">UAT Test Detail</h5>
                                                     <p>
                                                         @php
                                                             $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();

@@ -30,7 +30,7 @@
             <div class="iq-sidebar-logo d-flex align-items-center">
                 <a href="/index.html" class="header-logo">
                     <img src="{{ asset('assets/images/logo.svg') }}" alt="logo" />
-                    <h3 class="logo-title light-logo">Webkit</h3>
+                    <h3 class="logo-title light-logo">MANPRO</h3>
                 </a>
                 <div class="iq-menu-bt-sidebar ml-0">
                     <i class="las la-bars wrapper-menu"></i>
@@ -98,7 +98,7 @@
                                     <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                     <line x1="12" y1="22.08" x2="12" y2="12"></line>
                                 </svg>
-                                <span class="ml-4">Desk</span>
+                                <span class="ml-4">UAT</span>
                             </a>
                         </li>
                         <li class="">
