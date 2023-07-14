@@ -27,6 +27,7 @@ Route::get('/', function () {
 // Route::post('/register', [AuthController::class, 'registerPost'])->name('register');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginPost'])->name('login');
+Route::get('/kirim_email', [App\Http\Controllers\KirimEmailController::class, 'kirim']);
 
 Route::group(['middleware' => ['auth']], function () {
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Project_Detail;
@@ -13,6 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 // use Carbon\Carbon;
@@ -159,6 +161,17 @@ class ProjectController extends Controller
             'project_id' => $request->project_id,
             'created_by' => Auth::user()->id,
         ];
+
+        $user = DB::table('users')->where('id',$request->assigned_to)->first();
+        
+        $email = $user->email;
+        $data_kirim = [
+            'title' => $request->task_name,
+            'url' => 'http://localhost/projek/managament/public/projects/',
+        ];
+        Mail::to($email)->send(new SendMail($data_kirim));
+        
+        // dd($user);
         $id = DB::table('project_detail')->insertGetId($data);
 
         $checklist = explode('|',$request->checklist);
