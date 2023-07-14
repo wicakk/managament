@@ -37,7 +37,7 @@
                                 @foreach($data as $item)
                                 <tr>
                                     <th>{{ $item->uat_test_case }} </th>
-                                    <th>{{ nl2br($item->uat_test_desc) }}
+                                    <th>{{ nl2br($item->description) }}
                                         @if($item->actual_result == 'Pass')
                                         <span class="badge badge-success text-white">PASS</span>
                                         @elseif($item->actual_result == 'Fail')
@@ -65,11 +65,11 @@
                                             $checklist = DB::table('project_detail_checklist')->where('project_detail_id', $item->id)->get();
                                         @endphp
                                         <ol>
-                                            @foreach($checklist as $check) 
+                                            @foreach($checklist as $check)
                                                 <li>{{ $check->isi }} @if($check->status == 1) <span class="badge badge-primary">Selesai</span>  @endif</li>
                                             @endforeach
                                         </ol>
-                                        
+
                                     </td> --}}
                                 </tr>
                                 @php $no++ @endphp
@@ -95,10 +95,10 @@
         $.ajax({
             type: 'get',
             url: "{{ url('project_detail/edit_detail') }}/"+id,
-            // data:{'id':id}, 
+            // data:{'id':id},
             beforeSend: function() {
                 var url = "{{ url('assets/dist/img/Loading_2.gif') }}";
-                
+
             },
             success: function(tampil) {
                 $('#tampildata').html(tampil);
