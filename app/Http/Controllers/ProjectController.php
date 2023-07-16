@@ -106,6 +106,17 @@ class ProjectController extends Controller
         return redirect('projects')->with('success', 'Project deleted!');
     }
 
+    public function riwayat(string $id)
+    {
+        // $data = DB::table('projects')->select('projects.*','project_detail.*')
+        // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
+        // $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa')
+        // ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->first();
+        $data = DB::table('projects')->leftJoin('users', 'users.id', '=', 'projects.created_by')->leftJoin('project_timeline', 'project_timeline.project_id', '=', 'projects.id')->where('projects.id', $id)->first();
+        $users = User::all();
+        dump($data);
+        return view('laporan.riwayat',compact('data','id','users'));
+    }
     public function detail(string $id)
     {
         // $data = DB::table('projects')->select('projects.*','project_detail.*')
@@ -221,6 +232,18 @@ class ProjectController extends Controller
             'status' => null
         ];
         DB::table('project_detail_checklist')->where('project_detail_id',$request->project_detail_id)->update($data);
+        $detail = DB::table('project_detail')->where('id',$request->project_detail_id)->first();
+        $user = DB::table('users')->where('id',$detail->created_by)->first();
+        
+        $email = $user->email;
+        $url = 'http://localhost/projek/managament/public/projects/task/'.$detail->project_id;
+        // dd($email);
+        $data_kirim = [
+            'title' => 'Update Progress Progremmer',
+            'url' => $url,
+        ];
+        Mail::to($email)->send(new SendMail($data_kirim));
+
         foreach($request->project_checklist as $item){
             $data1 = [
                 'status' => 1
@@ -424,6 +447,16 @@ class ProjectController extends Controller
         $penanggung_jawab = '|';
         foreach($request->pj as $item){
             $penanggung_jawab .= $item.'|';
+            $user = DB::table('users')->where('id',$item)->first();
+            
+            $email = $user->email;
+            $url = 'http://localhost/projek/managament/public/';
+            // dd($email);
+            $data_kirim = [
+                'title' => 'Anda diajak sebagai kolaborator projek',
+                'url' => $url,
+            ];
+            Mail::to($email)->send(new SendMail($data_kirim));
         }
         $data1 = [
             'penanggung_jawab' => $penanggung_jawab,
@@ -500,6 +533,7 @@ class ProjectController extends Controller
                 return Redirect::back()->with(['error' => $error]);
             }
         }
+        
         $data = [
             'desc_timeline' => $request->desc_timeline,
             'project_id' => $request->project_id,

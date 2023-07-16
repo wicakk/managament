@@ -1,7 +1,7 @@
 @component('mail::message')
 # {{ $data['title'] }}
 
-Halo, Silahkan cek Aplikasi Management anda dikarenakan anda memiliki deadline
+Klik tombol dibawah untuk melihat lebih detail
 
 @component('mail::button', ['url' => $data['url']])
 Visit

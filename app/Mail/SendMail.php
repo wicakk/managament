@@ -32,10 +32,10 @@ class SendMail extends Mailable
         // dd($this->data);
         return $this->markdown('emailku')
                     ->subject($this->data['title'])
-                    ->with('data', $this->data)
-                    ->attach(public_path('/assets/images/icon/08.png'), [
-                        'as'    => '08.png',
-                        'mime'  => 'image/png',
-                    ]);
+                    ->with('data', $this->data);
+                    // ->attach(public_path('/assets/images/icon/08.png'), [
+                    //     'as'    => '08.png',
+                    //     'mime'  => 'image/png',
+                    // ]);
     }
 }

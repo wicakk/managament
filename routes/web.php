@@ -31,6 +31,7 @@ Route::get('/kirim_email', [App\Http\Controllers\KirimEmailController::class, 'k
 
 Route::group(['middleware' => ['auth']], function () {
 
+    Route::get('/projects/riwayat/{id}', [ProjectController::class, 'riwayat'])->name('detail');
     Route::get('/projects/detail/{id}', [ProjectController::class, 'detail'])->name('detail');
     Route::get('/projects/timeline/{id}', [ProjectController::class, 'timeline'])->name('timeline');
     Route::get('/projects/monitoring/{id}', [ProjectController::class, 'monitoring'])->name('monitoring');
