@@ -69,7 +69,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="container">
-                        <center><h2>Task Hari Ini</h2></center>
+                        <center><h2>Deadline yang mendekati</h2></center>
                     </div>
                     <hr>
                     <br>
@@ -327,7 +327,7 @@
             <div id="calendar"></div>
         </div>
     </div>
-    
+
 </div>
 @endsection
 
