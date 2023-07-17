@@ -65,12 +65,12 @@
                                 {{-- {{ dump(Carbon::create($item->waktu_selesai) < Carbon::now()) }} --}} 
                                 @if(Carbon::create($item->waktu_selesai) < Carbon::now())
                                     Sudah Selesai &nbsp;
-                                    <a href="{{ url('projects/riwayat/'. $item->id) }}" class="btn bg-warning-light">
+                                    {{-- <a href="{{ url('projects/riwayat/'. $item->id) }}" class="btn bg-warning-light">
                                         <svg class="svg-icon" id="p-dash016" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
                                         </svg>
                                         Riwayat
-                                    </a>
+                                    </a> --}}
                                 @elseif(Carbon::create($item->waktu_mulai) > Carbon::now())
                                     Belum Mulai
                                 @elseif(Carbon::create($item->waktu_mulai) <= Carbon::now())

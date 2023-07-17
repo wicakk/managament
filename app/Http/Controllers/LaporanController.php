@@ -31,6 +31,17 @@ class LaporanController extends Controller
         // dump($projects);
         return view ('laporan.task.index',compact('projects','users'));
     }
+    public function project()
+    {
+        $user_id = Auth::user()->id;
+        $projects = DB::table('projects')->select('projects.*','users.name')
+        ->leftJoin('users', 'users.id', '=', 'projects.created_by')
+        // ->where('penanggung_jawab','LIKE','%|'.$user_id.'|%')
+        ->get();
+        $users = User::all();
+        // dump($projects);
+        return view ('laporan.project.index',compact('projects','users'));
+    }
 
     public function taskdetail(string $id)
     {

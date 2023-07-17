@@ -114,8 +114,9 @@ class ProjectController extends Controller
         // ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->first();
         $data = DB::table('projects')->leftJoin('users', 'users.id', '=', 'projects.created_by')->leftJoin('project_timeline', 'project_timeline.project_id', '=', 'projects.id')->where('projects.id', $id)->first();
         $users = User::all();
-        dump($data);
-        return view('laporan.riwayat',compact('data','id','users'));
+        $evolution = DB::table('project_timeline')->where('jenis_timeline','evolution')->where('project_id',$id)->get();
+        // dump($data);
+        return view('laporan.riwayat',compact('data','id','users','evolution'));
     }
     public function detail(string $id)
     {

@@ -69,13 +69,20 @@
                                     Jenis Dokumen : {{ $item3->scope }} <br><br>
                                     Deskripsi :
                                     {{ $item3->desc_timeline }}<br><br>
-                                    Foto :
+                                    File :
                                     <a href="{{ url('document_timeline/'.$item3->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a> <br>
                                     <br>
                                 @endforeach
                             </td>
-                            <th>Waktu Selesai</th>
+                            <th>Dokumen End Projek</th>
                             <td>
+                                @foreach($evolution as $item3)
+                                    Deskripsi :
+                                    {{ $item3->desc_timeline }}<br><br>
+                                    File :
+                                    <a href="{{ url('document_timeline/'.$item3->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a> <br>
+                                    <br>
+                                @endforeach
                             </td>
                         </tr>
                     </table>

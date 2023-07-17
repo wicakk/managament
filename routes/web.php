@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     // Laporan
+    Route::get('/laporan/project', [LaporanController::class, 'project'])->name('project');
     Route::get('/laporan/task', [LaporanController::class, 'task'])->name('task');
     Route::get('/laporan/task/detail/{id}', [LaporanController::class, 'taskdetail'])->name('taskdetail');
     Route::get('/laporan/test', [LaporanController::class, 'test'])->name('test');
