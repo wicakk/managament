@@ -135,6 +135,11 @@
                                         <i class="las la-minus"></i><span>UAT</span>
                                     </a>
                                 </li>
+                                <li class="">
+                                    <a href="{{ url('laporan/project') }}">
+                                        <i class="las la-minus"></i><span>Projek</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
