@@ -9,7 +9,7 @@ $role = ['PM',''];
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span></h5>
+                        <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning">{{ $item->checklist }} <br> Batas Akhir : {{ $item->due_dates }}</span></h5>
                         <div class="media align-items-center">
                             <div class="btn bg-body mr-3">Created By :
                                 @php
