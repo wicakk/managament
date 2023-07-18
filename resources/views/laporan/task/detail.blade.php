@@ -18,7 +18,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="container">
-                        <table id="datatable" class="table data-table table-striped" >
+                        <table id="datatable" class="table data-table table-striped nowrap" >
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -43,12 +43,12 @@
                                 <tr>
                                     <th>{{ $no }}</th>
                                     <th>{{ $item->task_name }}</th>
-                                    <th>{{ nl2br($item->description) }}</th>
+                                    <th>{!! nl2br($item->description) !!}</th>
                                     <td>{{ $item->uat_test_detail }}</td>
-                                    <td>{{ nl2br($item->steps_for_uat_test) }}</td>
-                                    <td>{{ nl2br($item->expected_result) }}</td>
-                                    <td>{{ nl2br($item->actual_result) }}</td>
-                                    <td>{{ nl2br($item->comments) }}</td>
+                                    <td>{!! nl2br($item->steps_for_uat_test) !!}</td>
+                                    <td>{!! nl2br($item->expected_result) !!}</td>
+                                    <td>{!! nl2br($item->actual_result) !!}</td>
+                                    <td>{!! nl2br($item->comments) !!}</td>
                                     {{-- <td>{{ $item->due_dates }}</td>
                                     <td>{{ nl2br($item->actual_result_qa) }}</td>
                                     <td>{{ nl2br($item->comments_qa) }}</td>
