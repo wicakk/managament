@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
-                    <h5>RIWAYAT UAT</h5>
+                    <h5>RIWAYAT UAT <u>PROJEK : {{ $project->nama_project }}</u></h5>
                 </div>
             </div>
         </div>

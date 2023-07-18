@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
-                    <h5>Monitoring</h5>
+                    <h5>Monitoring  <u>PROJEK : {{ $project->nama_project }}</u></h5>
                     <div class="media align-items-center mt-md-0 mt-3">
                         @if(Session::get('role') == 'PM' || Session::get('role') == '')
                             <a class="btn bg-primary-light" href="#" data-target="#implementasi"

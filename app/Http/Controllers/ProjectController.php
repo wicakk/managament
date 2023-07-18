@@ -118,6 +118,18 @@ class ProjectController extends Controller
         // dump($data);
         return view('laporan.riwayat',compact('data','id','users','evolution'));
     }
+
+    public function project_dev()
+    {
+        $user_id = Auth::user()->id;
+        $projects = DB::table('projects')->select('projects.*','users.name')
+        ->leftJoin('users', 'users.id', '=', 'projects.created_by')
+        ->where('penanggung_jawab','LIKE','%|'.$user_id.'|%')
+        ->get();
+        $users = User::all();
+        // dump($projects);
+        return view ('projects.project_dev',compact('projects','users'));
+    }
     public function detail(string $id)
     {
         // $data = DB::table('projects')->select('projects.*','project_detail.*')
@@ -127,37 +139,40 @@ class ProjectController extends Controller
         $users = User::all();
         return view('projects.detail',compact('data','id','users'));
     }
-    public function task()
+    public function task($project_id)
     {
         $id = Auth::user()->id;
         $data = DB::table('projects')
         ->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.result','project_test.actual_result','project_test.file_test','project_test.comments','projects.nama_project')
         ->leftJoin('project_detail', 'projects.id', '=', 'project_detail.project_id')
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')
-        ->where('project_detail.assigned_to',$id)->get();
+        ->where('project_detail.assigned_to',$id)->where('projects.id',$project_id)->get();
         $users = User::all();
-        return view('projects.task',compact('data','id','users'));
+        $project = Project::find($id);
+        return view('projects.task',compact('data','id','users','project'));
     }
     public function task_detail(string $id)
     {
         // $data = DB::table('projects')->select('projects.*','project_detail.*')
         // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
+        $project = Project::find($id);
         $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa')
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
         $users = User::all();
-        return view('projects.task_detail',compact('data','id','users'));
+        return view('projects.task_detail',compact('data','id','users','project'));
     }
     public function monitoring(string $id)
     {
         // $data = DB::table('projects')->select('projects.*','project_detail.*')
         // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
+        $project = Project::find($id);
         $data = DB::table('project_detail')->where('project_id',$id)->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.created_by as qa_by','project_test.tested_by as tested','project_detail.id as pid')
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
         $project_test = DB::table('project_test')->select('project_test.*','project_detail.id as pid','project_detail.description as desc')->leftJoin('project_detail','project_detail.id','project_test.project_detail_id')->where('project_detail.project_id',$id)->where('project_test.actual_result_qa','Pass')->get();
         
         // dd($data);
         $users = User::all();
-        return view('projects.monitoring',compact('data','id','users','project_test'));
+        return view('projects.monitoring',compact('data','id','users','project_test','project'));
     }
 
     public function simpan_detail(Request $request): RedirectResponse

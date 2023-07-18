@@ -4,6 +4,7 @@
 @push('styles')
 <!-- fullcalendar css  -->
 <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.css' rel='stylesheet' />
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 @endpush
 
 @section('content')
@@ -34,6 +35,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+                        <h2>Nama Project : {{ $project->nama_project }}</h2><br>
                         <div class="row">
                             @if(in_array(Session::get('role'),$role) )
                             <div class="col-lg-12">
@@ -154,7 +156,7 @@
 
                                                                         <tr>
                                                                             <td>{{ $item->scope }}</td>
-                                                                            <td>{{ $item->desc_timeline }}</td>
+                                                                            <td>{!! $item->desc_timeline !!}</td>
                                                                             <td>
                                                                                 @if($item->updated_by == null)
                                                                                 <a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a>
@@ -201,7 +203,9 @@
                                                             <label for="exampleInputText01" class="h5">Deskripsi*</label>
                                                             <textarea required name="desc_timeline" @isset($status_plan->id) {{ $status_plan->desc_timeline }} @endisset id="catatan_planing" cols="30" rows="4" class="form-control"></textarea>
                                                         </div>
-
+                                                        <script>
+                                                            CKEDITOR.replace( 'desc_timeline' );
+                                                        </script>
                                                         <button type="submit" class="btn btn-primary w-100" >Upload dokumen</button>
 
                                                     </form>

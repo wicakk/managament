@@ -46,13 +46,28 @@ class LaporanController extends Controller
     public function taskdetail(string $id)
     {
         $data = DB::table('project_detail')
-        ->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa')
+        // ->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa')
+        ->select('project_detail.*'
+        ,'project_test.id as project_test_id',
+        'project_test.uat_test_case',
+        'project_test.uat_test_desc',
+        'project_test.uat_test_detail',
+        'project_test.steps_for_uat_test',
+        'project_test.expected_result',
+        'project_test.result',
+        'project_test.comments',
+        'project_test.actual_result',
+        'project_test.url_test',
+        'project_test.file_test',
+        'project_test.tested_by')
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')
         ->where('project_id',$id)
         ->get();
+
+        $project = Project::find($id);
         // dump($data);
         $users = User::all();
-        return view('laporan.task.detail',compact('data','id','users'));
+        return view('laporan.task.detail',compact('data','id','users','project'));
     }
     public function test()
     {
@@ -85,9 +100,11 @@ class LaporanController extends Controller
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')
         // ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')
         ->where('project_id',$id)
+        ->whereNotNull('uat_test_case')
         ->get();
+        $project = Project::find($id);
         $users = User::all();
-        return view('laporan.test.detail',compact('data','id','users'));
+        return view('laporan.test.detail',compact('data','id','users','project'));
     }
  
     
