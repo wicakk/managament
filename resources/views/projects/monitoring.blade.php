@@ -22,7 +22,12 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
+                <div class="card-tools">
+                    <div class="input-group input-group-lg">
+                        <input type="text" onkeyup="cariData(this)" id="pencarian" class="form-control form-lg" placeholder="Search">
+                    </div>
+                </div>
+                <div class="row mt-3 " id="listTask">
                     @php
                         $no = 0;
                     @endphp
@@ -168,7 +173,7 @@
             </div>
             <form action="{{ url('project_test/accept_test') }}" method="post">
                 {!! csrf_field() !!}
-                <input type="hidden" required name="project_id" value="{{ $id }}">
+                <input type="hidden" required name="project_id" value="{{ $id }}" id="project_id"> 
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
@@ -220,5 +225,35 @@
 </div>
 
 @endsection
+
+
+@push('scripts')
+<script>
+
+    function cariData(text){
+        var id = document.getElementById('project_id').value;
+        if (event.keyCode === 13) {
+            // console.log(text.value);
+            var pencarian = text.value;
+            $.ajax({
+                type: 'get',
+                url: "{{ url('project/tampil_monitoring') }}/",
+                data:{'pencarian':pencarian,'id':id}, 
+                // beforeSend: function() {
+                //     var url = "{{ url('assets/dist/img/Loading_2.gif') }}";
+                //     $('#message-content').html('<center><img src="'+url+'"></center>');
+                // },
+                success: function(tampil) {
+                    // console.log(tampil);
+                    $('#listTask').html(tampil);
+                    // $("#loading-image").hide();
+                }
+            })
+        }
+    }
+    // cari('tes');
+</script>
+
+@endpush
 
 

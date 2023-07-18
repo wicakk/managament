@@ -161,6 +161,24 @@ class ProjectController extends Controller
         $users = User::all();
         return view('projects.task_detail',compact('data','id','users','project'));
     }
+    public function tampil_task(Request $request)
+    {
+        // $data = DB::table('projects')->select('projects.*','project_detail.*')
+        // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
+        $data = DB::table('project_detail')->where('project_id',$request->id)->where('task_name','LIKE','%'.$request->pencarian.'%')->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa')
+        ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
+        // dd($data);
+        return view('projects.task_tampil',compact('data'));
+    }
+    public function tampil_monitoring(Request $request)
+    {
+        // $data = DB::table('projects')->select('projects.*','project_detail.*')
+        // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
+        $data = DB::table('project_detail')->where('project_id',$request->id)->where('task_name','LIKE','%'.$request->pencarian.'%')->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.created_by as qa_by','project_test.tested_by as tested','project_detail.id as pid')
+        ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();;
+        // dd($data);
+        return view('projects.monitoring_tampil',compact('data'));
+    }
     public function monitoring(string $id)
     {
         // $data = DB::table('projects')->select('projects.*','project_detail.*')

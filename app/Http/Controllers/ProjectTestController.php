@@ -232,6 +232,19 @@ class ProjectTestController extends Controller
         // dd($data);
         return view ('projects.uat',compact('data','users'));
     }
+    public function tampil_uat(Request $request)
+    {
+        $id = '|'.Auth::user()->id.'|';
+        $data = DB::table('projects')
+        ->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.result','project_test.actual_result','project_test.file_test','project_test.comments')
+        ->leftJoin('project_detail', 'projects.id', '=', 'project_detail.project_id')
+        ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')
+        ->where('projects.penanggung_jawab','LIKE','%'.$id.'%')
+        ->where('task_name','LIKE','%'.$request->pencarian.'%')
+        ->whereNotNull('project_test.uat_test_case')->get();
+        // dd($data);
+        return view ('projects.uat_tampil',compact('data'));
+    }
     public function store_uat(Request $request)
     {
         $id = Auth::user()->id;
