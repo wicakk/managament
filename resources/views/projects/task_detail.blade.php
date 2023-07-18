@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
-                    <h5>Mengelola Progress</h5>
+                    <h5>Mengelola Progress <u>Projek : {{ $project->nama_project }}</u></h5>
                     <div class="d-flex flex-wrap align-items-center">
                         @php
                             $role = ['PM',''];

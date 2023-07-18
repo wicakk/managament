@@ -31,11 +31,12 @@ Route::get('/kirim_email', [App\Http\Controllers\KirimEmailController::class, 'k
 
 Route::group(['middleware' => ['auth']], function () {
 
+    Route::get('/project_dev', [ProjectController::class, 'project_dev'])->name('project_dev');
     Route::get('/projects/riwayat/{id}', [ProjectController::class, 'riwayat'])->name('detail');
     Route::get('/projects/detail/{id}', [ProjectController::class, 'detail'])->name('detail');
     Route::get('/projects/timeline/{id}', [ProjectController::class, 'timeline'])->name('timeline');
     Route::get('/projects/monitoring/{id}', [ProjectController::class, 'monitoring'])->name('monitoring');
-    Route::get('/project_test/task/', [ProjectController::class, 'task'])->name('task');
+    Route::get('/project_test/task/{id}', [ProjectController::class, 'task'])->name('task');
     Route::get('/projects/task/{id}', [ProjectController::class, 'task_detail'])->name('task_detail');
     Route::get('/projects_timeline/hapus_document/{id}', [ProjectController::class, 'hapus_document'])->name('hapus_document');
     Route::get('/projects_timeline/update_plan/{id}', [ProjectController::class, 'update_plan'])->name('update_plan');
