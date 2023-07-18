@@ -139,6 +139,15 @@ class ProjectController extends Controller
         $users = User::all();
         return view('projects.detail',compact('data','id','users'));
     }
+    public function tampil_detail(Request $request)
+    {
+        // $data = DB::table('projects')->select('projects.*','project_detail.*')
+        // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
+        $data = DB::table('project_detail')->where('project_id',$request->id)->where('task_name','LIKE','%'.$request->pencarian.'%')->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa')
+        ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
+        // dd($data);
+        return view('projects.detail_tampil',compact('data'));
+    }
     public function task($project_id)
     {
         $id = Auth::user()->id;
@@ -151,6 +160,17 @@ class ProjectController extends Controller
         $project = Project::find($id);
         return view('projects.task',compact('data','id','users','project'));
     }
+    public function tampil_task_project(Request $request)
+    {
+        $id = Auth::user()->id;
+        $data = DB::table('projects')
+        ->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa','project_test.result','project_test.actual_result','project_test.file_test','project_test.comments','projects.nama_project')
+        ->leftJoin('project_detail', 'projects.id', '=', 'project_detail.project_id')
+        ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')
+        ->where('project_detail.assigned_to',$id)->where('task_name','LIKE','%'.$request->pencarian.'%')->get();
+        // dd($data);
+        return view('projects.tampil_task',compact('data','id'));
+    }
     public function task_detail(string $id)
     {
         // $data = DB::table('projects')->select('projects.*','project_detail.*')
@@ -160,15 +180,6 @@ class ProjectController extends Controller
         ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
         $users = User::all();
         return view('projects.task_detail',compact('data','id','users','project'));
-    }
-    public function tampil_task(Request $request)
-    {
-        // $data = DB::table('projects')->select('projects.*','project_detail.*')
-        // ->leftJoin('project_detail', 'project_detail.project_id', '=', 'projects.id')->get();
-        $data = DB::table('project_detail')->where('project_id',$request->id)->where('task_name','LIKE','%'.$request->pencarian.'%')->select('project_detail.*','project_test.id as project_test_id','project_test.steps_for_uat_test','project_test.expected_result','project_test.result_qa','project_test.comments_qa','project_test.actual_result_qa','project_test.url_test','project_test.file_test_qa')
-        ->leftJoin('project_test', 'project_test.project_detail_id', '=', 'project_detail.id')->get();
-        // dd($data);
-        return view('projects.task_tampil',compact('data'));
     }
     public function tampil_monitoring(Request $request)
     {

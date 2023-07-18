@@ -33,7 +33,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/project_dev', [ProjectController::class, 'project_dev'])->name('project_dev');
     Route::get('/project/tampil_task/', [ProjectController::class, 'tampil_task'])->name('tampil_task');
+    Route::get('/project/tampil_task_project/', [ProjectController::class, 'tampil_task_project'])->name('tampil_task_project');
     Route::get('/project/tampil_monitoring/', [ProjectController::class, 'tampil_monitoring'])->name('tampil_monitoring');
+    Route::get('/project/tampil_detail/', [ProjectController::class, 'tampil_detail'])->name('tampil_detail');
     Route::get('/project/tampil_uat/', [ProjectTestController::class, 'tampil_uat'])->name('tampil_uat');
     Route::get('/projects/riwayat/{id}', [ProjectController::class, 'riwayat'])->name('detail');
     Route::get('/projects/detail/{id}', [ProjectController::class, 'detail'])->name('detail');
