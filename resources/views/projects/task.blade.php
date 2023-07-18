@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
-                    <h5>Task <u>Projek : {{ $project->nama_project }}</u></h5>
+                    <h5>Task</h5>
                     <div class="d-flex flex-wrap align-items-center">
                         @php
                             $role = ['PM',''];
@@ -33,9 +33,9 @@
                                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span> &nbsp; <span class="badge badge-success"> Nama Projek : {{ $item->nama_project }}</span></h5>
+                                            <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span> &nbsp; <span class="badge badge-success"> Nama Proyek : {{ $item->nama_project }}</span></h5>
                                             <div class="media align-items-center">
-                                                <div class="btn bg-body mr-3">Dibuat Oleh :
+                                                <div class="btn bg-body mr-3">Created By :
                                                     @php
                                                         $dibuat = DB::table('users')->where('id',$item->created_by)->first();
                                                         if(isset($dibuat->name)){
@@ -43,7 +43,7 @@
                                                         }
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Kerjakan :
+                                                <div class="btn bg-body">worked by :
                                                     @php
                                                     $dikerjakan = DB::table('users')->where('id',$item->assigned_to)->first();
                                                     if(isset($dikerjakan->name)){
@@ -96,7 +96,7 @@
                                             @if(Carbon::create($item->due_dates) >= Carbon::now())
                                             {{-- <div class="custom-control custom-checkbox custom-control-inline mr-0"> --}}
                                             <form action="{{ url('project_detail_checklist') }}" method="post" enctype="multipart/form-data">
-                                        
+
                                                 @csrf
                                                 <input type="hidden" required name="project_detail_id" value="{{ $item->id }}">
                                                 <h5 class="mb-2">Checklist</h5>

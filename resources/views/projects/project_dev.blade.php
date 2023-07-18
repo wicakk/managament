@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
-                        <h5>Projek</h5>
+                        <h5>Proyek</h5>
                         <div class="d-flex flex-wrap align-items-center justify-content-between">
                             <div class="list-grid-toggle d-flex align-items-center mr-3">
                                 <div data-toggle-extra="tab" data-target-extra="#grid" class="active">
@@ -31,12 +31,12 @@
         <div class="alert alert-danger" role="alert">
             {{ Session::get('error') }}
         </div>
-    @endif 
+    @endif
     @if(Session::has('success'))
         <div class="alert alert-success" role="alert">
             {{ Session::get('success') }}
         </div>
-    @endif 
+    @endif
     <div id="grid" class="item-content animate__animated animate__fadeIn active" data-toggle-extra="tab-content">
         <div class="row">
             @foreach ($projects as $item)
@@ -53,7 +53,7 @@
                                 </a>
                             </div>
                             <p class="mb-3 badge badge-secondary">
-                                {{-- {{ dump(Carbon::create($item->waktu_selesai) < Carbon::now()) }} --}} 
+                                {{-- {{ dump(Carbon::create($item->waktu_selesai) < Carbon::now()) }} --}}
                                 @if(Carbon::create($item->waktu_selesai) < Carbon::now())
                                     Sudah Selesai
                                 @elseif(Carbon::create($item->waktu_mulai) > Carbon::now())
@@ -94,5 +94,5 @@
 </div>
 
 <!-- Page end  -->
-    
+
 @endsection

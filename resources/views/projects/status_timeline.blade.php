@@ -8,7 +8,7 @@
     <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
         <div class="header-title">
             <div class="custom-control custom-checkbox custom-control-inline">
-                <label class="custom-control-label h5" for="customCheck05">Edit Projek</label>
+                <label class="custom-control-label h5" for="customCheck05">Edit Proyek</label>
             </div>
         </div>
         <div><a href="#" class="btn bg-secondary-light">Detail</a></div>
@@ -24,7 +24,7 @@
             <input class="btn btn-primary w-100" name="submit" type="submit" value="SIMPAN">
         </div>
     </div>
-</div>  
+</div>
 </form>
 
 
