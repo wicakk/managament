@@ -22,7 +22,12 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
+                <div class="card-tools">
+                    <div class="input-group input-group-lg">
+                        <input type="text" onkeyup="cariData(this)" id="pencarian" class="form-control form-lg" placeholder="Search">
+                    </div>
+                </div>
+                <div class="row mt-3 " id="listTask">
                     @php
                         $no = 0;
                     @endphp
@@ -33,7 +38,7 @@
                                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span> &nbsp; <span class="badge badge-success"> Nama Projek : {{ $item->nama_project }}</span></h5>
+                                            <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning">{{ $item->checklist }} <br> Batas Akhir : {{ $item->due_dates }}</span> &nbsp; <span class="badge badge-success"> Nama Projek : {{ $item->nama_project }}</span></h5>
                                             <div class="media align-items-center">
                                                 <div class="btn bg-body mr-3">Dibuat Oleh :
                                                     @php
@@ -274,7 +279,7 @@
 </div>
 
 
-
+<input type="hidden" id="project_id" value="{{ $id }}">
 
 @endsection
 
@@ -297,6 +302,28 @@
                 $('#editModal').modal('show');
             }
         })
+    }
+
+    function cariData(text){
+        // var id = document.getElementById('project_id').value;
+        if (event.keyCode === 13) {
+            // console.log(text.value);
+            var pencarian = text.value;
+            $.ajax({
+                type: 'get',
+                url: "{{ url('project/tampil_task_project') }}/",
+                data:{'pencarian':pencarian}, 
+                // beforeSend: function() {
+                //     var url = "{{ url('assets/dist/img/Loading_2.gif') }}";
+                //     $('#message-content').html('<center><img src="'+url+'"></center>');
+                // },
+                success: function(tampil) {
+                    // console.log(tampil);
+                    $('#listTask').html(tampil);
+                    // $("#loading-image").hide();
+                }
+            })
+        }
     }
 </script>
 
