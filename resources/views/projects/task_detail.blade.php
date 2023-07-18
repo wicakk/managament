@@ -35,14 +35,14 @@
                                         <div>
                                             <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span></h5>
                                             <div class="media align-items-center">
-                                                <div class="btn bg-body mr-3">Dibuat Oleh :
+                                                <div class="btn bg-body mr-3">Created By :
                                                     @php
                                                         $dibuat = DB::table('users')->where('id',$item->created_by)->first();
                                                         echo $dibuat->name;
 
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Kerjakan Oleh :
+                                                <div class="btn bg-body">worked by :
                                                     @php
                                                     $dibuat = DB::table('users')->where('id',$item->assigned_to)->first();
                                                     echo $dibuat->name;

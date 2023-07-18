@@ -46,7 +46,7 @@
                                                 @endif
                                             </h5>
                                             <div class="media align-items-center">
-                                                <div class="btn bg-body mr-3">Dibuat Oleh :
+                                                <div class="btn bg-body mr-3">Created by :
                                                     @php
                                                         $dibuat = DB::table('users')->where('id',$item->created_by)->first();
                                                         if(isset($dibuat->name)){
@@ -55,7 +55,7 @@
 
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Kerjakan Oleh :
+                                                <div class="btn bg-body">worked by :
                                                     @php
                                                     $dikerjakan = DB::table('users')->where('id',$item->assigned_to)->first();
                                                     if(isset($dikerjakan->name)){
@@ -64,7 +64,7 @@
 
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Testing oleh :
+                                                <div class="btn bg-body">Tested By :
                                                     @php
                                                     $diqa = DB::table('users')->where('id',$item->qa_by)->first();
                                                     if(isset($diqa->name)){

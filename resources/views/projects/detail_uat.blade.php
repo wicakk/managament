@@ -29,7 +29,7 @@
                                         <div>
                                             <h5 class="mb-2">{{ $item->uat_test_case }}</h5>
                                             <div class="media align-items-center">
-                                                <div class="btn bg-body mr-3">Dibuat Oleh :
+                                                <div class="btn bg-body mr-3">Created By :
                                                     @php
                                                         $dibuat = DB::table('users')->where('id',$item->created_by)->first();
                                                         echo $dibuat->name;

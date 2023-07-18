@@ -10,7 +10,7 @@
                 <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
                     <h5>Riwayat Proyek</h5>
                     <div class="d-flex flex-wrap align-items-center">
-                        
+
                     </div>
                 </div>
             </div>
@@ -24,9 +24,10 @@
                     <br>
                     <table class="table table-striped mb-3">
                         <tr>
-                            <th>Di buat Oleh</th>
+                            <th>Di kelola</th>
                             <td>{{ $data->name }}</td>
-                            <th>Tanggal Dibuat</th>
+                            {{-- <th>Tanggal Dibuat</th> --}}
+                            <th></th>
                             <td>{{ $data->created_at }}</td>
                         </tr>
                         <tr>
@@ -55,7 +56,7 @@
                         <tr>
                             <th>Menentukan Scope</th>
                             <td>
-                                @if($data->scope == 1) <div class="text-success">Sudah di buat</div> @else <div class="text-danger">Belum di buat</div>  @endif 
+                                @if($data->scope == 1) <div class="text-success">Sudah di buat</div> @else <div class="text-danger">Belum di buat</div>  @endif
                             </td>
                             <th>Mengindetifikasi Task</th>
                             <td>
@@ -125,7 +126,7 @@
                                                             if(isset($dibuat->name)){
                                                                 echo $dibuat->name;
                                                             }
-    
+
                                                         @endphp
                                                     </div>
                                                     <div class="btn bg-body">Di Kerjakan Oleh :
@@ -134,7 +135,7 @@
                                                         if(isset($dikerjakan->name)){
                                                             echo $dikerjakan->name;
                                                         }
-    
+
                                                         @endphp
                                                     </div>
                                                     <div class="btn bg-body">Di Testing oleh :
@@ -143,7 +144,7 @@
                                                         if(isset($diqa->name)){
                                                             echo $diqa->name;
                                                         }
-    
+
                                                         @endphp
                                                     </div>
                                                 </div>

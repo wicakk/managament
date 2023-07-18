@@ -34,14 +34,14 @@
                                             @endisset
                                             </h5>
                                             <div class="media align-items-center">
-                                                <div class="btn bg-body mr-3">Dibuat Oleh :
+                                                <div class="btn bg-body mr-3">created By :
                                                     @php
                                                         $dibuat = DB::table('users')->where('id',$item->created_by)->first();
                                                         echo $dibuat->name;
 
                                                     @endphp
                                                 </div>
-                                                <div class="btn bg-body">Di Kerjaakan :
+                                                <div class="btn bg-body">worked by :
                                                     @php
                                                     $dibuat = DB::table('users')->where('id',$item->assigned_to)->first();
                                                     echo $dibuat->name;
