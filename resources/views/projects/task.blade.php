@@ -38,11 +38,8 @@
                                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div>
-<<<<<<< HEAD
                                             <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning"> Batas Akhir : {{ $item->due_dates }}</span> &nbsp; <span class="badge badge-success"> Nama Proyek : {{ $item->nama_project }}</span></h5>
-=======
                                             <h5 class="mb-2">{{ $item->task_name }} <span class="badge badge-warning">{{ $item->checklist }} <br> Batas Akhir : {{ $item->due_dates }}</span> &nbsp; <span class="badge badge-success"> Nama Projek : {{ $item->nama_project }}</span></h5>
->>>>>>> 72d527f48c5c04115a6340ae21b99e48692872b6
                                             <div class="media align-items-center">
                                                 <div class="btn bg-body mr-3">Created By :
                                                     @php
@@ -316,7 +313,7 @@
             $.ajax({
                 type: 'get',
                 url: "{{ url('project/tampil_task_project') }}/",
-                data:{'pencarian':pencarian}, 
+                data:{'pencarian':pencarian},
                 // beforeSend: function() {
                 //     var url = "{{ url('assets/dist/img/Loading_2.gif') }}";
                 //     $('#message-content').html('<center><img src="'+url+'"></center>');
