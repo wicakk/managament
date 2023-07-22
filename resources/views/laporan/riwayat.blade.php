@@ -26,8 +26,8 @@
                         <tr>
                             <th>Di kelola</th>
                             <td>{{ $data->name }}</td>
-                            {{-- <th>Tanggal Dibuat</th> --}}
-                            <th></th>
+                            <th>Tanggal Dibuat</th>
+                            {{-- <th></th> --}}
                             <td>{{ $data->created_at }}</td>
                         </tr>
                         <tr>
@@ -54,30 +54,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Menentukan Scope</th>
-                            <td>
-                                @if($data->scope == 1) <div class="text-success">Sudah di buat</div> @else <div class="text-danger">Belum di buat</div>  @endif
-                            </td>
-                            <th>Mengindetifikasi Task</th>
-                            <td>
-                                @if($data->task == 1) <div class="text-success">Sudah di buat</div> @else <div class="text-danger">Belum di buat</div>  @endif
-                            </td>
-                        </tr>
-                        <tr>
                             <th>Dokumen Start Projek</th>
                             <td>
                                 @foreach($all_plan as $item3)
                                     Jenis Dokumen : {{ $item3->scope }} <br><br>
-                                    Deskripsi :
-                                    {{ $item3->desc_timeline }}<br><br>
-                                    File :
-                                    <a href="{{ url('document_timeline/'.$item3->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a> <br>
-                                    <br>
-                                @endforeach
-                            </td>
-                            <th>Dokumen End Projek</th>
-                            <td>
-                                @foreach($evolution as $item3)
                                     Deskripsi :
                                     {{ $item3->desc_timeline }}<br><br>
                                     File :
@@ -245,6 +225,20 @@
                         @php $no++ @endphp
                         @endforeach
                     </div>
+                    <table class="table table-striped ">
+                        <tr>
+                            <th>Dokumen End Projek</th>
+                            <td>
+                                @foreach($evolution as $item3)
+                                    Deskripsi :
+                                    {{ $item3->desc_timeline }}<br><br>
+                                    File :
+                                    <a href="{{ url('document_timeline/'.$item3->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a> <br>
+                                    <br>
+                                @endforeach
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

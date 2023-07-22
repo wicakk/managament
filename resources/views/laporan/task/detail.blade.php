@@ -1,14 +1,11 @@
 @extends('layouts.app')
 @section('content')
-
-
-
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
-                    <h5>Riwayat Task <u>PROJEK : {{ $project->nama_project }}</u></h5>
+                    <h5>Riwayat Task <u>PROJEK : {{ $project->nama_project }}</u> <a href="{{ url('laporan/task/cetak/'.$id) }}" target="_blank" class="btn btn-primary">PDF</a> </h5>
                 </div>
             </div>
         </div>
@@ -17,7 +14,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="container">
+                    <div class="container table-responsive">
                         <table id="datatable" class="table data-table table-striped nowrap" >
                             <thead>
                                 <tr>

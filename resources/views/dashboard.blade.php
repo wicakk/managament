@@ -14,7 +14,14 @@
         <div class="card card-block card-stretch card-height bg-info">
             <div class="card-body">
                 <div class="top-block d-flex align-items-center justify-content-between text-white">
-                    <h5 class="text-white">Selamat Datang, {{ Auth::user()->name }} </h5>
+                    <h5 class="text-white">Selamat Datang, 
+                        @if(Session::get('role') == "")
+                        {{ "PM" }}
+                        @elseif(Session::get('role') == "developer")
+                        {{ "Programmer" }}
+                        @else
+                        {{ Session::get('role') }}
+                        @endif </h5>
                     <span class="badge badge-primary"></span>
                 </div>
                 <h3 class="text-white">Di Aplikasi Management Projek</h3>

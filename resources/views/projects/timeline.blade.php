@@ -67,7 +67,7 @@
                                         <div class="card-body">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <form action="{{ url('project/planning_store') }}" method="post" enctype="multipart/form-data">
+                                                    {{-- <form action="{{ url('project/planning_store') }}" method="post" enctype="multipart/form-data">
 
                                                         @csrf
                                                         <input type="hidden" required name="project_id" value="{{ $id }}">
@@ -110,7 +110,7 @@
                                                         <button type="submit" class="btn btn-primary w-100" >Upload Progress</button>
 
                                                     </form>
-                                                    <hr>
+                                                    <hr> --}}
                                                     <form action="{{ url('project/alokasi_resource') }}" method="post" enctype="multipart/form-data">
 
                                                         @csrf
@@ -162,6 +162,7 @@
                                                                                 <a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a>
                                                                                 <a href="{{ url('projects_timeline/hapus_document/'.$item->id) }}" class="btn btn-danger">Hapus </a>
                                                                                 @else
+                                                                                <a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a>
                                                                                 <a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-success">Sudah Di Approve </a>
                                                                                 @php
                                                                                     $status_projek = 'ok';

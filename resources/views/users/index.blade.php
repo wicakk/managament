@@ -54,7 +54,7 @@
                                     <span href="#" class="iq-media">
                                         <img class="img-fluid avatar-40 rounded-circle" src="{{ asset('assets/images/user/05.jpg') }}"
                                             alt="">
-                                        <a class="btn btn-white text-primary">@if($item->role == 'developer') Progremmer @else {{  $item->role; }} @endif</a>
+                                        <a class="btn btn-white text-primary">@if($item->role == 'developer') Programmer @elseif($item->role == 'PM') Project Manager @elseif($item->role == 'QA') Quality Assurance @else {{  $item->role; }} @endif</a>
                                     </span>
                                 </div>
                                 <span>
