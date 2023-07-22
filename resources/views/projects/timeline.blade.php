@@ -35,7 +35,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2>Nama Project : {{ $project->nama_project }}</h2><br>
+                        <h2>Nama Proyek : {{ $project->nama_project }}</h2><br>
                         <div class="row">
                             @if(in_array(Session::get('role'),$role) )
                             <div class="col-lg-12">
@@ -332,7 +332,7 @@
                                                         @csrf
                                                         <input type="hidden" required name="project_id" value="{{ $id }}">
                                                         <input type="hidden" value="@isset($status_plan->id) {{ $status_plan->id }} @endif" name="plan_id">
-                                                        <h5 class="mb-2">Dokumentasi Projek</h5>
+                                                        <h5 class="mb-2">Dokumentasi Proyek</h5>
                                                         <div class="input-group mb-4">
                                                             <div class="input-group-prepend">
                                                             <span class="input-group-text">File*</span>

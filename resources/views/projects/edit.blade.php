@@ -8,7 +8,7 @@
     <div class="card-header d-flex align-items-center justify-content-between px-0 mx-3">
         <div class="header-title">
             <div class="custom-control custom-checkbox custom-control-inline">
-                <label class="custom-control-label h5" for="customCheck05">Edit Projek</label>
+                <label class="custom-control-label h5" for="customCheck05">Edit Proyek</label>
             </div>
         </div>
         <div><a href="#" class="btn bg-secondary-light">Detail</a></div>
@@ -24,13 +24,13 @@
                 <div class="form-group mb-0">
                     <label for="exampleInputText3" class="h5">Waktu Mulai*</label>
                     <input type="date" name="waktu_mulai" class="form-control" id="exampleInputText3" value="{{$projects->waktu_mulai}}">
-                </div>                        
+                </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group mb-0">
                     <label for="exampleInputText3" class="h5">Waktu Selesai*</label>
                     <input type="date"  name="waktu_selesai" class="form-control" id="exampleInputText3" value="{{$projects->waktu_selesai}}">
-                </div>                        
+                </div>
             </div>
         </div>
         <div class="form-group mb-3 position-relative">
@@ -38,7 +38,7 @@
             @php
                 $penanggung_jawab = explode('|',$projects->penanggung_jawab);
             @endphp
-            <select class="select2 form-control" id="select2" name="pj[]" data-placeholder="CC (Tidak harus dipilih)" style="width: 100%;" multiple> 
+            <select class="select2 form-control" id="select2" name="pj[]" data-placeholder="CC (Tidak harus dipilih)" style="width: 100%;" multiple>
                 @foreach($users as $item)
                     @if(array_search(strval($item->id),$penanggung_jawab,true))
                         <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
@@ -47,13 +47,13 @@
                     @endif
                 @endforeach
             </select>
-            <a href="#" class="task-edit task-simple-edit text-body"><i class="ri-edit-box-line"></i></a> 
+            <a href="#" class="task-edit task-simple-edit text-body"><i class="ri-edit-box-line"></i></a>
         </div> --}}
         <div class="col-lg-12">
             <input class="btn btn-primary w-100" name="submit" type="submit" value="Update">
         </div>
     </div>
-</div>  
+</div>
 </form>
 
 
