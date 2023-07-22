@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Project_Detail;
@@ -11,6 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
@@ -92,6 +94,18 @@ class ProjectTestController extends Controller
             ];
             DB::table('project_test')->insert($data);
         }
+        dd($request);
+
+        $user = DB::table('projects')->leftJoin('users','users.id','projects.created_by')->where('projects.id',$request->project_id)->first();
+        $email = $user->email;
+        $url = 'http://localhost/projek/managament/public/projects/timeline/'.$request->project_id;
+        // dd($email);
+        $data_kirim = [
+            'title' => 'Task Projek anda berhasil di QA',
+            'url' => $url,
+        ];
+        Mail::to($email)->send(new SendMail($data_kirim));
+        
         return redirect()->back()->with('success', 'Tested Addedd!');
     }
  
@@ -277,6 +291,16 @@ class ProjectTestController extends Controller
             'tested_by' => Auth::user()->id,
         ];
         DB::table('project_test')->where('id',$request->project_test_id)->update($data);
+
+        $user = DB::table('projects')->leftJoin('users','users.id','projects.created_by')->where('projects.id',$request->project_id)->first();
+        $email = $user->email;
+        $url = 'http://localhost/projek/managament/public/projects/timeline/'.$request->project_id;
+        // dd($email);
+        $data_kirim = [
+            'title' => 'Task Projek anda berhasil di UAT',
+            'url' => $url,
+        ];
+        Mail::to($email)->send(new SendMail($data_kirim));
         return redirect()->back()->with('success', 'Tested Addedd!');
     }
 }

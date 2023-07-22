@@ -103,6 +103,7 @@
                                             @endif
                                                 @csrf
                                                 <input type="hidden" required name="project_detail_id" value="{{ $item->id }}">
+                                                <input type="hidden" required name="project_id" value="{{ $item->project_id }}">
                                                 <input type="hidden" required name="project_test_id" value="{{ $item->project_test_id }}">
                                                 <input type="hidden" required name="uat_test_desc" value="{{ $item->category }}">
                                                 <input type="hidden" required name="uat_test_detail" value="{{ $item->checklist }}">

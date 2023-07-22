@@ -406,6 +406,16 @@ class ProjectController extends Controller
             'updated_at' => now(),
         ];
         DB::table('project_timeline')->where('project_id',$id)->where('jenis_timeline','planning')->update($data);
+
+        $user = DB::table('projects')->leftJoin('users','users.id','projects.created_by')->where('projects.id',$id)->first();
+        $email = $user->email;
+        $url = 'http://localhost/projek/managament/public/projects/timeline/'.$id;
+        // dd($email);
+        $data_kirim = [
+            'title' => 'Approval Document Planning & Organizing',
+            'url' => $url,
+        ];
+        Mail::to($email)->send(new SendMail($data_kirim));
         return redirect()->back()->with('success', 'Data deleted!');
     }
     public function planning_store(Request $request): RedirectResponse
@@ -419,8 +429,6 @@ class ProjectController extends Controller
         if(isset($request->scope)){
             $scope = $request->scope;
         }
-
-
         if(empty($request->plan_id)){
             $data = [
                 'project_id' => $request->project_id,

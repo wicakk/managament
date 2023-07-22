@@ -110,6 +110,7 @@
                                             <form action="{{ url('project_test_uat/store_uat') }}" method="post" enctype="multipart/form-data">
                                             @endif
                                                 @csrf
+                                                <input type="hidden" name="project_id" value="{{ $item->project_id }}">
                                                 <input type="hidden" name="project_test_id" value="{{ $item->project_test_id }}">
                                                 <div class="form-group mb-3 position-relative">
                                                     <label for="">Actual Result</label>
