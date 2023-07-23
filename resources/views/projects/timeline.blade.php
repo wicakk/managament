@@ -152,7 +152,9 @@
                                                                             <td>
                                                                                 @if($item->updated_by == null)
                                                                                 <a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a>
+                                                                                @if(Session::get('role') == 'PM')
                                                                                 <a href="{{ url('projects_timeline/hapus_document/'.$item->id) }}" class="btn btn-danger">Hapus </a>
+                                                                                @endif
                                                                                 @else
                                                                                 <a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a>
                                                                                 <a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-success">Sudah Di Approve </a>
@@ -308,7 +310,9 @@
                                                                         <tr>
                                                                             <th>{{ $item->desc_timeline }}</th>
                                                                             <td><a href="{{ url('document_timeline/'.$item->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a>
+                                                                                @if(Session::get('role') == 'PM')
                                                                                 <a href="{{ url('projects_timeline/hapus_document/'.$item->id) }}" class="btn btn-danger">Hapus </a>
+                                                                                @endif
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
@@ -318,9 +322,11 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @if(Session::get('role') == 'PM')
                                             <div class="card">
                                                 <div class="card-body">
                                                     <form action="{{ url('project/evolution_store') }}" method="post" enctype="multipart/form-data">
+                                                    
                                                         @csrf
                                                         <input type="hidden" required name="project_id" value="{{ $id }}">
                                                         <input type="hidden" value="@isset($status_plan->id) {{ $status_plan->id }} @endif" name="plan_id">
@@ -338,13 +344,12 @@
                                                             <label for="exampleInputText01" class="h5">Comment*</label>
                                                             <textarea required name="desc_timeline" @isset($status_plan->id) {{ $status_plan->desc_timeline }} @endisset id="catatan_planing" cols="30" rows="4" class="form-control"></textarea>
                                                         </div>
-
                                                         <button type="submit" class="btn btn-primary w-100" >Update Progress</button>
-
                                                     </form>
                                                 </div>
-
+                                                
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

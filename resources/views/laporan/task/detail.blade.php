@@ -44,8 +44,8 @@
                                     <td>{{ $item->uat_test_detail }}</td>
                                     <td>{!! nl2br($item->steps_for_uat_test) !!}</td>
                                     <td>{!! nl2br($item->expected_result) !!}</td>
-                                    <td>{!! nl2br($item->actual_result) !!}</td>
-                                    <td>{!! nl2br($item->comments) !!}</td>
+                                    <td>{!! nl2br($item->actual_result_qa) !!}</td>
+                                    <td>{!! nl2br($item->comments_qa) !!}</td>
                                     {{-- <td>{{ $item->due_dates }}</td>
                                     <td>{{ nl2br($item->actual_result_qa) }}</td>
                                     <td>{{ nl2br($item->comments_qa) }}</td>
