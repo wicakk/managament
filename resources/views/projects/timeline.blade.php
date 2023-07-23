@@ -67,27 +67,16 @@
                                         <div class="card-body">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    {{-- <form action="{{ url('project/planning_store') }}" method="post" enctype="multipart/form-data">
+                                                    <form action="{{ url('project/planning_store') }}" method="post" enctype="multipart/form-data">
 
                                                         @csrf
                                                         <input type="hidden" required name="project_id" value="{{ $id }}">
                                                         <h5 class="mb-2">Progress User Requirment</h5>
-                                                        <p class="mb-0">*Checklist Progress</p>
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="custom-control custom-checkbox custom-control-inline mr-0">
-                                                                    <input type="checkbox" @isset($status_plan->id) @if($status_plan->scope == 1) checked  @endif @endif value="1" name="scope" class="custom-control-input" id="customCheck1">
-                                                                    <label class="custom-control-label mb-1" for="customCheck1">Menentukan Scope</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="custom-control custom-checkbox custom-control-inline mr-0">
-                                                                    <input type="checkbox" @isset($status_plan->id) @if($status_plan->task == 1) checked  @endif @endif value="1" name="task" class="custom-control-input" id="customCheck2">
-                                                                    <label class="custom-control-label mb-1" for="customCheck2">Mengindetifikasi Task</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <br><hr>
+                                                        {{-- <p class="mb-0">*Checklist Progress</p> --}}
+                                                        
+                                                        <input type="hidden" @isset($status_plan->id) @if($status_plan->scope == 1) checked  @endif @endif value="1" name="scope" class="custom-control-input" id="customCheck1">
+                                                        <input type="hidden" @isset($status_plan->id) @if($status_plan->task == 1) checked  @endif @endif value="1" name="task" class="custom-control-input" id="customCheck2">
+                                                                    
                                                         <input type="hidden" value="@isset($status_plan->id) {{ $status_plan->id }} @endif" name="plan_id">
                                                         <p class="mb-0">*Input waktu mulai dan berhanti proyek</p>
                                                         <div class="row">
@@ -110,7 +99,7 @@
                                                         <button type="submit" class="btn btn-primary w-100" >Upload Progress</button>
 
                                                     </form>
-                                                    <hr> --}}
+                                                    <hr>
                                                     <form action="{{ url('project/alokasi_resource') }}" method="post" enctype="multipart/form-data">
 
                                                         @csrf
