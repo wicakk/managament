@@ -59,6 +59,7 @@
                 <th>Step For UAT</th>
                 <th>Expected Result</th>
                 <th>Actual Result</th>
+                <th>Result</th>
                 <th>Comments</th>
             </tr>
         </thead>
@@ -75,6 +76,7 @@
                 <td>{!! nl2br($item->steps_for_uat_test) !!}</td>
                 <td>{!! nl2br($item->expected_result) !!}</td>
                 <td>{!! nl2br($item->actual_result_qa) !!}</td>
+                <td>{!! nl2br($item->result_qa) !!}</td>
                 <td>{!! nl2br($item->comments_qa) !!}</td>
                 {{-- <td>{{ $item->due_dates }}</td>
                 <td>{{ nl2br($item->actual_result_qa) }}</td>

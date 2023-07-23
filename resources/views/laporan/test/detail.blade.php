@@ -27,6 +27,7 @@
                                     <th>Step For UAT</th>
                                     <th>Expected Result</th>
                                     <th>Actual Result</th>
+                                    <th>Result</th>
                                     <th>Comments</th>
                                 </tr>
                             </thead>
@@ -51,6 +52,7 @@
                                     <td>{!! nl2br($item->steps_for_uat_test) !!}</td>
                                     <td>{!! nl2br($item->expected_result) !!}</td>
                                     <td>{!! nl2br($item->actual_result) !!}</td>
+                                    <td>{!! nl2br($item->result) !!}</td>
                                     <td>{!! nl2br($item->comments) !!}</td>
                                     {{-- <td>
                                         @php
