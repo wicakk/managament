@@ -24,10 +24,12 @@
                     <br>
                     <table class="table table-striped mb-3">
                         <tr>
+                            <th colspan="4" class="text-center">Planning & Organizing</th>
+                        </tr>
+                        <tr>
                             <th>Di kelola</th>
                             <td>{{ $data->name }}</td>
                             <th>Tanggal Dibuat</th>
-                            {{-- <th></th> --}}
                             <td>{{ $data->created_at }}</td>
                         </tr>
                         <tr>
@@ -46,7 +48,18 @@
                                     {
                                         $data1 = DB::table('users')->leftJoin('profile', 'profile.user_id', '=', 'users.id')->where('users.id',$item)->first();
                                         if(isset($data1)){
-                                            echo($data1->name. ' | '. $data1->role . '<br><br>');
+                                            if($data1->role == 'PM'){
+                                                $role = "Project Manager";
+                                            }elseif($data1->role == 'client'){
+                                                $role = "Client";
+                                            }elseif($data1->role == 'QA'){
+                                                $role = "Quality Asurance";
+                                            }elseif($data1->role == 'developer'){
+                                                $role = "Programmer";
+                                            }else{
+                                                $role = $data1->role;
+                                            }
+                                            echo($data1->name. ' | '. $role . '<br><br>');
                                         }
                                     }
                                     $all_plan = DB::table('project_timeline')->where('jenis_timeline','planning')->where('project_id',$id)->get();
@@ -59,7 +72,7 @@
                                 @foreach($all_plan as $item3)
                                     Jenis Dokumen : {{ $item3->scope }} <br><br>
                                     Deskripsi :
-                                    {{ $item3->desc_timeline }}<br><br>
+                                    {!! $item3->desc_timeline !!}<br><br>
                                     File :
                                     <a href="{{ url('document_timeline/'.$item3->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a> <br>
                                     <br>
@@ -69,7 +82,7 @@
                     </table>
                     {{-- <h5 class="mb-3">Dokumen Projek</h5> --}}
                     <hr>
-                    <h5 class="mb-3">Detail Projek</h5>
+                    <h5 class="text-center">Monitoring Projek</h5>
                     <hr>
                     @php
                         $project_id = $data->id;
@@ -231,7 +244,7 @@
                             <td>
                                 @foreach($evolution as $item3)
                                     Deskripsi :
-                                    {{ $item3->desc_timeline }}<br><br>
+                                    {!! $item3->desc_timeline !!}<br><br>
                                     File :
                                     <a href="{{ url('document_timeline/'.$item3->file_upload) }}" target="_blank" class="btn btn-primary">Lihat File </a> <br>
                                     <br>
