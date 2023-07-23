@@ -67,8 +67,9 @@
                                         <div class="card-body">
                                             <div class="card">
                                                 <div class="card-body">
+                                                    @if(Session::get('role') == 'PM')
                                                     <form action="{{ url('project/planning_store') }}" method="post" enctype="multipart/form-data">
-
+                                                    @endif
                                                         @csrf
                                                         <input type="hidden" required name="project_id" value="{{ $id }}">
                                                         <h5 class="mb-2">Progress User Requirment</h5>
@@ -95,13 +96,14 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
+                                                        @if(Session::get('role') == 'PM')
                                                         <button type="submit" class="btn btn-primary w-100" >Upload Progress</button>
-
+                                                        @endif
                                                     </form>
                                                     <hr>
+                                                    @if(Session::get('role') == 'PM')
                                                     <form action="{{ url('project/alokasi_resource') }}" method="post" enctype="multipart/form-data">
-
+                                                    @endif
                                                         @csrf
                                                         <input type="hidden" required name="project_id" value="{{ $id }}">
                                                         <input type="hidden" value="@isset($status_plan->id) {{ $status_plan->id }} @endif" name="plan_id">
@@ -123,8 +125,9 @@
                                                             {{-- <a href="#" class="task-edit task-simple-edit text-body"><i class="ri-edit-box-line"></i></a> --}}
                                                         </div>
                                                         <p class="mb-0">*Pilih orang yang ikut proyek</p>
+                                                        @if(Session::get('role') == 'PM')
                                                         <button type="submit" class="btn btn-primary w-100" >Update Resource</button>
-
+                                                        @endif
                                                     </form>
                                                     <hr>
                                                     <div class="row">
@@ -164,7 +167,7 @@
                                                             </table>
                                                         </div>
                                                     </div>
-
+                                                    @if(Session::get('role') == 'PM')
                                                     <form action="{{ url('project/plan_doc') }}" method="post" enctype="multipart/form-data">
 
                                                         @csrf
@@ -199,7 +202,7 @@
                                                         <button type="submit" class="btn btn-primary w-100" >Upload dokumen</button>
 
                                                     </form>
-
+                                                    @endif
 
                                                 </div>
                                                 <br>

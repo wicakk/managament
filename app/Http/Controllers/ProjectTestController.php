@@ -94,7 +94,7 @@ class ProjectTestController extends Controller
             ];
             DB::table('project_test')->insert($data);
         }
-        dd($request);
+        // dd($request);
 
         $user = DB::table('projects')->leftJoin('users','users.id','projects.created_by')->where('projects.id',$request->project_id)->first();
         $email = $user->email;
