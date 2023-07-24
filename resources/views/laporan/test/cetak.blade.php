@@ -54,6 +54,7 @@
             <tr>
                 <th>UAT Test Case</th>
                 <th>Description</th>
+                <th>Dibuat Pada</th>
                 <th>UAT Test Detail</th>
                 <th>Step For UAT</th>
                 <th>Expected Result</th>
@@ -76,6 +77,7 @@
                     <span class="badge badge-danger text-white">FAIL</span>
                     @endif
                 </th>
+                <td>{{ $item->dibuat }} </td>
                 <td>{{ $item->uat_test_detail }}</td>
                 <td>{!! nl2br($item->steps_for_uat_test) !!}</td>
                 <td>{!! nl2br($item->expected_result) !!}</td>

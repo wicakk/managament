@@ -134,6 +134,7 @@ class LaporanController extends Controller
         'project_test.result',
         'project_test.comments',
         'project_test.actual_result',
+        'project_test.created_at as dibuat',
         'project_test.url_test',
         'project_test.file_test',
         'project_test.tested_by')
@@ -159,6 +160,7 @@ class LaporanController extends Controller
         'project_test.expected_result',
         'project_test.result',
         'project_test.comments',
+        'project_test.created_at as dibuat',
         'project_test.actual_result',
         'project_test.url_test',
         'project_test.file_test',

@@ -23,6 +23,7 @@
                                 <tr>
                                     <th>UAT Test Case</th>
                                     <th>Description</th>
+                                    <th>Dibuat Pada</th>
                                     <th>UAT Test Detail</th>
                                     <th>Step For UAT</th>
                                     <th>Expected Result</th>
@@ -45,9 +46,10 @@
                                         <span class="badge badge-danger text-white">FAIL</span>
                                         @endif
                                         @isset($item->file_test)
-                                            <a href="{{ url('document_testing/'.$item->file_test) }}" target="_blank" class="badge badge-info text-center">Lihat Hasil Testing</a>
+                                        <a href="{{ url('document_testing/'.$item->file_test) }}" target="_blank" class="badge badge-info text-center">Lihat Hasil Testing</a>
                                         @endisset
                                     </th>
+                                    <td>{{ $item->dibuat }} </td>
                                     <td>{{ $item->uat_test_detail }}</td>
                                     <td>{!! nl2br($item->steps_for_uat_test) !!}</td>
                                     <td>{!! nl2br($item->expected_result) !!}</td>
